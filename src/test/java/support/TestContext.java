@@ -40,14 +40,14 @@ public class TestContext {
     private static WebDriver initializeDriver(String browser) {
         try {
             WebDriver driver;
+            String osName = System.getProperty("os.name");
             switch (browser) {
                 case "chrome":
                     String chromeDriverName = "chromedriver.exe";
-                    if (System.getProperty("os.name") != null && System.getProperty("os.name").contains("Mac")) {
+                    if (osName != null && osName.contains("Mac")) {
                         chromeDriverName = "chromedriver";
                     }
                     System.setProperty("webdriver.chrome.driver", getDriversDirPath() + chromeDriverName);
-                    ChromeOptions chromeOptions = new ChromeOptions();
                     Map<String, Object> chromePreferences = new HashMap<>();
                     chromePreferences.put("profile.default_content_settings.geolocation", 2);
                     chromePreferences.put("download.prompt_for_download", false);
@@ -56,12 +56,14 @@ public class TestContext {
                     chromePreferences.put("credentials_enable_service", false);
                     chromePreferences.put("password_manager_enabled", false);
                     chromePreferences.put("safebrowsing.enabled", "true");
+                    ChromeOptions chromeOptions = new ChromeOptions();
+                    chromeOptions.addArguments("--start-maximized");
                     chromeOptions.setExperimentalOption("prefs", chromePreferences);
                     driver = new ChromeDriver(chromeOptions);
                     break;
                 case "firefox":
                     String geckoDriverName = "geckodriver.exe";
-                    if (System.getProperty("os.name") != null && System.getProperty("os.name").contains("Mac")) {
+                    if (osName != null && osName.contains("Mac")) {
                         geckoDriverName = "geckodriver";
                     }
                     System.setProperty("webdriver.gecko.driver", getDriversDirPath() + geckoDriverName);
@@ -99,7 +101,6 @@ public class TestContext {
                 default:
                     throw new RuntimeException("Driver is not implemented for: " + browser);
             }
-            driver.manage().window().maximize();
             return driver;
         } catch (IllegalArgumentException ex) {
             return null;
