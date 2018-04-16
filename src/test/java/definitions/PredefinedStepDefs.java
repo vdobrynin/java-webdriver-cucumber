@@ -59,14 +59,29 @@ public class PredefinedStepDefs {
         assertThat(getDriver().findElement(By.xpath(xpath)).isDisplayed()).isTrue();
     }
 
+    @Then("^element with xpath \"([^\"]*)\" should not be displayed$")
+    public void elementWithXpathShouldNotBeDisplayed(String xpath) {
+        assertThat(getDriver().findElement(By.xpath(xpath)).isDisplayed()).isFalse();
+    }
+
     @Then("^element with xpath \"([^\"]*)\" should be enabled$")
     public void elementWithXpathShouldBeEnabled(String xpath) {
         assertThat(getDriver().findElement(By.xpath(xpath)).isEnabled()).isTrue();
     }
 
+    @Then("^element with xpath \"([^\"]*)\" should not be enabled$")
+    public void elementWithXpathShouldNotBeEnabled(String xpath) {
+        assertThat(getDriver().findElement(By.xpath(xpath)).isEnabled()).isFalse();
+    }
+
     @Then("^element with xpath \"([^\"]*)\" should be selected$")
     public void elementWithXpathShouldBeSelected(String xpath) {
         assertThat(getDriver().findElement(By.xpath(xpath)).isSelected()).isTrue();
+    }
+
+    @Then("^element with xpath \"([^\"]*)\" should not be selected$")
+    public void elementWithXpathShouldNotBeSelected(String xpath) {
+        assertThat(getDriver().findElement(By.xpath(xpath)).isSelected()).isFalse();
     }
 
     @When("^I type \"([^\"]*)\" into element with xpath \"([^\"]*)\"$")
