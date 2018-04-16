@@ -44,6 +44,11 @@ public class PredefinedStepDefs {
         assertThat(getDriver().findElements(By.xpath(xpath))).hasSize(1);
     }
 
+    @Then("^element with xpath \"([^\"]*)\" should not be present$")
+    public void elementWithXpathShouldNotBePresent(String xpath) {
+        assertThat(getDriver().findElements(By.xpath(xpath))).hasSize(0);
+    }
+
     @Then("^I wait for element with xpath \"([^\"]*)\" to be present$")
     public void iWaitForElementWithXpathToBePresent(String xpath) {
         new WebDriverWait(getDriver(), 180, 200).until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
