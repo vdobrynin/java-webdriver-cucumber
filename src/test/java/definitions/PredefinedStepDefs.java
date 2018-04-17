@@ -4,6 +4,8 @@ package definitions;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.But;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -173,6 +175,15 @@ public class PredefinedStepDefs {
     @Then("^I should see page title contains \"([^\"]*)\"$")
     public void iShouldSeePageTitleContains(String title) {
         assertThat(getDriver().getTitle()).contains(title);
+    }
+
+    @Then("^I scroll to the element with xpath \"([^\"]*)\" with offset (\\d+)$")
+    public void iScrollToTheElementWithXpathWithOffset(String xpath, int offset) throws Exception {
+        WebElement element = getDriver().findElement(By.xpath(xpath));
+        JavascriptExecutor executor = (JavascriptExecutor) getDriver();
+        executor.executeScript("arguments[0].scrollIntoView(false);", element);
+        executor.executeScript("window.scrollBy(0, " + offset + ");", element);
+        Thread.sleep(500);
     }
 
 }
