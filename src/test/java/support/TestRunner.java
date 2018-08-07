@@ -2,6 +2,8 @@ package support;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.junit.Cucumber;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 @RunWith(Cucumber.class)
@@ -11,4 +13,13 @@ import org.junit.runner.RunWith;
         glue = {"definitions", "support"}
 )
 public class TestRunner {
+    @BeforeClass
+    public static void setup() {
+        System.out.println("BeforeAll");
+    }
+
+    @AfterClass
+    public static void teardown() {
+        System.out.println("AfterAll");
+    }
 }
