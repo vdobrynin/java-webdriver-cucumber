@@ -1,0 +1,14 @@
+password: testtest
+username: alika
+email: sealika@gmail.com
+confirmPassword: testtest
+firstName: Aliya
+lastName: Serikbol
+phone: "650-944-9832"
+countryOfOrigin: Belarus
+gender: female
+savePasswordPlaceHOlder: "[entered]"
+
+"United Kimgdom" = "10150"
+
+
