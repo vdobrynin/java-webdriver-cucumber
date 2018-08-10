@@ -12,8 +12,3 @@ Feature: Smoke steps
     Then element with xpath "//*[@id='ires']" should contain text "Java"
 
 
-
-
-
-
-
