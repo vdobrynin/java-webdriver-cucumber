@@ -10,3 +10,5 @@ Feature: Smoke steps
     Then I click on element using JavaScript with xpath "//*[@name='btnK']"
     Then I wait for element with xpath "//*[@id='ires']" to be present
     Then element with xpath "//*[@id='ires']" should contain text "Java"
+
+
