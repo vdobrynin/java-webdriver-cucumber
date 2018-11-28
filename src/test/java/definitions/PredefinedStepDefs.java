@@ -56,6 +56,11 @@ public class PredefinedStepDefs {
         new WebDriverWait(getDriver(), 180, 200).until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
     }
 
+    @Then("^I wait for element with xpath \"([^\"]*)\" to not be present$")
+    public void iWaitForElementWithXpathToNotBePresent(String xpath) {
+        new WebDriverWait(getDriver(), 180, 200).until(ExpectedConditions.not(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))));
+    }
+
     @Then("^element with xpath \"([^\"]*)\" should be displayed$")
     public void elementWithXpathShouldBeDisplayed(String xpath) {
         assertThat(getDriver().findElement(By.xpath(xpath)).isDisplayed()).isTrue();
@@ -116,15 +121,32 @@ public class PredefinedStepDefs {
         assertThat(actualText).isEqualTo(text);
     }
 
+    @Then("^element with xpath \"([^\"]*)\" should not have text as \"([^\"]*)\"$")
+    public void elementWithXpathShouldNotHaveTextAs(String xpath, String text) {
+        String actualText = getDriver().findElement(By.xpath(xpath)).getText();
+        assertThat(actualText).isNotEqualTo(text);
+    }
+
     @Then("^element with xpath \"([^\"]*)\" should contain text \"([^\"]*)\"$")
     public void elementWithXpathShouldContainText(String xpath, String text) {
         String actualText = getDriver().findElement(By.xpath(xpath)).getText();
         assertThat(actualText).contains(text);
     }
 
+    @Then("^element with xpath \"([^\"]*)\" should not contain text \"([^\"]*)\"$")
+    public void elementWithXpathShouldNotContainText(String xpath, String text) {
+        String actualText = getDriver().findElement(By.xpath(xpath)).getText();
+        assertThat(actualText).doesNotContain(text);
+    }
+
     @Then("^element with xpath \"([^\"]*)\" should have attribute \"([^\"]*)\" as \"([^\"]*)\"$")
     public void elementWithXpathShouldHaveAttributeAs(String xpath, String attribute, String attributeValue) {
         assertThat(getDriver().findElement(By.xpath(xpath)).getAttribute(attribute)).isEqualTo(attributeValue);
+    }
+
+    @Then("^element with xpath \"([^\"]*)\" should not have attribute \"([^\"]*)\" as \"([^\"]*)\"$")
+    public void elementWithXpathShouldNotHaveAttributeAs(String xpath, String attribute, String attributeValue) {
+        assertThat(getDriver().findElement(By.xpath(xpath)).getAttribute(attribute)).isNotEqualTo(attributeValue);
     }
 
     @Then("^I switch to iframe with xpath \"([^\"]*)\"$")
@@ -172,9 +194,19 @@ public class PredefinedStepDefs {
         assertThat(getDriver().getTitle()).isEqualTo(title);
     }
 
+    @Then("^I should see page title as not \"([^\"]*)\"$")
+    public void iShouldNotSeePageTitleAsNot(String title) {
+        assertThat(getDriver().getTitle()).isNotEqualTo(title);
+    }
+
     @Then("^I should see page title contains \"([^\"]*)\"$")
     public void iShouldSeePageTitleContains(String title) {
         assertThat(getDriver().getTitle()).contains(title);
+    }
+
+    @Then("^I should see page title does not contain \"([^\"]*)\"$")
+    public void iShouldSeePageTitleDoesNotContain(String title) {
+        assertThat(getDriver().getTitle()).doesNotContain(title);
     }
 
     @Then("^I scroll to the element with xpath \"([^\"]*)\" with offset (\\d+)$")
