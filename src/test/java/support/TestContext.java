@@ -44,7 +44,7 @@ public class TestContext {
             switch (browser) {
                 case "chrome":
                     String chromeDriverName = "chromedriver.exe";
-                    if (osName != null && osName.contains("Mac")) {
+                    if (osName != null && (osName.contains("Mac") || osName.contains("Linux"))) {
                         chromeDriverName = "chromedriver";
                     }
                     System.setProperty("webdriver.chrome.driver", getDriversDirPath() + chromeDriverName);
