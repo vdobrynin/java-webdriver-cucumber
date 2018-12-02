@@ -8,6 +8,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.But;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.File;
@@ -218,4 +219,8 @@ public class PredefinedStepDefs {
         Thread.sleep(500);
     }
 
+    @When("^I mouse over element with xpath \"([^\"]*)\"$")
+    public void iMouseOverElementWithXpath(String xpath) {
+        new Actions(getDriver()).moveToElement(getDriver().findElement(By.xpath(xpath))).perform();
+    }
 }
