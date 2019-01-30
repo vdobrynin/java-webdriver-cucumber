@@ -19,7 +19,7 @@ Feature: Smoke steps
     When I type "Behavior Driven Development" into element with xpath "//*[@id='text']"
     And I click on element with xpath "//*[@type='submit']"
     And I wait for element with xpath "//div[@class='content__left']" to be present
-    Then element with xpath "//div[@class='content__left']" should contain text "Cucumber"
+    Then element with xpath "//div[@class='content__left']" should contain text "BDD"
 
   @predefined3
   Scenario: Predefined steps for Bing
@@ -28,4 +28,4 @@ Feature: Smoke steps
     When I type "Behavior Driven Development" into element with xpath "//*[@id='sb_form_q']"
     And I click on element with xpath "//*[@name='go']"
     Then I wait for element with xpath "//*[@id='b_results']" to be present
-    Then element with xpath "//*[@id='b_results']" should contain text "Cucumber"
+    Then element with xpath "//*[@id='b_results']" should contain text "BDD"
