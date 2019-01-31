@@ -5,10 +5,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxDriverLogLevel;
-import org.openqa.selenium.firefox.FirefoxOptions;
-import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.firefox.*;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.ie.InternetExplorerOptions;
@@ -40,6 +37,7 @@ public class TestContext {
     private static WebDriver initializeDriver(String browser) {
         try {
             WebDriver driver;
+            boolean headless = true;
             String osName = System.getProperty("os.name");
             switch (browser) {
                 case "chrome":
@@ -59,6 +57,11 @@ public class TestContext {
                     ChromeOptions chromeOptions = new ChromeOptions();
                     chromeOptions.addArguments("--start-maximized");
                     chromeOptions.setExperimentalOption("prefs", chromePreferences);
+                    if (headless) {
+                        chromeOptions.setHeadless(true);
+                        chromeOptions.addArguments("--window-size=1920,1080");
+                        chromeOptions.addArguments("--disable-gpu");
+                    }
                     driver = new ChromeDriver(chromeOptions);
                     break;
                 case "firefox":
@@ -81,6 +84,11 @@ public class TestContext {
                     firefoxProfile.setPreference("plugin.disable_full_page_plugi‌​n_for_types", "application/pdf,application/vnd.adobe.xfdf,application/vnd.‌​fdf,application/vnd.‌​adobe.xdp+xml");
                     firefoxProfile.setPreference("webdriver.log.driver", "OFF");
                     FirefoxOptions firefoxOptions = new FirefoxOptions().setProfile(firefoxProfile).setLogLevel(FirefoxDriverLogLevel.INFO);
+                    if (Boolean.valueOf(headless)) {
+                        FirefoxBinary firefoxBinary = new FirefoxBinary();
+                        firefoxBinary.addCommandLineOptions("--headless");
+                        firefoxOptions.setBinary(firefoxBinary);
+                    }
                     driver = new FirefoxDriver(firefoxOptions);
                     break;
                 case "edge":
