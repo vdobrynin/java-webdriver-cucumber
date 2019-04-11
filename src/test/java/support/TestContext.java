@@ -37,7 +37,7 @@ public class TestContext {
     private static WebDriver initializeDriver(String browser) {
         try {
             WebDriver driver;
-            boolean headless = true;
+            boolean headless = false;
             String osName = System.getProperty("os.name");
             switch (browser) {
                 case "chrome":
@@ -66,7 +66,7 @@ public class TestContext {
                     break;
                 case "firefox":
                     String geckoDriverName = "geckodriver.exe";
-                    if (osName != null && osName.contains("Mac")) {
+                    if (osName != null && (osName.contains("Mac") || osName.contains("Linux"))) {
                         geckoDriverName = "geckodriver";
                     }
                     System.setProperty("webdriver.gecko.driver", getDriversDirPath() + geckoDriverName);
