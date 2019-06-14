@@ -1,5 +1,4 @@
 # java-webdriver-cucumber
 
-
-Base framework for Java Webdriver automaTioN with Cucumber
+Base framework for Java Webdriver automation with Cucumber
 
