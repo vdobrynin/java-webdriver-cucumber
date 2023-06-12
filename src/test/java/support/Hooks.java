@@ -1,8 +1,8 @@
 package support;
 
 import cucumber.api.Scenario;
-import cucumber.api.java.After;
 import cucumber.api.java.Before;
+import cucumber.api.java.After;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
@@ -25,6 +25,7 @@ public class Hooks {
             TakesScreenshot screenshotTaker = (TakesScreenshot) getDriver();
             byte[] screenshot = screenshotTaker.getScreenshotAs(OutputType.BYTES);
             scenario.embed(screenshot, "image/png");
+//            scenario.attach(screenshot, "image/png", "scenario end");
         }
         TestContext.teardown();
     }
