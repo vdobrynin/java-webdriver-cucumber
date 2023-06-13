@@ -101,8 +101,8 @@ public class TestContext {
           ChromeOptions chromeOptions = new ChromeOptions();
           chromeOptions.addArguments("--start-maximized");
           chromeOptions.setExperimentalOption("prefs", chromePreferences);
-          // chromeOptions.addExtensions(new File(System
-          //     .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 4.7.3.0.crx"));
+           chromeOptions.addExtensions(new File(System
+               .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 4.7.3.0.crx"));
           if (headless) { // <-- headed // --> (!headless)
             chromeOptions.setHeadless(true);
 //            chromeOptions.addArguments("--window-size=2560,1440");
@@ -190,5 +190,4 @@ public class TestContext {
     return System.getProperty("user.dir") + String
         .format("%1$ssrc%1$stest%1$sresources%1$sdownloads%1$s", File.separator);
   }
-
 }

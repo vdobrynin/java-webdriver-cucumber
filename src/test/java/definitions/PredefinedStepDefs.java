@@ -101,6 +101,11 @@ public class PredefinedStepDefs {
         getDriver().findElement(By.xpath(xpath)).click();
     }
 
+    @And("I click on element with xpath {string} to submit")
+    public void iClickOnElementWithXpathToSubmit(String xpath) {
+        getDriver().findElement(By.xpath(xpath)).submit();
+    }
+
     @Then("^I click on element using JavaScript with xpath \"([^\"]*)\"$")
     public void iClickOnElementUsingJavaScriptWithXpath(String xpath) {
         WebElement element = getDriver().findElement(By.xpath(xpath));
