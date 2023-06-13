@@ -1,0 +1,9 @@
+full name: Admin
+#name: VD
+address Line 1: "4970 El Camino Real"
+zip: "94022"
+city: Los Altos
+#state: California
+state: CA
+email: admin@example.com
+phone: "1234567890"

@@ -1,0 +1,12 @@
+firstName: Slava
+middleName: Vlad
+lastName: Skryabin
+
+email: example+1@gmail.com
+password: welcome
+confirmPassword: welcome
+summary: "SDET, description for QA Automation  Engineer Lead"
+address: "4970 El Camino Real"
+city: Los Altos
+state: California
+zip: "94022"
