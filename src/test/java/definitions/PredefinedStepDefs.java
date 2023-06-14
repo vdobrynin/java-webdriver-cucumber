@@ -1,6 +1,7 @@
 // Created by Viacheslav (Slava) Skryabin 04/01/2018
 package definitions;
 
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -95,6 +96,11 @@ public class PredefinedStepDefs {
     @When("^I type \"([^\"]*)\" into element with xpath \"([^\"]*)\"$")
     public void iTypeIntoElementWithXpath(String text, String xpath) {
         getDriver().findElement(By.xpath(xpath)).sendKeys(text);
+    }
+
+    @And("I click on element with xpath {string} to submit")
+    public void iClickOnElementWithXpathToSubmit(String xpath) {
+        getDriver().findElement(By.xpath(xpath)).submit();
     }
 
     @Then("^I click on element with xpath \"([^\"]*)\"$")

@@ -26,7 +26,7 @@ Feature: Smoke steps
     Given I open url "https://www.bing.com/"
     Then element with xpath "//*[@id='sb_form_q']" should be present
     When I type "Behavior Driven Development" into element with xpath "//*[@id='sb_form_q']"
-    And I click on element with xpath "//*[@id='sb_form_c']//*[@id='sb_form_q']"
+    And I click on element with xpath "//label[@id='search_icon']//*[name()='svg']" to submit
     Then I wait for element with xpath "//*[@id='b_results']" to be present
     Then element with xpath "//*[@id='b_results']" should contain text "BDD"
 
