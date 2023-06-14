@@ -21,44 +21,50 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
 public class TestContext {
 
-    private static WebDriver driver;
+  private static WebDriver driver;
 
-    public static WebDriver getDriver() {
-        return driver;
-    }
+  public static WebDriver getDriver() {
+    return driver;
+  }
 
-    public static Map<String, String> getData(String fileName) {
-        String path = System.getProperty("user.dir") + "/src/test/resources/data/" + fileName + ".yml";
-        File file = new File(path);
-        FileInputStream stream = null;
-        try {
-            stream = new FileInputStream(file);
-        } catch (FileNotFoundException exception) {
-            System.err.println(exception.getMessage());
-        }
-        return new Yaml().load(stream);
+  public static Map<String, String> getData(String fileName) {
+    String path = System.getProperty("user.dir") + "/src/test/resources/data/" + fileName + ".yml";
+    File file = new File(path);
+    FileInputStream stream = null;
+    try {
+      stream = new FileInputStream(file);
+    } catch (FileNotFoundException exception) {
+      System.err.println(exception.getMessage());
     }
+    return new Yaml().load(stream);
+  }
 
-    public static JavascriptExecutor getExecutor() {
-        return (JavascriptExecutor) driver;
-    }
+  public static JavascriptExecutor getExecutor() {
+    return (JavascriptExecutor) driver;
+  }
 
-    public static WebDriverWait getWait() {
-        return getWait(10);
-    }
+  public static WebDriverWait getWait() {
+    return getWait(10);
+  }
 
-    public static WebDriverWait getWait(int timeout) {
-        return new WebDriverWait(driver, timeout);
-    }
+  public static WebDriverWait getWait(int timeout) {
+    return new WebDriverWait(driver, timeout);
+  }
 
-    public static Actions getActions() {
-        return new Actions(driver);
-    }
+  public static Actions getActions() {
+    return new Actions(driver);
+  }
+
+  public static String getTimestamp() {
+    return new SimpleDateFormat(" yyyy.MM.dd.HH.mm.ss").format(new Date());
+  }
 
     public static void initialize() {
         initialize("chrome", false);
