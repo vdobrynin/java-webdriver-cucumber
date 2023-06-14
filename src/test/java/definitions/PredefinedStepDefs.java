@@ -1,4 +1,3 @@
-// Created by Viacheslav (Slava) Skryabin 04/01/2018
 package definitions;
 
 import cucumber.api.java.en.And;
