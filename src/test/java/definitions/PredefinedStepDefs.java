@@ -4,17 +4,17 @@ package definitions;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.But;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
 import java.io.File;
 import java.util.Date;
 import java.util.Iterator;
-import static org.assertj.core.api.Assertions.*;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.getDriver;
 
 public class PredefinedStepDefs {
@@ -38,7 +38,7 @@ public class PredefinedStepDefs {
     public void iMaximizeWindow() {
         java.awt.Dimension screenSize = java.awt.Toolkit.getDefaultToolkit().getScreenSize();
         Dimension maxWindowSize = new Dimension((int) screenSize.getWidth(), (int) screenSize.getHeight());
-        getDriver().manage().window().setPosition(new Point(0,0));
+        getDriver().manage().window().setPosition(new Point(0, 0));
         getDriver().manage().window().setSize(maxWindowSize);
     }
 
@@ -164,7 +164,7 @@ public class PredefinedStepDefs {
     public void iSwitchToNewWindow() {
         Iterator<String> iterator = getDriver().getWindowHandles().iterator();
         String newWindow = iterator.next();
-        while(iterator.hasNext()) {
+        while (iterator.hasNext()) {
             newWindow = iterator.next();
         }
         getDriver().switchTo().window(newWindow);
