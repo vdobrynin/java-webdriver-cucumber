@@ -5,6 +5,8 @@ import cucumber.api.java.en.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.FileNotFoundException;
@@ -68,8 +70,27 @@ public class UpsStepDefs {
             getExecutor().executeScript("arguments[0].click();", getDriver()
                     .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
         }
-//    WebDriverWait wait = new WebDriverWait(getDriver(), 10);
+//    WebDriverWait wait = new WebDriverWait(getDriver(), 10); //button[@id='nbsAddressClassificationContinue']
 //    wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(oldUrl)));
+    }
+
+    @When("^I submit the shipment form continue$")
+    public void iSubmitTheShipmentFormContinue() {
+        getExecutor().executeScript("arguments[0].click();", getDriver().findElement(By
+                .xpath("(//button[normalize-space()='Continue'])[1]")));
+    }
+
+    @And("^I check a few more details$")
+    public void iCheckAFewMoreDetails() {
+        getDriver()
+                .findElement(By.xpath("//input[@id='nbsShipmentDescription']"))
+                .sendKeys("USB Cable");
+        getExecutor().executeScript("arguments[0].click();", getDriver()
+                .findElement(By
+                        .xpath("//label[@for='nbsDirectDeliveryOnlyOptionBaseOptionSwitch']")));
+        getExecutor().executeScript("arguments[0].click();", getDriver()
+                .findElement(By
+                        .xpath("//label[@for='nbsCarbonNeutralOptionBaseOptionSwitch']")));
     }
 
     @When("I verify origin shipment fields submitted")
@@ -106,39 +127,59 @@ public class UpsStepDefs {
 
     @When("I fill out destination shipment fields")
     public void iFillOutDestinationShipmentFields() throws InterruptedException {
-        getDriver().findElement(By.xpath("//select[@id='origin-cac_country']//option[@value='252']")).isDisplayed();
-        getDriver().findElement(By.xpath("//input[@id='destinationname']")).sendKeys("John Doe");
-        getDriver().findElement(By.xpath("//input[@id='destinationaddress1']")).sendKeys("870 7th Ave");
-        getDriver().findElement(By.xpath("//input[@id='destinationpostal']")).sendKeys("10019");
+        getDriver().findElement(By.xpath("//select[@id='destination-cac_country']//option[.='United States']")).click();
+        getDriver().findElement(By.xpath("//span[normalize-space()='Edit Address - Add Suite/Apt']")).click();
+        getDriver().findElement(By.xpath("//input[@id='destination-cac_companyOrName']")).sendKeys("John Doe");
+        getDriver().findElement(By.xpath("(//input[@id='destination-cac_addressLine1'])[1]")).sendKeys("870 7th Ave");
+        getDriver().findElement(By.xpath("//input[@id='destination-cac_postalCode']")).sendKeys("10019");
 
         WebDriverWait wait = new WebDriverWait(getDriver(), 5);
-        wait.until(ExpectedConditions.textToBePresentInElementValue(By.xpath("//input[@id='destinationcity']"), "NEW YORK"));
-        wait.until(ExpectedConditions.elementToBeSelected(By.xpath("//select[@id='destinationstate']/option[contains(text(),'New York')]")));
+        wait.until(ExpectedConditions.textToBePresentInElementValue(By.xpath("//input[@id='destination-cac_city']"), "NEW YORK"));
+        wait.until(ExpectedConditions.elementToBeSelected(By.xpath("//select[@id='destination-cac_state']//option[.='New York']")));
+
+        getExecutor().executeScript("arguments[0].click();", getDriver()
+                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
+
+        WebDriverWait wait1 = new WebDriverWait(getDriver(), 5);
+        wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@id='nbsAddressClassificationContinue']")));
+        getExecutor().executeScript("arguments[0].click();", getDriver()
+                .findElement(By.xpath("//button[@id='nbsAddressClassificationContinue']")));
     }
 
     @Then("I verify total charges appear")
     public void iVerifyTotalChargesAppear() throws InterruptedException {
-        //    By spinner = By.xpath("//span[@id='nbsBalanceBarTotalCharges']");
-        By spinner = By.xpath("//span[@id='total-charges-spinner']");
-        new WebDriverWait(getDriver(), 5).until(ExpectedConditions.visibilityOfElementLocated(spinner));
+        By spinner = By.xpath("//span[@id='nbsBalanceBarTotalCharges']");    // this is Vlad's
+        new WebDriverWait(getDriver(), 10)
+                .until(ExpectedConditions.visibilityOfElementLocated(spinner));
+
         WebElement element = getDriver().findElement(spinner);
-        assertThat(element.getText()).isNotEmpty();
+        String oldText = element.getText();
+        new WebDriverWait(getDriver(), 10).until(ExpectedConditions.textToBePresentInElement(element, oldText));
+
+        assertThat(oldText).containsIgnoringCase("$55.13");
+        System.out.println("\n" + element.getText());
     }
 
     @And("I set packaging type")
     public void iSetPackagingType() throws InterruptedException {
-        getDriver().findElement(By.xpath("//select[@id='nbsPackagePackagingTypeDropdown0']")).click();
-        getDriver().findElement(By.xpath("//select[@id='nbsPackagePackagingTypeDropdown0']//option[contains(text(),'UPS Express Box - Small')]")).click();
+        getDriver()
+                .findElement(By.xpath("//option[.='UPS Express Box - Small']"))
+                .click();
+        WebElement packageWeight = getDriver().findElement(By.xpath("//input[@name='nbsPackagePackageWeightField0']"));
+        Wait<WebElement> wait = new FluentWait<WebElement>(packageWeight);
+        packageWeight.click();
 
-        //    WebElement dropdown = getDriver().findElement(By.xpath("//select[@id='nbsPackagePackagingTypeDropdown0']"));
-        //    new Select(dropdown).selectByValue("24: Object"); // "4: Object" or "10: Object"  or  "24: Object"
-
-        getDriver().findElement(By.xpath("//input[@id='nbsPackagePackageWeightField0']")).sendKeys("1");
+        packageWeight.sendKeys("1");
+        wait.until(WebElement -> {
+            String value = WebElement.getAttribute("value");
+            return "1".equalsIgnoreCase(value);
+        });
     }
 
     @Then("I go back")
     public void iGoBack() {
-        getExecutor().executeScript("arguments[0].click();", getDriver().findElement(By.xpath("//button[@id='nbsBackForwardNavigationBackButton']")));
+        getExecutor().executeScript("arguments[0].click();", getDriver()
+                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationBackButton']")));
     }
 
     @Then("I verify total charges changed")
