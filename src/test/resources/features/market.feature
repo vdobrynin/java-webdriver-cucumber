@@ -40,7 +40,7 @@ Feature: Marketing app
   Scenario: Switch to cases
     Given I go to "quote" page
     When I "accept" third party agreement
-#    When I "reject" third party agreement
+    When I "reject" third party agreement
     And I input "John" "Doe" as contact
     And I validate document "Document 2" present
 

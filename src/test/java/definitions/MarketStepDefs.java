@@ -1,7 +1,6 @@
 package definitions;
 
 import cucumber.api.java.en.*;
-//import io.cucumber.java.en.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebElement;
@@ -34,7 +33,6 @@ public class MarketStepDefs {
     getDriver().findElement(By.xpath("//input[@name='confirmPassword']")).sendKeys("welcome");
     getDriver().findElement(By.xpath("//input[@id='name']")).click();
     getDriver().findElement(By.xpath("//input[@id='firstName']")).sendKeys("Slava");
-//    getDriver().findElement(By.xpath("//input[@id='middleName']")).sendKeys("Vlad");
     getDriver().findElement(By.xpath("//input[@id='lastName']")).sendKeys("Skryabin");
     getDriver().findElement(By.xpath("//span[text()='Save']")).click();
     WebElement privacy = getDriver().findElement(By.xpath("//input[@name='agreedToPrivacyPolicy']"));
@@ -155,8 +153,8 @@ public class MarketStepDefs {
     assertThat(emailError).contains("Please enter a valid email address.");
     WebElement emailField = getDriver().findElement(By.xpath("//input[@name='email']"));
     emailField.clear();
-    //    emailField.sendKeys("It is wrong format");
-    //    emailField.clear(); //emailField.sendKeys(Keys.BACK_SPACE);
+//    emailField.sendKeys("It is wrong format");
+//    emailField.clear(); //emailField.sendKeys(Keys.BACK_SPACE);
     emailField.sendKeys("slava@skryabin.com");
 
     boolean errorDisplayed = getDriver().findElement(By.xpath("//label[@id='email-error']")).isDisplayed();
@@ -201,7 +199,6 @@ public class MarketStepDefs {
       default:
         throw new RuntimeException("Unknown" + action);
     }
-    //    Thread.sleep(3000);
   }
 
   @And("I input {string} {string} as contact")
@@ -215,37 +212,14 @@ public class MarketStepDefs {
   @And("I validate document {string} present")
   public void iValidateDocumentPresent(String document) {
     String savedWindowsHandle = getDriver().getWindowHandle(); // --> remember current windows before switch to new window (tab)
-    //button[contains(text(),'Related documents (click)')]
     getDriver().findElement(By.xpath("//button[contains(@onclick,'window')]")).click(); // --> click to switch to the new tab open
 
     for (String handle : getDriver().getWindowHandles()) { // switch to new window (tab)--> (use getWindowHandles cause ti's will handles all of them)
       getDriver().switchTo().window(handle);
     }
-    //li[contains(text(),'Document 2')]
+
     String actualText = getDriver().findElement(By.xpath("//body")).getText(); // --> (//body visible part of the page)
     assertThat(actualText).contains(document);                            // verify if "document 2" or part
     getDriver().switchTo().window(savedWindowsHandle); // --> switch back to original window (tab)
   }
 }
-
-//  @Given("I go to {string} page")
-//  public void iGoToPage(String page) {
-//
-//    if (page.equals("google")) {
-//      getDriver().get("https://www.google.com/");
-//    } else if (page.equals("quote")) {
-//      getDriver().get("https://skryabin.com/market/quote.html");
-//    } else if (page.equals("usps")) {
-//      getDriver().get("https://www.usps.com/");
-//    } else if (page.equals("yahoo")) {
-//      getDriver().get("https://www.yahoo.com/");
-//    } else if (page.equals("usps")) {
-//      getDriver().get("https://www.ups.com/us/en/Home.page");
-//    }
-//    System.out.println(getDriver().getCurrentUrl());
-//    System.out.println(getDriver().getTitle());
-//    System.out.println(getDriver().getWindowHandle());
-//    System.out.println();
-//}
-
-
