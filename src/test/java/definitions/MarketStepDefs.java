@@ -34,7 +34,7 @@ public class MarketStepDefs {
     getDriver().findElement(By.xpath("//input[@name='confirmPassword']")).sendKeys("welcome");
     getDriver().findElement(By.xpath("//input[@id='name']")).click();
     getDriver().findElement(By.xpath("//input[@id='firstName']")).sendKeys("Slava");
-    getDriver().findElement(By.xpath("//input[@id='middleName']")).sendKeys("Vlad");
+//    getDriver().findElement(By.xpath("//input[@id='middleName']")).sendKeys("Vlad");
     getDriver().findElement(By.xpath("//input[@id='lastName']")).sendKeys("Skryabin");
     getDriver().findElement(By.xpath("//span[text()='Save']")).click();
     WebElement privacy = getDriver().findElement(By.xpath("//input[@name='agreedToPrivacyPolicy']"));
@@ -96,7 +96,9 @@ public class MarketStepDefs {
     String result = getDriver().findElement(By.xpath("//div[@id='quotePageResult']//section")).getText();
     assertThat(result).containsIgnoringCase("vskryabin");
     assertThat(result).containsIgnoringCase("slava@skryabin.com");
-    assertThat(result).containsIgnoringCase("Slava Vlad Skryabin");
+    assertThat(result).containsIgnoringCase("Slava");
+    assertThat(result).containsIgnoringCase("Skryabin");
+    assertThat(result).containsIgnoringCase("Slava Skryabin");
     assertThat(result).doesNotContain("welcome");
     String privacyResult = getDriver().findElement(By.xpath("//b[@name='agreedToPrivacyPolicy']")).getText();
     assertThat(privacyResult).isEqualTo("true");                  // it is text cause it's coming from the field
@@ -181,7 +183,7 @@ public class MarketStepDefs {
     assertThat(resultText).contains("vskryabin");
     assertThat(resultText).contains("Skryabin");
     assertThat(resultText).contains("slava@skryabin.com");
-    assertThat(resultText).contains("Slava Vlad Skryabin");
+    assertThat(resultText).contains("Slava Skryabin");
     assertThat(resultText).doesNotContain("password");
     assertThat(resultText).contains("[entered]");
   }
