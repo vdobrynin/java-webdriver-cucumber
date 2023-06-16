@@ -24,8 +24,8 @@ public class UspsStepDefs {
     WebElement quickTools = getDriver().findElement(By.xpath("//li[contains(@class, 'qt-nav')]"));  // save in variable
     //    actions.moveToElement(quickTools).perform();                                // after commenting 3 lines above, we change that too
     new Actions(getDriver()).moveToElement(quickTools).perform();                    // initializing directly driver actions to have mouse over
-    getDriver().findElement(By.xpath("//a[contains(@href, 'ZipLookupAction')]/img")).click();
-    getDriver().findElement(By.xpath("//a[contains(@class, 'zip-code-address')]")).click();
+    getDriver().findElement(By.xpath("//img[@alt='Zip Code™ Lookup Icon']")).click();
+    getDriver().findElement(By.xpath("//a[normalize-space()='Find by Address']")).click();
   }
 
   @And("I fill out {string} street, {string} city, {string} state")

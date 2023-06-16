@@ -27,15 +27,24 @@ public class MarketStepDefs {
 
   @When("I fill out required fields")
   public void iFillOutRequiredFields() throws InterruptedException {
-    getDriver().findElement(By.xpath("//input[@name='username']")).sendKeys("vskryabin");
-    getDriver().findElement(By.xpath("//input[@name='email']")).sendKeys("slava@skryabin.com");
-    getDriver().findElement(By.xpath("//input[@name='password']")).sendKeys("welcome");
-    getDriver().findElement(By.xpath("//input[@name='confirmPassword']")).sendKeys("welcome");
-    getDriver().findElement(By.xpath("//input[@id='name']")).click();
-    getDriver().findElement(By.xpath("//input[@id='firstName']")).sendKeys("Slava");
-    getDriver().findElement(By.xpath("//input[@id='lastName']")).sendKeys("Skryabin");
-    getDriver().findElement(By.xpath("//span[text()='Save']")).click();
-    WebElement privacy = getDriver().findElement(By.xpath("//input[@name='agreedToPrivacyPolicy']"));
+    getDriver()
+      .findElement(By.xpath("//input[@name='username']")).sendKeys("vskryabin");
+    getDriver()
+      .findElement(By.xpath("//input[@name='email']")).sendKeys("slava@skryabin.com");
+    getDriver()
+      .findElement(By.xpath("//input[@name='password']")).sendKeys("welcome");
+    getDriver()
+      .findElement(By.xpath("//input[@name='confirmPassword']")).sendKeys("welcome");
+    getDriver()
+      .findElement(By.xpath("//input[@id='name']")).click();
+    getDriver()
+      .findElement(By.xpath("//input[@id='firstName']")).sendKeys("Slava");
+    getDriver()
+      .findElement(By.xpath("//input[@id='lastName']")).sendKeys("Skryabin");
+    getDriver()
+      .findElement(By.xpath("//span[text()='Save']")).click();
+    WebElement privacy = getDriver()
+      .findElement(By.xpath("//input[@name='agreedToPrivacyPolicy']"));
     getExecutor().executeScript("arguments[0].click();", privacy);
   }
 
@@ -91,16 +100,19 @@ public class MarketStepDefs {
 
   @Then("I verify required fields")
   public void iVerifyRequiredFields() {
-    String result = getDriver().findElement(By.xpath("//div[@id='quotePageResult']//section")).getText();
+    String result = getDriver()
+      .findElement(By.xpath("//div[@id='quotePageResult']//section")).getText();
     assertThat(result).containsIgnoringCase("vskryabin");
     assertThat(result).containsIgnoringCase("slava@skryabin.com");
     assertThat(result).containsIgnoringCase("Slava");
     assertThat(result).containsIgnoringCase("Skryabin");
     assertThat(result).containsIgnoringCase("Slava Skryabin");
     assertThat(result).doesNotContain("welcome");
-    String privacyResult = getDriver().findElement(By.xpath("//b[@name='agreedToPrivacyPolicy']")).getText();
-    assertThat(privacyResult).isEqualTo("true");                  // it is text cause it's coming from the field
+    String privacyResult = getDriver()
+      .findElement(By.xpath("//b[@name='agreedToPrivacyPolicy']")).getText();
+    assertThat(privacyResult).isEqualTo("true");    // it is text cause it's coming from the field
     System.out.println(result);
+    System.out.println(privacyResult );
   }
 
   @And("I print console logs")
