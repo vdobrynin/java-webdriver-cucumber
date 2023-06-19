@@ -23,13 +23,13 @@ public class JavaStepDefs {
 
   @Given("^I perform action with \"([^\"]*)\" and \"([^\"]*)\"$")
   public void iPerformActionWithAnd(String str1, String str2) throws Throwable {
-//    System.out.println(var1);                                                     // this is from previous version
-//    System.out.println(var2);
-//    System.out.println(var1 + " " + var2);
-//    System.out.println(var1.toUpperCase() + " " + var2.toUpperCase());
-//    System.out.println(var1.equals(var2));
-//    System.out.println(var1.equalsIgnoreCase(var2));
-//    System.out.println(var1.contains(var2));
+    System.out.println(str1);                                                     // this is from previous version
+    System.out.println(str2);
+    System.out.println(str1 + " " + str2);
+    System.out.println(str1.toUpperCase() + " " + str2.toUpperCase());
+    System.out.println(str1.equals(str2));
+    System.out.println(str1.equalsIgnoreCase(str2));
+    System.out.println(str1.contains(str2));
 
     System.out.println(str1.toUpperCase());
     System.out.println(str2.toLowerCase());
@@ -74,7 +74,6 @@ public class JavaStepDefs {
 
   @Given("^I write java code$")
   public void iWriteJavaCode() throws Throwable {
-
     System.out.println("Hello World!");
     String var = "Say hello to";
     String firstName = "V-----y";
@@ -167,7 +166,6 @@ public class JavaStepDefs {
     }
 
     System.out.println("------ regular for -----------");
-
     for (int i = 0; i < groceryArray.size(); i++) {
       System.out.println(groceryArray.get(i));
     }
@@ -253,13 +251,12 @@ public class JavaStepDefs {
 
   @And("I write loop even numbers from {int}st to {int}th")
   public void iWriteLoopEvenNumbersFromStToTh(int arg0, int arg1) {
-
     System.out.println();
     int num = 10;
     for (int i = 1; i <= num; i++) {
-      //if (i % 2 == 0) {
-      //  System.out.println(i);
-      //     }
+//      if (i % 2 == 0) {
+//        System.out.println(i);
+//           }
       if (i % 3 == 0 && i % 2 != 0) {
         System.out.println(i);
       }
@@ -268,18 +265,16 @@ public class JavaStepDefs {
 
   @And("I print characters from {int}rd position to {int}th in a string")
   public void iPrintCharactersFromRdPositionToThInAString(int num, int num1) {
-
     System.out.println();
     //System.out.println("congratulations".substring(3, 8));
     String str = "congratulations";
     for (int i = 2; i < 7; i++) {
-      System.out.println(str.charAt(i));
+      System.out.print(str.charAt(i));
     }
   }
 
   @Given("I work with classes")
   public void iWorkWithClasses() {
-
 //   Cat tom = new Cat("Tom");         // constructor (value "Tom")
     Animal tom = new Cat("Tom");
     tom.walk();
@@ -305,7 +300,6 @@ public class JavaStepDefs {
 
   @Given("I solve FizzBuzz challenge with {int} number")
   public void iSolveFizzBuzzChallengeWithNumber(int num) {
-
     for (int i = 1; i <= num; i++) {
       if (i % 3 == 0 && i % 5 == 0) {
         System.out.print("FizzBuzz ");
@@ -337,7 +331,6 @@ public class JavaStepDefs {
   }
 
   public List<Object> uniqueElements(List<Object> list1, List<Object> list2) {
-
     List<Object> result = new LinkedList<>(); //call empty constructor
     boolean isFound;
 
@@ -371,7 +364,6 @@ public class JavaStepDefs {
   }
 
   Map<Character, Integer> occurrences(String str) {
-    // WebDriver
     Map<Character, Integer> map = new LinkedHashMap<>();   // to count occurrences in the string in the order
     for (int i = 0; i < str.length(); i++) {
       char c = str.charAt(i);
@@ -392,7 +384,6 @@ public class JavaStepDefs {
 
   @Given("I solve coding challenge")
   public void iSolveCodingChallenge() {
-
     // Return Map of characters occurrence in the string
     System.out.println(occurrences("WebDriver"));
 
@@ -479,14 +470,12 @@ public class JavaStepDefs {
   @Given("I solve second coding challenge")
   public void iSolveSecondCodingChallenge() {
     //System.out.println(factorial(14));
-
     // write a function that would determine if the number is prime
     int number = 17;
     System.out.println("Is " + number + " prime? " + isPrime(number));
 
     // find factorial using recursive algorithm
     System.out.println(factorial(5));
-
     // array search
     int[] arr = {2, 4, 6, 8, 9, 10, 14, 15, 19};
     int num = 14;
@@ -497,7 +486,6 @@ public class JavaStepDefs {
   }
 
   public int factorial(int num) {
-
     if (num == 0) {
       return 1;
     }
