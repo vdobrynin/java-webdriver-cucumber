@@ -6,6 +6,7 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 
 import java.util.concurrent.TimeUnit;
+
 import static support.TestContext.getDriver;
 
 public class Hooks {

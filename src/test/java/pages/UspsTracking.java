@@ -5,11 +5,11 @@ import org.openqa.selenium.support.FindBy;
 
 public class UspsTracking extends Page {
 
-  @FindBy(xpath = "//a[contains(@href,'Registration')]")
-  private WebElement signUpButton;
+    @FindBy(xpath = "//a[contains(@href,'Registration')]")
+    private WebElement signUpButton;
 
-  public boolean isSignUpPossible() {
+    public boolean isSignUpPossible() {
 
-    return signUpButton.isDisplayed() && signUpButton.isEnabled();
-  }
+        return signUpButton.isDisplayed() && signUpButton.isEnabled();
+    }
 }

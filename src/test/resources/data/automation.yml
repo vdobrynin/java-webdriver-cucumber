@@ -1,22 +1,22 @@
 #-
-  title: QA Automation Engineer
-  description: "QA Automation Engineer, Lead Automation QA Engineer"
-  address: "4970 El Camino Real"
-  city: Los Altos
-  state: California
-  zip: "94022"
-  dateOpen: "08/31/2019"
+title: QA Automation Engineer
+description: "QA Automation Engineer, Lead Automation QA Engineer"
+address: "4970 El Camino Real"
+city: Los Altos
+state: California
+zip: "94022"
+dateOpen: "08/31/2019"
 #-
-  firstName: Slava
-  middleName: Vlad
-  lastName: Skryabin
-  email: example+65@gmail.com
-  password: welcome
-  confirmPassword: welcome
-  summary: "QA Automation Engineer, description for QA Automation  Engineer"
-  address: "4970 El Camino Real"
-  city: Los Altos
-  state: California
-  zip: "94022"
+firstName: Slava
+middleName: Vlad
+lastName: Skryabin
+email: example+65@gmail.com
+password: welcome
+confirmPassword: welcome
+summary: "QA Automation Engineer, description for QA Automation  Engineer"
+address: "4970 El Camino Real"
+city: Los Altos
+state: California
+zip: "94022"
 
 #titlePrincipal: Principal Automation Engineer

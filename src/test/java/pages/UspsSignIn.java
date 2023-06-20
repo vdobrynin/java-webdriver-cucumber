@@ -10,29 +10,29 @@ import static support.TestContext.getDriver;
 
 public class UspsSignIn extends Page {
 
-  @FindBy(xpath = "//a[@id='sign-up-button']")
-  private WebElement signUpButton;
-  @FindBy(xpath = "//button[@id='btn-submit']")
-  private WebElement signInButton;
-  @FindBy(xpath = "//span[@id='error-username']")
-  private WebElement usernameError;
+    @FindBy(xpath = "//a[@id='sign-up-button']")
+    private WebElement signUpButton;
+    @FindBy(xpath = "//button[@id='btn-submit']")
+    private WebElement signInButton;
+    @FindBy(xpath = "//span[@id='error-username']")
+    private WebElement usernameError;
 
 
-  public boolean isSignUpPossible() {
+    public boolean isSignUpPossible() {
 
-    return signUpButton.isDisplayed() && signUpButton.isEnabled();
-  }
-
-  public boolean isSignInRequired() {
-
-    signInButton.click();
-
-    try {
-      new WebDriverWait(getDriver(), 5).until(ExpectedConditions.visibilityOf(usernameError));
-      return true;
-
-    } catch (TimeoutException e) {
-      return false;
+        return signUpButton.isDisplayed() && signUpButton.isEnabled();
     }
-  }
+
+    public boolean isSignInRequired() {
+
+        signInButton.click();
+
+        try {
+            new WebDriverWait(getDriver(), 5).until(ExpectedConditions.visibilityOf(usernameError));
+            return true;
+
+        } catch (TimeoutException e) {
+            return false;
+        }
+    }
 }

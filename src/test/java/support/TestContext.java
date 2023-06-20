@@ -95,8 +95,8 @@ public class TestContext {
                 chromeOptions.addArguments("--start-maximized");
                 chromeOptions.setExperimentalOption("prefs", chromePreferences);
                 chromeOptions.addExtensions(new File(System
-                        .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 4.7.3.0.crx"));
-                if (isHeadless) {   // <-- headed // --> (!headless)
+                    .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 4.7.3.0.crx"));
+                if (!isHeadless) {   // <-- headed // --> (!headless)
                     chromeOptions.setHeadless(true);
                     chromeOptions.addArguments("--window-size=2560,1440");
                     chromeOptions.addArguments("--window-size=1920,1080");

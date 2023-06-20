@@ -10,6 +10,11 @@ public class QuoteResult extends Page {
     @FindBy(xpath = "//b[@name='agreedToPrivacyPolicy']")
     private WebElement privacyPolicy;
 
-    public String getSectionResult() { return sectionResult.getText(); }
-    public String getPrivacyPolicy() { return privacyPolicy.getText(); }
+    public String getSectionResult() {
+        return sectionResult.getText();
+    }
+
+    public String getPrivacyPolicy() {
+        return privacyPolicy.getText();
+    }
 }

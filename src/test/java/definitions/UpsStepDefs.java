@@ -20,16 +20,16 @@ public class UpsStepDefs {
     @And("I open Shipping menu")
     public void iOpenShippingMenu() {
         getDriver()
-                .findElement(By
-                        .xpath("//nav[@aria-label='Mega Menu']//a[@id='mainNavDropdown1'][normalize-space()='Shipping']"))
-                .click();
+            .findElement(By
+                .xpath("//nav[@aria-label='Mega Menu']//a[@id='mainNavDropdown1'][normalize-space()='Shipping']"))
+            .click();
     }
 
     @And("I go to Create a Shipment")
     public void iGoToCreateAShipment() {
         getDriver().findElement(By.xpath("//a[normalize-space()='Create a Shipment']")).isDisplayed();
         getExecutor().executeScript("arguments[0].click();", getDriver().findElement(By
-                .xpath("//a[contains(text(),'Create a Shipment')]")));
+            .xpath("//a[contains(text(),'Create a Shipment')]")));
     }
 
     @When("I fill out origin shipment fields")
@@ -39,25 +39,25 @@ public class UpsStepDefs {
         getDriver().findElement(By.xpath("//button[@id='origin-singleLineAddressEditButton']")).click();
         getDriver().findElement(By.xpath("//input[@id='origin-cac_companyOrName']")).sendKeys(sender.get("full name"));                  // changes in the  lecture #10
         getDriver().findElement(By.xpath("//body/div[@class='iw_viewport-wrapper']/main[@id='ups-main']//input[@id='origin-cac_addressLine1']"))
-                .sendKeys(sender.get("address Line 1"));
+            .sendKeys(sender.get("address Line 1"));
         getDriver().findElement(By.xpath("//input[@id='origin-cac_postalCode']")).sendKeys(sender.get("zip"));
 
         WebDriverWait wait = new WebDriverWait(getDriver(), 5);
         wait.until(ExpectedConditions
-                .textToBePresentInElementValue(By.xpath("//input[@id='origin-cac_city']"), sender.get("city")
-                        .toUpperCase()));
+            .textToBePresentInElementValue(By.xpath("//input[@id='origin-cac_city']"), sender.get("city")
+                .toUpperCase()));
         wait.until(ExpectedConditions
-                .elementToBeSelected(By
-                        .xpath("//select[@id='origin-cac_state']/option[@value='CA']")));
+            .elementToBeSelected(By
+                .xpath("//select[@id='origin-cac_state']/option[@value='CA']")));
         getDriver().findElement(By.xpath("//input[@id='origin-cac_email']")).sendKeys(sender.get("email"));
         getDriver().findElement(By.xpath("//input[@id='origin-cac_phone']")).sendKeys(sender.get("phone"));
 
         new WebDriverWait(getDriver(), 10)
-                .until(ExpectedConditions.textToBePresentInElementValue(By
-                        .xpath("//input[@id='origin-cac_city']"), "LOS ALTOS"));
+            .until(ExpectedConditions.textToBePresentInElementValue(By
+                .xpath("//input[@id='origin-cac_city']"), "LOS ALTOS"));
         new WebDriverWait(getDriver(), 10)
-                .until(ExpectedConditions.elementToBeSelected(By
-                        .xpath("//select[@id='origin-cac_state']//option[@value='CA'][normalize-space()='California']")));
+            .until(ExpectedConditions.elementToBeSelected(By
+                .xpath("//select[@id='origin-cac_state']//option[@value='CA'][normalize-space()='California']")));
     }
 
     @And("I submit the shipment form")
@@ -65,10 +65,10 @@ public class UpsStepDefs {
         String oldUrl = getDriver().getCurrentUrl();
         if (getDriver().getCurrentUrl().contains("payment")) {
             getExecutor().executeScript("arguments[0].click();", getDriver()
-                    .findElement(By.xpath("//button[@id='nbsBackForwardNavigationReviewPrimaryButton']")));
+                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationReviewPrimaryButton']")));
         } else {
             getExecutor().executeScript("arguments[0].click();", getDriver()
-                    .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
+                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
         }
 //    WebDriverWait wait = new WebDriverWait(getDriver(), 10); //button[@id='nbsAddressClassificationContinue']
 //    wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(oldUrl)));
@@ -77,27 +77,27 @@ public class UpsStepDefs {
     @When("^I submit the shipment form continue$")
     public void iSubmitTheShipmentFormContinue() {
         getExecutor().executeScript("arguments[0].click();", getDriver().findElement(By
-                .xpath("(//button[normalize-space()='Continue'])[1]")));
+            .xpath("(//button[normalize-space()='Continue'])[1]")));
     }
 
     @And("^I check a few more details$")
     public void iCheckAFewMoreDetails() {
         getDriver()
-                .findElement(By.xpath("//input[@id='nbsShipmentDescription']"))
-                .sendKeys("USB Cable");
+            .findElement(By.xpath("//input[@id='nbsShipmentDescription']"))
+            .sendKeys("USB Cable");
         getExecutor().executeScript("arguments[0].click();", getDriver()
-                .findElement(By
-                        .xpath("//label[@for='nbsDirectDeliveryOnlyOptionBaseOptionSwitch']")));
+            .findElement(By
+                .xpath("//label[@for='nbsDirectDeliveryOnlyOptionBaseOptionSwitch']")));
         getExecutor().executeScript("arguments[0].click();", getDriver()
-                .findElement(By
-                        .xpath("//label[@for='nbsCarbonNeutralOptionBaseOptionSwitch']")));
+            .findElement(By
+                .xpath("//label[@for='nbsCarbonNeutralOptionBaseOptionSwitch']")));
     }
 
     @When("I verify origin shipment fields submitted")
     public void iVerifyOriginShipmentFieldsSubmitted() throws InterruptedException, FileNotFoundException {
         boolean shipmentIsDisplayed = getDriver()
-                .findElement(By.xpath("//div[@class='ups-wrap']//div[@class='ups-wrap_inner']"))
-                .isDisplayed();
+            .findElement(By.xpath("//div[@class='ups-wrap']//div[@class='ups-wrap_inner']"))
+            .isDisplayed();
         assertThat(shipmentIsDisplayed).isTrue();
 
         Map<String, String> sender = getData("sender");
@@ -114,14 +114,14 @@ public class UpsStepDefs {
     @And("I cancel the shipment form")
     public void iCancelTheShipmentForm() {
         getExecutor().executeScript("arguments[0].click();", getDriver()
-                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationCancelShipmentButton']")));
+            .findElement(By.xpath("//button[@id='nbsBackForwardNavigationCancelShipmentButton']")));
         getDriver().findElement(By.xpath("//button[@id='nbsCancelShipmentWarningYes']")).click();
     }
 
     @When("I verify shipment form is reset")
     public void iVerifyShipmentFormIsReset() {
         String name = getDriver().findElement(By.xpath("//input[@id='origin-cac_companyOrName']"))
-                .getAttribute("value");
+            .getAttribute("value");
         assertThat(name).isEmpty();
     }
 
@@ -138,19 +138,19 @@ public class UpsStepDefs {
         wait.until(ExpectedConditions.elementToBeSelected(By.xpath("//select[@id='destination-cac_state']//option[.='New York']")));
 
         getExecutor().executeScript("arguments[0].click();", getDriver()
-                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
+            .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
 
         WebDriverWait wait1 = new WebDriverWait(getDriver(), 5);
         wait1.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//button[@id='nbsAddressClassificationContinue']")));
         getExecutor().executeScript("arguments[0].click();", getDriver()
-                .findElement(By.xpath("//button[@id='nbsAddressClassificationContinue']")));
+            .findElement(By.xpath("//button[@id='nbsAddressClassificationContinue']")));
     }
 
     @Then("I verify total charges appear")
     public void iVerifyTotalChargesAppear() throws InterruptedException {
         By spinner = By.xpath("//span[@id='nbsBalanceBarTotalCharges']");    // this is Vlad's
         new WebDriverWait(getDriver(), 10)
-                .until(ExpectedConditions.visibilityOfElementLocated(spinner));
+            .until(ExpectedConditions.visibilityOfElementLocated(spinner));
 
         WebElement element = getDriver().findElement(spinner);
         String oldText = element.getText();
@@ -163,8 +163,8 @@ public class UpsStepDefs {
     @And("I set packaging type")
     public void iSetPackagingType() throws InterruptedException {
         getDriver()
-                .findElement(By.xpath("//option[.='UPS Express Box - Small']"))
-                .click();
+            .findElement(By.xpath("//option[.='UPS Express Box - Small']"))
+            .click();
         WebElement packageWeight = getDriver().findElement(By.xpath("//input[@name='nbsPackagePackageWeightField0']"));
         Wait<WebElement> wait = new FluentWait<WebElement>(packageWeight);
         packageWeight.click();
@@ -179,7 +179,7 @@ public class UpsStepDefs {
     @Then("I go back")
     public void iGoBack() {
         getExecutor().executeScript("arguments[0].click();", getDriver()
-                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationBackButton']")));
+            .findElement(By.xpath("//button[@id='nbsBackForwardNavigationBackButton']")));
     }
 
     @Then("I verify total charges changed")
@@ -195,7 +195,7 @@ public class UpsStepDefs {
         //p[contains(@id,'nbsServiceTileTotalCharge')]
 
         getExecutor().executeScript("arguments[0].click();", getDriver()
-                .findElement(By.xpath("//div[@class='row ups-shipping_schedule_row']//strong[contains(text(),'$37.92')]")));
+            .findElement(By.xpath("//div[@class='row ups-shipping_schedule_row']//strong[contains(text(),'$37.92')]")));
 
         //    List<WebElement> prices = getDriver().findElements(By.xpath("//p[contains(@id,'nbsServiceTileTotalCharge')]"));
         //    Locale locale = new Locale("en", "US");
@@ -239,7 +239,7 @@ public class UpsStepDefs {
     public void iReviewAllRecordedDetailsOnTheReviewPage() {
 
         new WebDriverWait(getDriver(), 5)
-                .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ng-component[@class='ng-star-inserted']//div[@class='ups-wrap_inner']")));
+            .until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//ng-component[@class='ng-star-inserted']//div[@class='ups-wrap_inner']")));
         String result1 = getDriver().findElement(By.xpath("//origin-return-drawer[@class='ng-star-inserted']//div[@class='ups-drawer-content']")).getText();
         assertThat(result1).contains("Admin");
         assertThat(result1).contains("4970 El Camino Real");

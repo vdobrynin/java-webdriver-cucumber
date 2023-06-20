@@ -14,13 +14,13 @@ import org.junit.runner.RunWith;
     tags = "@predefined" // same as VM option -Dcucumber.options="--tags @predefined"
 )
 public class TestRunner {
-  @BeforeClass
-  public static void setup() {
-    System.out.println("BeforeAll");
-  }
+    @BeforeClass
+    public static void setup() {
+        System.out.println("BeforeAll");
+    }
 
-  @AfterClass
-  public static void teardown() {
-    System.out.println("AfterAll");
-  }
+    @AfterClass
+    public static void teardown() {
+        System.out.println("AfterAll");
+    }
 }

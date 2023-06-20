@@ -24,7 +24,7 @@ public class QuoteForm extends Page {
     @FindBy(xpath = "//input[@id='name']")
     private WebElement name;
 
-                                                // --> Name dialog - start -
+    // --> Name dialog - start -
     @FindBy(xpath = "//input[@id='firstName']")
     private WebElement firstName;
     @FindBy(xpath = "//input[@id='middleName']")
@@ -33,7 +33,7 @@ public class QuoteForm extends Page {
     private WebElement lastName;
     @FindBy(xpath = "//span[text()='Save']")
     private WebElement saveButton;
-                                                // --> Name dialog - end -
+    // --> Name dialog - end -
 
     @FindBy(xpath = "//input[@name='agreedToPrivacyPolicy']")
     private WebElement privacy;
@@ -79,8 +79,11 @@ public class QuoteForm extends Page {
         password.sendKeys(value);
     }
 
-    public void fillConfirmPassword(String value) { confirmPassword.sendKeys(value); }
+    public void fillConfirmPassword(String value) {
+        confirmPassword.sendKeys(value);
+    }
 
-    public void fillOutRequiredFields() { }
+    public void fillOutRequiredFields() {
+    }
 
 }

@@ -16,7 +16,7 @@ public abstract class Animal {
         this.name = name;
     }
 
-//    name or getName() it is no difference
+    //    name or getName() it is no difference
     public void walk() {
         System.out.println(getClass() + " " + name + " is walking!");
     }
