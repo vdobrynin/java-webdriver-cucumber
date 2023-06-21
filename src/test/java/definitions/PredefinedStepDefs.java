@@ -137,14 +137,11 @@ public class PredefinedStepDefs {
 
     @Then("^element with xpath \"([^\"]*)\" should contain text \"([^\"]*)\"$")
     public void elementWithXpathShouldContainText(String xpath, String text) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
+
         String actualText = getDriver().findElement(By.xpath(xpath)).getText();
         assertThat(actualText).contains(text);
-    }
-
-    @Then("^element with xpath \"([^\"]*)\" should not contain text \"([^\"]*)\"$")
-    public void elementWithXpathShouldNotContainText(String xpath, String text) {
-        String actualText = getDriver().findElement(By.xpath(xpath)).getText();
-        assertThat(actualText).doesNotContain(text);
     }
 
     @Then("^element with xpath \"([^\"]*)\" should have attribute \"([^\"]*)\" as \"([^\"]*)\"$")
