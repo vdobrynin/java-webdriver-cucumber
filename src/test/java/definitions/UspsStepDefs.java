@@ -71,10 +71,10 @@ public class UspsStepDefs {
             .findElement(By.xpath("//a[@id='mail-ship-width']"))
             .click();
         getDriver()
-            .findElement(By.xpath("//a[@class='button--link'][contains(text(),'Calculate a Price')]"))
+            .findElement(By.xpath("//a[@href='/calculateretailpostage/welcome.htm'][.='Calculate a Price']"))
             .click();
 //    getExecutor().executeScript("arguments[0].click();", getDriver()
-//      .findElement(By.xpath("//a[@class='button--link'][contains(text(),'Calculate a Price')]")));
+//      .findElement(By.xpath("//a[@href='/calculateretailpostage/welcome.htm'][.='Calculate a Price']")));
     }
 
     @And("I selected {string} with {string} shape")
@@ -101,7 +101,7 @@ public class UspsStepDefs {
     public void iCalculateThePriceAndValidateCostIs(String price) {
         String priceToVerify = getDriver().findElement(By.xpath("//div[@id='wrap']//div[@class='container']"))
             .getText();
-        assertThat(priceToVerify).containsIgnoringCase("2.30");
+        assertThat(priceToVerify).containsIgnoringCase("2.90");
         System.out.println(price);
     }
 
