@@ -9,13 +9,28 @@ Feature: USPS fill out forms
         Then I validate "94022" zip code exists in the result
 
     @usps2
+    Scenario: Wrong store id does not match
+        Given I go to "usps" page
+        When I go to "Shop" tab
+        And I enter "12345" into store search
+        Then I search and validate no products found
+
+    @usps3
+    Scenario: One item found
+        Given I go to "usps" page
+        When I go to Stamps and Supplies page
+        And I open Stamps
+        And choose category Priority Mail
+        Then I verify 1 item found in result
+
+    @usps4
     Scenario: Validate ZIP for Other address
         Given I go to "usps" page
         And I go to Lookup ZIP page by address
         And I fill out "1820-22 S Grant St" street, "San Mateo" city, "CA" state
         Then I validate "94402" zip code exists in the result
 
-    @usps3
+    @usps5
     Scenario Outline: Validate ZIP code Other address more
         Given I go to "usps" page
         And I go to Lookup ZIP page by address
@@ -27,28 +42,13 @@ Feature: USPS fill out forms
             | 1820-22 S Grant St  | San Mateo     | CA    | 94402 |
             | 299 Bayshore Blvd   | San Francisco | CA    | 94124 |
 
-    @usps4
+    @usps6
     Scenario: Calculate price
         Given I go to "usps" page
         When I go to Calculate Price Page
         And I selected "United Kingdom" with "Postcard" shape
         And I define "2" quantity
         Then I calculate the price and validate cost is "$2.90"
-
-    @usps5
-    Scenario: Wrong store id does not match
-        Given I go to "usps" page
-        When I go to "Shop" tab
-        And I enter "12345" into store search
-        Then I search and validate no products found
-
-    @usps6
-    Scenario: One item found
-        Given I go to "usps" page
-        When I go to Stamps and Supplies page
-        And I open Stamps
-        And choose category Priority Mail
-        Then I verify 1 item found in result
 
     @usps7
     Scenario: Verify color
@@ -74,7 +74,6 @@ Feature: USPS fill out forms
 #    When I go back to list
 #    Then I verify I'm on Find Locations search page
 
-
     @usps9
     Scenario: PO Box
         Given I go to "usps" page
@@ -82,5 +81,3 @@ Feature: USPS fill out forms
         And I reserve new PO box for "94022"
         Then I verify that "Los Altos — Post Office™" present
         And I verify that "Size 5-XL" PO Box is available in "Los Altos — Post Office™"
-
-
