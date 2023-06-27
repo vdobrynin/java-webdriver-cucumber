@@ -38,7 +38,7 @@ Feature: USPS fill out forms
     @usps5
     Scenario: Wrong store id does not match
         Given I go to "usps" page
-        When I go to "Postal Store" tab
+        When I go to "Shop" tab
         And I enter "12345" into store search
         Then I search and validate no products found
 

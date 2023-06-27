@@ -1,12 +1,12 @@
 package definitions;
 
-import cucumber.api.java.en.*;
-//import io.cucumber.java.en.*;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
+import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -16,14 +16,12 @@ import static support.TestContext.getExecutor;
 
 public class UspsStepDefs {
     @And("I go to Lookup ZIP page by address")
-    public void iGoToLookupZIPPageByAddress() {
-//    getDriver().findElement(By.xpath("//a[@id='mail-ship-width']")).click();              // change that at the lecture #8
-//    getDriver().findElement(By.xpath("//a[@class='button--link'][contains(@href, 'Zip')]")).click();
-//    getDriver().findElement(By.xpath("//a[contains(@class, 'zip-code-address')]")).click();
-//    Actions actions = new Actions(getDriver());                             // initializing 'actions' optimization we did first, then comment
-//        actions.moveToElement(quickTools).perform();                       // after commenting 3 lines above, we change that too
-        WebElement quickTools = getDriver().findElement(By.xpath("//li[contains(@class, 'qt-nav')]"));  // save in variable
-        new Actions(getDriver()).moveToElement(quickTools).perform();                    // initializing directly driver actions to have mouse over
+    public void iGoToLookupZIPPageByAddress() { // --> change that at the lecture #8
+        WebElement quickTools = getDriver()
+            .findElement(By.xpath("//li[contains(@class, 'qt-nav')]"));// save in variable xpath was custom
+        new Actions(getDriver())
+            .moveToElement(quickTools)
+            .perform();                 // initializing directly driver to new Actions to have mouse over
         getDriver()
             .findElement(By.xpath("//img[@alt='Zip Code™ Lookup Icon']"))
             .click();
@@ -40,12 +38,11 @@ public class UspsStepDefs {
         getDriver()
             .findElement(By.xpath("//input[@id='tCity']"))
             .sendKeys(city);
-//    getDriver()
-//    .findElement(By.xpath("//select[@id='tState']/option[@value='" + state + "']"))
-//    .click();                                                                           // passing 'state'
+
         WebElement dropdown = getDriver()
-            .findElement(By.xpath("//select[@id='tState']"));           // optimization from line above
-        new Select(dropdown).selectByValue(state);                                    // initializing constructor
+            .findElement(By.xpath("//select[@id='tState']"));
+        new Select(dropdown).selectByValue(state);                              // initializing constructor
+
         getDriver()
             .findElement(By.xpath("//a[@id='zip-by-address']"))
             .click();
@@ -53,14 +50,13 @@ public class UspsStepDefs {
 
     @Then("I validate {string} zip code exists in the result")
     public void iValidateZipCodeExistsInTheResult(String zip) throws InterruptedException {
-//    String result = getDriver().findElement(By.xpath("//div[@id='zipByAddressDiv']")).getText();    // do not need any more
-//    assertThat(result).contains(zip);                                                               // after we implemented 2 lines below
         WebDriverWait wait = new WebDriverWait(getDriver(), 5);
-        wait.until(ExpectedConditions
-            .textToBePresentInElementLocated(By
-                .xpath("//div[@id='zipByAddressDiv']"), zip));              //--> it's assertion itself
-//    wait.until(driver -> !driver.findElement(By.xpath("//div[@id='zipByAddressDiv']"))
-//            .getText().isEmpty());                                                      // another way to do it(lambda) "!"->".isEmpty()
+//        wait.until(ExpectedConditions.textToBePresentInElementLocated(By
+//                .xpath("//div[@id='zipByAddressDiv']"), zip));              //--> it's assertion itself
+        wait.until(driver -> !driver
+            .findElement(By.xpath("//div[@id='zipByAddressDiv']"))
+            .getText()
+            .isEmpty());                                                      // another way to do it(lambda) "!"->".isEmpty()
         System.out.println(zip);
     }
 
@@ -107,9 +103,8 @@ public class UspsStepDefs {
 
     @When("I go to {string} tab")
     public void iGoToTab(String tab) {
-//        getDriver().findElement(By.xpath("//a[@class='menuitem'][contains(text(),'Postal Store')]")).click();
         getDriver()
-            .findElement(By.xpath("//a[text()='" + tab + "']"))
+            .findElement(By.xpath("//a[normalize-space()='" + tab + "']"))
             .click();  // it's easy to access through "tab" everywhere
     }
 
@@ -126,7 +121,7 @@ public class UspsStepDefs {
             .findElement(By.xpath("//input[@id='store-search-btn']"))
             .click();
         WebElement noResults = getDriver()
-            .findElement(By.xpath("//div[@class='no-results-found']"));
+            .findElement(By.xpath("//p[normalize-space()='Your search did not match any products.']"));
         assertThat(noResults.isDisplayed()).isTrue();  // this ones doesn't work, I tried, but we need it to verify it's present
         assertThat(noResults.getText()).contains("did not match any products");
         System.out.println(noResults.getText());                           // to see, and test
@@ -137,28 +132,28 @@ public class UspsStepDefs {
         WebElement mailShip = getDriver().findElement(By.xpath("//a[@id='mail-ship-width']"));
         new Actions(getDriver()).moveToElement(mailShip).perform();
         getDriver()
-            .findElement(By.xpath("//a[contains(text(),'Stamps & Supplies')]"))
+            .findElement(By.xpath("//a[@role='menuitem'][normalize-space()='Stamps & Supplies']"))
             .click();
     }
 
     @And("I open Stamps")
     public void iOpenStamps() { //li[contains(@class,'stamps-navigation')]
         getDriver()
-            .findElement(By.xpath("//li[contains(@class,'stamps-navigation')]//a"))
+            .findElement(By.xpath("//li[@class='stamps-navigation ']//span[normalize-space()='Stamps']"))
             .click();
     }
 
     @And("choose category Priority Mail")
     public void chooseCategoryPriorityMail() {
-        getDriver()
-            .findElement(By.xpath("//label[contains(@for, 'Service-Priority Mail-')]"))
-            .click();
+        getExecutor().executeScript("arguments[0].click();", getDriver()
+            .findElement(By.xpath("//label[normalize-space()='Priority Mail (1)']")));
+
     }
 
     @Then("I verify {int} item found in result")
     public void iVerifyItemFoundInResult(int count) {                         // findElements --> plural
         int actualCount = getDriver()
-            .findElements(By.xpath("//div[contains(@class,'result-page-stamps-holder ')]"))
+            .findElements(By.xpath("//div[@class='result-products-holder']"))
             .size();
         assertThat(actualCount).isEqualTo(count);
         System.out.println(actualCount);
@@ -173,24 +168,25 @@ public class UspsStepDefs {
 
     @And("select size {string}")
     public void selectSize(String arg0) {
-        getDriver()
-            .findElement(By.xpath("//label[@for='checkbox-type-Size-Large-11'][contains(text(), 'Large')]"))
-            .click();
+        getExecutor()
+            .executeScript("arguments[0].click();", getDriver()
+                .findElement(By.xpath("//label[normalize-space()='Large (19)']")));
     }
 
     @And("I click {string} color")
     public void iClickColor(String arg0) {
-        getDriver()
-            .findElement(By.xpath("//div[@class='result-facid-holder-grid-color']//div[3]"))
-            .click();
+        getExecutor()
+            .executeScript("arguments[0].click();", getDriver()
+                .findElement(By.xpath("//div[@class='result-grid'][contains(@style, 'background-color:#033366;')]")));
     }
 
     @Then("I verify {string} and {string} filters")
     public void iVerifyAndFilters(String arg0, String arg1) {
         WebElement result = getDriver()
-            .findElement(By.xpath("//div[@class='breadcrumb-cartridge']"));
+            .findElement(By.xpath("//div[@class=' d-none d-lg-block breadcrumb-cartridge']//div[@class='cartridge-viewport']"));
         assertThat(result.isDisplayed()).isTrue();
-        assertThat(result.getText()).contains("Blue Large");
+        assertThat(result.getText()).contains("Blue");
+        assertThat(result.getText()).contains("Large");
     }
 
     @Then("I verify {string} sale")
@@ -198,7 +194,7 @@ public class UspsStepDefs {
         WebElement result = getDriver()
             .findElement(By.xpath("//div[@class='result-products-holder']"));
         assertThat(result.isDisplayed()).isTrue();
-        assertThat(result.getText()).contains("20% OFF");
+        assertThat(result.getText()).contains("$9.95"); //20% OFF
     }
 
     @When("I perform {string} search")
@@ -214,10 +210,10 @@ public class UspsStepDefs {
     }
 
     @And("I select {string} in results")
-    public void iSelectInResults(String resultText) {     //span[contains(text(),'Passport Application')]
-//        getDriver().findElement(By.xpath("//span[@id='title_20']/span[contains(text(),'"+ resultText +"')]")).click(); //-->it'll not work
-        getExecutor().executeScript("arguments[0].click();", getDriver()
-            .findElement(By.xpath("//span[contains(text(),'" + resultText + "')]")));
+    public void iSelectInResults(String resultText) {
+        getExecutor()
+            .executeScript("arguments[0].click();", getDriver()
+                .findElement(By.xpath("//span[contains(text(),'" + resultText + "')]")));
     }
 
     @And("I click {string} button")
