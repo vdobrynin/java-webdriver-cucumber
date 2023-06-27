@@ -340,7 +340,7 @@ public class UspsStepDefs {
         assertThat(resultColumn.isDisplayed())
             .isTrue();
         String results1 = getDriver()
-            .findElement(By.xpath("(//div[@id='po-location-detail'])[1]")).getText();
+            .findElement(By.xpath("(//div[@id='resultBox'])[1]")).getText();
         assertThat(results1)
             .contains(address);
         String results2 = getDriver()
