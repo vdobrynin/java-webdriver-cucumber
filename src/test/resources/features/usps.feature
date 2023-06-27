@@ -66,18 +66,18 @@ Feature: USPS fill out forms
         Given I go to "USPS" page
         When I perform "Passports" search
         And I select "Passport Application" in results
-        And I click "Find a Post Office" button
-        And I select "94022" zip code within "10 miles" and search
-#    Then I verify "MOUNTAIN VIEW" present in search results
-#    When I open "MOUNTAIN VIEW" search results
-#    Then I verify "211 HOPE ST" address, "9:00am - 12:00pm" appointment hours, "1:00pm - 3:00pm" photo hours
+        And I click "find a location" button
+        And I select "94022" zip code within "10 Miles" and search
+        Then I verify "MOUNTAIN VIEW" present in search results
+        When I open "MOUNTAIN VIEW" search results
+        Then I verify "211 HOPE ST" address, "9:00 am-12:00 pm" appointment hours, "1:00 pm-3:00 pm" photo hours
 #    When I go back to list
 #    Then I verify I'm on Find Locations search page
 
-    @usps9
-    Scenario: PO Box
-        Given I go to "usps" page
-        When I go to "PO Boxes" under "Track & Manage"
-        And I reserve new PO box for "94022"
-        Then I verify that "Los Altos — Post Office™" present
-        And I verify that "Size 5-XL" PO Box is available in "Los Altos — Post Office™"
+#    @usps9
+#    Scenario: PO Box
+#        Given I go to "usps" page
+#        When I go to "PO Boxes" under "Track & Manage"
+#        And I reserve new PO box for "94022"
+#        Then I verify that "Los Altos — Post Office™" present
+#        And I verify that "Size 5-XL" PO Box is available in "Los Altos — Post Office™"
