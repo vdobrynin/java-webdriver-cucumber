@@ -74,10 +74,10 @@ Feature: USPS fill out forms
         When I go back to list
         Then I verify I'm on Find Locations search page
 
-#    @usps9
-#    Scenario: PO Box
-#        Given I go to "usps" page
-#        When I go to "PO Boxes" under "Track & Manage"
-#        And I reserve new PO box for "94022"
-#        Then I verify that "Los Altos — Post Office™" present
-#        And I verify that "Size 5-XL" PO Box is available in "Los Altos — Post Office™"
+    @usps9
+    Scenario: PO Box
+        Given I go to "usps" page
+        When I go to "Rent/Renew a PO Box" under "Quick Tools"
+        And I reserve new PO box for "94022"
+        Then I verify that "Los Altos — Post Office™" present
+        And I verify that "Size 5-XL" PO Box is available in "Los Altos — Post Office™"

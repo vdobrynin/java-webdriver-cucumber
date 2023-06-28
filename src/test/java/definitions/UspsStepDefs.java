@@ -70,8 +70,6 @@ public class UspsStepDefs {
         getDriver()
             .findElement(By.xpath("//a[@href='/calculateretailpostage/welcome.htm'][.='Calculate a Price']"))
             .click();
-//    getExecutor().executeScript("arguments[0].click();", getDriver()
-//      .findElement(By.xpath("//a[@href='/calculateretailpostage/welcome.htm'][.='Calculate a Price']")));
     }
 
     @And("I selected {string} with {string} shape")
@@ -107,7 +105,7 @@ public class UspsStepDefs {
     public void iGoToTab(String tab) {
         getDriver()
             .findElement(By.xpath("//a[normalize-space()='" + tab + "']"))
-            .click();  // it's easy to access through "tab" everywhere
+            .click();                                               // it's easy to access through "tab" everywhere
     }
 
     @And("I enter {string} into store search")
@@ -143,7 +141,7 @@ public class UspsStepDefs {
     }
 
     @And("I open Stamps")
-    public void iOpenStamps() { //li[contains(@class,'stamps-navigation')]
+    public void iOpenStamps() {
         getDriver()
             .findElement(By.xpath("//li[@class='stamps-navigation ']//span[normalize-space()='Stamps']"))
             .click();
@@ -207,7 +205,7 @@ public class UspsStepDefs {
         assertThat(result.isDisplayed())
             .isTrue();
         assertThat(result.getText())
-            .contains("$9.95"); //20% OFF
+            .contains("$9.95");         //20% OFF ???
     }
 
     @When("I perform {string} search")
@@ -271,49 +269,42 @@ public class UspsStepDefs {
     }
 
     @When("I go to {string} under {string}")
-    public void iGoToUnder(String menuItem, String menu) { //a[contains(text(),'Track & Manage')]
-        WebElement menuElement = getDriver()
-            .findElement(By.xpath("//a[contains(text(),'" + menu + "')]"));
+    public void iGoToUnder(String menuItem, String menu) {
+        WebElement quickTools = getDriver()
+            .findElement(By.xpath("//li[contains(@class, 'qt-nav')]//a[text()='" + menu + "']"));// save in variable xpath was custom
         new Actions(getDriver())
-            .moveToElement(menuElement)
-            .perform();                                        // --> mouse over
+            .moveToElement(quickTools)
+            .perform();
         getDriver()
-            .findElement(By.xpath("//a[contains(text(),'" + menuItem + "')]"))
-            .click(); //a[contains(text(),'PO Boxes')]
+            .findElement(By.xpath("//li[@class='qt-nav menuheader']//p[.='" + menuItem + "']")).click();
     }
 
     @And("I reserve new PO box for {string}")
     public void iReserveNewPOBoxFor(String zip) {
         getDriver()
-            .findElement(By.xpath("//input[@id='searchInput']"))
+            .findElement(By.xpath("//input[@id='searchHero']"))
             .sendKeys(zip);
         getDriver()
-            .findElement(By.xpath("//span[@class='icon-search']"))
+            .findElement(By.xpath("//div[@class='inputContainer']//div//a[@value='Search']"))
             .click();
     }
 
     @Then("I verify that {string} present")
     public void iVerifyThatPresent(String location) {
         String actualSearchResult = getDriver()
-            .findElement(By.xpath("//div[@id='locationContainer_1']"))
-            .getText(); // --> Vlad's
+            .findElement(By.xpath("//h2[contains(.,'" + location + "')]"))
+            .getText();
         assertThat(actualSearchResult)
             .containsIgnoringCase(location);
-//        WebElement actualSearchResult = getDriver().findElement(By.xpath("//div[@id='locationContainer_1']")); // find location way above the real ones
-//        assertThat(actualSearchResult.getText().compareToIgnoreCase(location));                                   // --> Vlad's variation too
-//        WebDriverWait wait = new WebDriverWait(getDriver(), 5);   // --> it's me
-//        wait.until(ExpectedConditions.textToBePresentInElementLocated(By.xpath("//div[@id='locationContainer_1']"), location));
-//        WebElement actualSearchResult = getDriver().findElement(By.xpath("//div[@id='locationContainer_1']"));
-//        assertThat(actualSearchResult.getText().compareToIgnoreCase(location));
     }
 
     @And("I verify that {string} PO Box is available in {string}")
     public void iVerifyThatPOBoxIsAvailableIn(String size, String location) {
         getDriver()
-            .findElement(By.xpath("//h2[string()='" + location + "']"))
-            .click();                                                   //h2[string()='Los Altos — Post Office™'] --> change to +location+
+            .findElement(By.xpath("//h2[contains(.,'" + location + "')]"))
+            .click();
         String actualSizes = getDriver()
-            .findElement(By.xpath("//div[@id='availableboxes']"))
+            .findElement(By.xpath("//label[@for='boxXL']//p[@class='fourteen size']"))
             .getText();                                                                 //--> find all available boxes to get text
         assertThat(actualSizes)
             .containsIgnoringCase(size);
@@ -349,14 +340,12 @@ public class UspsStepDefs {
             .contains(appointmentHours);
         assertThat(results2)
             .contains(photoHours);
-//        System.out.println(results);
     }
 
     @When("I go back to list")
     public void iGoBackToList() {
         getDriver().getWindowHandle();
         getDriver().navigate().back();
-//        getDriver().navigate().forward();
         getDriver().navigate().refresh();
     }
 
