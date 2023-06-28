@@ -260,7 +260,7 @@ public class UspsStepDefs {
         wait.until(ExpectedConditions
             .textToBePresentInElementLocated(By
                 .xpath("(//div[@class='floating-map result-inside-container']//div[@id='resultBox'])[1]"), city));
-        WebElement cityName= getDriver()
+        WebElement cityName = getDriver()
             .findElement(By.xpath("//strong[.='" + city + "']"));
         WebElement result = getDriver()
             .findElement(By.xpath("(//div[@class='floating-map result-inside-container']//div[@id='resultBox'])[1]"));
@@ -352,17 +352,18 @@ public class UspsStepDefs {
 //        System.out.println(results);
     }
 
-//  @When("I go back to list")
-//  public void iGoBackToList() {
-//    //getDriver().getWindowHandle().
-//    getDriver().navigate().back();
-//    getDriver().navigate().forward();
-//    getDriver().navigate().refresh();
-//  }
-//
-//  @Then("I verify I'm on Find Locations search page")
-//  public void iVerifyIMOnFindLocationsSearchPage() {
-//    //div[@id='main-inner']//div[@id='polo-index-title']
-//
-//  }
+    @When("I go back to list")
+    public void iGoBackToList() {
+        getDriver().getWindowHandle();
+        getDriver().navigate().back();
+//        getDriver().navigate().forward();
+        getDriver().navigate().refresh();
+    }
+
+    @Then("I verify I'm on Find Locations search page")
+    public void iVerifyIMOnFindLocationsSearchPage() {
+        getDriver()
+            .findElement(By.xpath("//a[@href='#'][contains(.,'Back to Find Locations')]"))
+            .isDisplayed();
+    }
 }

@@ -71,8 +71,8 @@ Feature: USPS fill out forms
         Then I verify "MOUNTAIN VIEW" present in search results
         When I open "MOUNTAIN VIEW" search results
         Then I verify "211 HOPE ST" address, "9:00 am-12:00 pm" appointment hours, "1:00 pm-3:00 pm" photo hours
-#    When I go back to list
-#    Then I verify I'm on Find Locations search page
+        When I go back to list
+        Then I verify I'm on Find Locations search page
 
 #    @usps9
 #    Scenario: PO Box
