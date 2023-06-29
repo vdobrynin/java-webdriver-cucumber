@@ -63,7 +63,7 @@ public class UspsStepDefs {
 
     @When("I go to Calculate Price Page")
     public void iGoToCalculatePricePage() {
-//    getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+//        getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
         getDriver()
             .findElement(By.xpath("//a[@id='mail-ship-width']"))
             .click();
@@ -225,8 +225,7 @@ public class UspsStepDefs {
     @And("I select {string} in results")
     public void iSelectInResults(String resultText) {
         getExecutor()
-            .executeScript("arguments[0].click();", getDriver()
-                .findElement(By.xpath("//div[@id='main_res']//span[contains(text(),'" + resultText + "')]")));
+            .executeScript("arguments[0].click();", getDriver().findElement(By.xpath("//div[@id='main_res']//span[contains(text(),'" + resultText + "')]")));
     }
 
     @And("I click {string} button")
@@ -256,8 +255,7 @@ public class UspsStepDefs {
     public void iVerifyPresentInSearchResults(String city) {
         WebDriverWait wait = new WebDriverWait(getDriver(), 5);
         wait.until(ExpectedConditions
-            .textToBePresentInElementLocated(By
-                .xpath("(//div[@class='floating-map result-inside-container']//div[@id='resultBox'])[1]"), city));
+            .textToBePresentInElementLocated(By.xpath("(//div[@class='floating-map result-inside-container']//div[@id='resultBox'])[1]"), city));
         WebElement cityName = getDriver()
             .findElement(By.xpath("//strong[.='" + city + "']"));
         WebElement result = getDriver()
@@ -317,8 +315,7 @@ public class UspsStepDefs {
             .click();
         WebDriverWait wait = new WebDriverWait(getDriver(), 5);
         wait.until(ExpectedConditions
-            .textToBePresentInElementLocated(By
-                .xpath("(//div[@class='location-address']//strong[contains(text(), '" + text + "')])[1]"), text));
+            .textToBePresentInElementLocated(By.xpath("(//div[@class='location-address']//strong[contains(text(), '" + text + "')])[1]"), text));
         getExecutor()
             .executeScript("arguments[0].click();", getDriver()
                 .findElement(By.xpath("(//div[@class='location-address']//strong[contains(text(), '" + text + "')])[1]")));
