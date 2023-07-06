@@ -307,7 +307,7 @@ public class MarketStepDefs {
     }
 
     @And("I input {string} {string} as contact")
-    public void iInputAsContact(String firstName, String lastName) {
+    public void  iInputAsContact(String firstName, String lastName) {
         getDriver()
             .switchTo()
             .frame("additionalInfo");               // --> switch to "iframe" & it has a name "additionalInfo"
