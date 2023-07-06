@@ -225,13 +225,15 @@ public class UspsStepDefs {
     @And("I select {string} in results")
     public void iSelectInResults(String resultText) {
         getExecutor()
-            .executeScript("arguments[0].click();", getDriver().findElement(By.xpath("//div[@id='main_res']//span[contains(text(),'" + resultText + "')]")));
+            .executeScript("arguments[0].click();", getDriver()
+                .findElement(By
+                    .xpath("//div[@id='main_res']//span[contains(text(),'" + resultText + "')]")));
     }
 
     @And("I click {string} button")
     public void iClickButton(String buttonText) {
         getDriver()
-            .findElement(By.xpath("//a[normalize-space()='find a location']"))
+            .findElement(By.xpath("//a[normalize-space()='" + buttonText + "']"))
             .click();
     }
 
@@ -315,24 +317,37 @@ public class UspsStepDefs {
             .click();
         WebDriverWait wait = new WebDriverWait(getDriver(), 5);
         wait.until(ExpectedConditions
-            .textToBePresentInElementLocated(By.xpath("(//div[@class='location-address']//strong[contains(text(), '" + text + "')])[1]"), text));
+            .textToBePresentInElementLocated(By
+                .xpath("(//div[@class='location-address']//strong[contains(text(), '" + text + "')])[1]"), text));
         getExecutor()
             .executeScript("arguments[0].click();", getDriver()
-                .findElement(By.xpath("(//div[@class='location-address']//strong[contains(text(), '" + text + "')])[1]")));
+                .findElement(By
+                    .xpath("(//div[@class='location-address']//strong[contains(text(), '" + text + "')])[1]")));
     }
 
     @Then("I verify {string} address, {string} appointment hours, {string} photo hours")
     public void iVerifyAddressAppointmentHoursPhotoHours(String address, String appointmentHours, String photoHours) {
         WebElement resultColumn = getDriver()
-            .findElement(By.xpath("(//div[@id='po-location-detail'])[1]"));
+            .findElement(By
+                .xpath("(//div[@id='po-location-detail'])[1]"));
         assertThat(resultColumn.isDisplayed())
             .isTrue();
+        WebDriverWait wait1 = new WebDriverWait(getDriver(), 5);
+        wait1.until(ExpectedConditions
+            .visibilityOfElementLocated(By
+                .xpath("(//div[@id='resultBox'])[1]")));
         String results1 = getDriver()
-            .findElement(By.xpath("(//div[@id='resultBox'])[1]")).getText();
+            .findElement(By.xpath("(//div[@id='resultBox'])[1]"))
+            .getText();
         assertThat(results1)
             .contains(address);
+        WebDriverWait wait2 = new WebDriverWait(getDriver(), 5);
+        wait2.until(ExpectedConditions
+            .visibilityOfElementLocated(By
+                .xpath("(//div[@id='commonServices'])[1]")));
         String results2 = getDriver()
-            .findElement(By.xpath("(//div[@id='commonServices'])[1]")).getText();
+            .findElement(By.xpath("(//div[@id='commonServices'])[1]"))
+            .getText();
         assertThat(results2)
             .contains(appointmentHours);
         assertThat(results2)
