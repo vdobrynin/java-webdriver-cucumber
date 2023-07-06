@@ -168,7 +168,7 @@ public class UspsStepDefs {
     @When("I unselect Stamps checkbox")
     public void iUnselectStampsCheckbox() {
         getDriver()
-            .findElement(By.xpath("//label[@for='checkbox-type-Category-Stamps'][contains(text(),'Stamps (92)')]"))
+            .findElement(By.xpath("//label[@for='checkbox-type-Category-Stamps'][contains(text(),'Stamps (91)')]"))
             .click();
     }
 
@@ -176,7 +176,7 @@ public class UspsStepDefs {
     public void selectSize(String arg0) {
         getExecutor()
             .executeScript("arguments[0].click();", getDriver()
-                .findElement(By.xpath("//label[normalize-space()='Large (19)']")));
+                .findElement(By.xpath("//label[normalize-space()='Large (18)']")));
     }
 
     @And("I click {string} color")
