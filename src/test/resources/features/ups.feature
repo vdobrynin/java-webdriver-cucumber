@@ -27,27 +27,14 @@ Feature: UPS scenarios
         And I submit the shipment form
         Then I verify total charges appear
         And I select cheapest delivery option
-        And I submit the shipment form
 
         And I set Saturday Delivery type
-        Then I verify total charges changed
+        And I submit the shipment form
 
-##    Then I go back
-#        When I submit the shipment form continue
-#        Then I verify total charges appear
-##    And I submit the shipment form
-##    And I set packaging type 2nd time
-##    Then I verify total charges changed
-##    When I submit the shipment form
-#        And I select cheapest delivery option
-##    And I submit the shipment form
-##    And I set Saturday Delivery type
-##    Then I verify total charges changed
-#        When I submit the shipment form continue
-#        And I check a few more details
-#        When I submit the shipment form continue
-#        And I select Paypal payment type
-#        And I submit the shipment form
-#        Then I review all recorded details on the review page
-#        And I cancel the shipment form
-#        Then I verify shipment form is reset
+        And I check a few more details
+        When I submit the shipment form
+        And I select Paypal payment type
+        And I submit the shipment form
+        Then I review all recorded details on the review page
+        And I cancel the shipment form
+        Then I verify shipment form is reset
