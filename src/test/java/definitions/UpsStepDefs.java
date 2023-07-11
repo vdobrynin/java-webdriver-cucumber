@@ -30,20 +30,31 @@ public class UpsStepDefs {
 
     @And("I go to Create a Shipment")
     public void iGoToCreateAShipment() {
-        getDriver().findElement(By.xpath("//a[normalize-space()='Create a Shipment']")).isDisplayed();
-        getExecutor().executeScript("arguments[0].click();", getDriver().findElement(By
+        getDriver().findElement(By.xpath("//a[normalize-space()='Create a Shipment']"))
+            .isDisplayed();
+        getExecutor()
+            .executeScript("arguments[0].click();", getDriver().findElement(By
             .xpath("//a[contains(text(),'Create a Shipment')]")));
     }
 
     @When("I fill out origin shipment fields")
     public void iFillOutOriginShipmentFields() throws InterruptedException, FileNotFoundException {
         Map<String, String> sender = getData("sender");                     // to get data from file .yml lecture #10
-        getDriver().findElement(By.xpath("//select[@id='origin-cac_country']//option[@value='252']")).isDisplayed();
-        getDriver().findElement(By.xpath("//button[@id='origin-singleLineAddressEditButton']")).click();
-        getDriver().findElement(By.xpath("//input[@id='origin-cac_companyOrName']")).sendKeys(sender.get("full name"));                  // changes in the  lecture #10
-        getDriver().findElement(By.xpath("//body/div[@class='iw_viewport-wrapper']/main[@id='ups-main']//input[@id='origin-cac_addressLine1']"))
+        getDriver()
+            .findElement(By.xpath("//select[@id='origin-cac_country']//option[@value='252']"))
+            .isDisplayed();
+        getDriver()
+            .findElement(By.xpath("//button[@id='origin-singleLineAddressEditButton']"))
+            .click();
+        getDriver()
+            .findElement(By.xpath("//input[@id='origin-cac_companyOrName']"))
+            .sendKeys(sender.get("full name"));                  // changes in the  lecture #10
+        getDriver()
+            .findElement(By.xpath("//body/div[@class='iw_viewport-wrapper']/main[@id='ups-main']//input[@id='origin-cac_addressLine1']"))
             .sendKeys(sender.get("address Line 1"));
-        getDriver().findElement(By.xpath("//input[@id='origin-cac_postalCode']")).sendKeys(sender.get("zip"));
+        getDriver()
+            .findElement(By.xpath("//input[@id='origin-cac_postalCode']"))
+            .sendKeys(sender.get("zip"));
 
         WebDriverWait wait = new WebDriverWait(getDriver(), 5);
         wait.until(ExpectedConditions
@@ -66,11 +77,15 @@ public class UpsStepDefs {
     @And("I submit the shipment form")
     public void iSubmitTheShipmentForm() throws InterruptedException {
 //        String oldUrl = getDriver().getCurrentUrl();
-        if (getDriver().getCurrentUrl().contains("payment")) {
-            getExecutor().executeScript("arguments[0].click();", getDriver()
+        if (getDriver()
+            .getCurrentUrl()
+            .contains("payment")) {
+            getExecutor()
+                .executeScript("arguments[0].click();", getDriver()
                 .findElement(By.xpath("//button[@id='nbsBackForwardNavigationReviewPrimaryButton']")));
         } else {
-            getExecutor().executeScript("arguments[0].click();", getDriver()
+            getExecutor()
+                .executeScript("arguments[0].click();", getDriver()
                 .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
         }
 //    WebDriverWait wait = new WebDriverWait(getDriver(), 10); //button[@id='nbsAddressClassificationContinue']
@@ -105,22 +120,33 @@ public class UpsStepDefs {
         boolean shipmentIsDisplayed = getDriver()
             .findElement(By.xpath("//div[@class='ups-wrap']//div[@class='ups-wrap_inner']"))
             .isDisplayed();
-        assertThat(shipmentIsDisplayed).isTrue();
+        assertThat(shipmentIsDisplayed)
+            .isTrue();
 
         Map<String, String> sender = getData("sender");
-        String origin = getDriver().findElement(By.xpath("//ship-app-agent-summary[@class='ng-star-inserted']")).getText();
-        assertThat(origin).containsIgnoringCase(sender.get("full name"));
-        assertThat(origin).containsIgnoringCase(sender.get("address Line 1"));
-        assertThat(origin).containsIgnoringCase(sender.get("zip"));
-        assertThat(origin).containsIgnoringCase(sender.get("city"));     //.toUpperCase()); ?
-        assertThat(origin).containsIgnoringCase(sender.get("state"));
-        assertThat(origin).containsIgnoringCase(sender.get("email"));
-        assertThat(origin).containsIgnoringCase(sender.get("phone"));
+        String origin = getDriver()
+            .findElement(By.xpath("//ship-app-agent-summary[@class='ng-star-inserted']"))
+            .getText();
+        assertThat(origin)
+            .containsIgnoringCase(sender.get("full name"));
+        assertThat(origin)
+            .containsIgnoringCase(sender.get("address Line 1"));
+        assertThat(origin)
+            .containsIgnoringCase(sender.get("zip"));
+        assertThat(origin)
+            .containsIgnoringCase(sender.get("city"));     //.toUpperCase()); ?
+        assertThat(origin)
+            .containsIgnoringCase(sender.get("state"));
+        assertThat(origin)
+            .containsIgnoringCase(sender.get("email"));
+        assertThat(origin)
+            .containsIgnoringCase(sender.get("phone"));
     }
 
     @And("I cancel the shipment form")
     public void iCancelTheShipmentForm() {
-        getExecutor().executeScript("arguments[0].click();", getDriver()
+        getExecutor()
+            .executeScript("arguments[0].click();", getDriver()
             .findElement(By.xpath("//button[@id='nbsBackForwardNavigationCancelShipmentButton']")));
         getDriver()
             .findElement(By.xpath("//button[@id='nbsCancelShipmentWarningYes']"))
