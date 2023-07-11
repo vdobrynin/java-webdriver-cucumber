@@ -22,7 +22,7 @@ Feature: UPS scenarios
         Then I verify origin shipment fields submitted
 
         When I fill out destination shipment fields
-        When I submit the shipment form continue
+        When I submit the shipment form
         And I set packaging type
         And I submit the shipment form
         Then I verify total charges appear
