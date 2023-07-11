@@ -122,14 +122,18 @@ public class UpsStepDefs {
     public void iCancelTheShipmentForm() {
         getExecutor().executeScript("arguments[0].click();", getDriver()
             .findElement(By.xpath("//button[@id='nbsBackForwardNavigationCancelShipmentButton']")));
-        getDriver().findElement(By.xpath("//button[@id='nbsCancelShipmentWarningYes']")).click();
+        getDriver()
+            .findElement(By.xpath("//button[@id='nbsCancelShipmentWarningYes']"))
+            .click();
     }
 
     @When("I verify shipment form is reset")
     public void iVerifyShipmentFormIsReset() {
-        String name = getDriver().findElement(By.xpath("//input[@id='origin-cac_companyOrName']"))
+        String name = getDriver()
+            .findElement(By.xpath("//input[@id='origin-cac_companyOrName']"))
             .getAttribute("value");
-        assertThat(name).isEmpty();
+        assertThat(name)
+            .isEmpty();
     }
 
     @When("I fill out destination shipment fields")

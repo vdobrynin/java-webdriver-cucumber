@@ -241,7 +241,7 @@ public class UspsStepDefs {
     public void iSelectZipCodeWithinAndSearch(String zip, String miles) {
         getDriver()
             .findElement(By.xpath("//input[@id='city-state-input']"))
-            .sendKeys(zip);             // input zip
+            .sendKeys(zip);                                                                     // input zip
         getDriver()
             .findElement(By.xpath("//div[@class='dropdown-selection']//button[@id='within-select']"))
             .click();
