@@ -214,7 +214,7 @@ public class UpsStepDefs {
         new WebDriverWait(getDriver(), 10)
             .until(ExpectedConditions.textToBePresentInElement(element, oldText));
 
-        assertThat(oldText).containsIgnoringCase("$65.24");
+        assertThat(oldText).containsIgnoringCase("$71.69");
         System.out.println("\n" + element.getText());
     }
 
