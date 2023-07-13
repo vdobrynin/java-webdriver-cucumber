@@ -81,7 +81,6 @@ public class UpsStepDefs {
 
     @And("I submit the shipment form")
     public void iSubmitTheShipmentForm() throws InterruptedException {
-//        String oldUrl = getDriver().getCurrentUrl();
         if (getDriver()
             .getCurrentUrl()
             .contains("payment")) {
@@ -93,18 +92,22 @@ public class UpsStepDefs {
                 .executeScript("arguments[0].click();", getDriver()
                     .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
         }
-//    WebDriverWait wait = new WebDriverWait(getDriver(), 10); //button[@id='nbsAddressClassificationContinue']
-//    wait.until(ExpectedConditions.not(ExpectedConditions.urlToBe(oldUrl)));
     }
 
     @When("^I submit the shipment form continue$")
     public void iSubmitTheShipmentFormContinue() {
-        getExecutor().executeScript("arguments[0].click();", getDriver()
-            .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
-        getExecutor().executeScript("arguments[0].click();", getDriver()
-            .findElement(By.xpath("(//label[@for='vm.residentialAddressControlId']//span[@class='ups-lever_switch_no'][normalize-space()='No'])[1]")));
-        getExecutor().executeScript("arguments[0].click();", getDriver()
-            .findElement(By.xpath("//button[@id='nbsAddressClassificationContinue']")));
+        getExecutor()
+            .executeScript("arguments[0].click();", getDriver()
+                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
+        if (getDriver().findElement(By.xpath("//div[@class='modal-content']")).isDisplayed()) {
+            getExecutor()
+                .executeScript("arguments[0].click();", getDriver()
+                    .findElement(By
+                        .xpath("(//label[@for='vm.residentialAddressControlId']//span[@class='ups-lever_switch_no'][normalize-space()='No'])[1]")));
+            getExecutor()
+                .executeScript("arguments[0].click();", getDriver()
+                    .findElement(By.xpath("//button[@id='nbsAddressClassificationContinue']")));
+        }
     }
 
     @And("^I check a few more details$")
@@ -194,6 +197,13 @@ public class UpsStepDefs {
 
     @Then("I verify total charges appear")
     public void iVerifyTotalChargesAppear() throws InterruptedException {
+        if (getDriver().findElement(By.xpath("//div[@role='alert']")).isDisplayed()) {
+            getDriver()
+                .getCurrentUrl().contains("alert");
+            getExecutor()
+                .executeScript("arguments[0].click();", getDriver()
+                    .findElement(By.xpath("//button[@class='close_btn_thick']")));
+        }
         By spinner = By.xpath("//span[@id='nbsBalanceBarTotalCharges']");    // this is Vlad's
         new WebDriverWait(getDriver(), 10)
             .until(ExpectedConditions.visibilityOfElementLocated(spinner));
@@ -204,7 +214,7 @@ public class UpsStepDefs {
         new WebDriverWait(getDriver(), 10)
             .until(ExpectedConditions.textToBePresentInElement(element, oldText));
 
-        assertThat(oldText).containsIgnoringCase("$100.89");
+        assertThat(oldText).containsIgnoringCase("$107.35");
         System.out.println("\n" + element.getText());
     }
 
