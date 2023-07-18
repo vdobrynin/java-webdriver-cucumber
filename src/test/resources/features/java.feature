@@ -39,6 +39,7 @@ Feature: Java feature
     @java9
     Scenario: Java arrays
         Given I print arrays
+        And I swap swaps two array elements 3rd and 5th
 
     @java10
     Scenario: Map example
@@ -46,8 +47,8 @@ Feature: Java feature
 
     @java11
     Scenario: Coding challenge 2
-        Given I want exchange first and last numbers in an array
-        And I write loop even numbers from 1st to 10th
+#        Given I want exchange first and last numbers in an array
+#        And I write loop even numbers from 1st to 10th
         And I print characters from 3rd position to 8th in a string
 
     @java12
@@ -64,4 +65,6 @@ Feature: Java feature
 
     @java15
     Scenario: Challenges II
-        Given I solve coding challenge
+#        Given I solve coding challenge
+#        And I accepts integer number and returns divisible by 3 and 4
+        And I accepts integer number and prints divisible by 2 by 5 by 10
