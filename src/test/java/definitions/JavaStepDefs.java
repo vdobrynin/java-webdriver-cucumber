@@ -436,13 +436,9 @@ public class JavaStepDefs {
 
         int largest = Integer.MIN_VALUE;
         for (int i = 0; i < arr1.length; i++) {
-
-            if (largest < i) {
-
-                largest = i;
-                //System.out.println("Largest: " + largest);
+            if (largest < arr1[i]) {
+                largest = arr1[i];
             }
-            //System.out.println("Largest: " + largest);
         }
         System.out.println("Largest: " + largest);
 //    5. Reverse a string
