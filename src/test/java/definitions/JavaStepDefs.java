@@ -432,10 +432,11 @@ public class JavaStepDefs {
         }
         // 4. Write a function that finds the largest element of an array and test it
 
-        int arr1[] = {3, 7, 11, 33, 21, 5};
+        int arr1[] = {3, 7, 11, 33, 21, 39, 5};
 
-        int largest = Integer.MIN_VALUE;
-        for (int i = 0; i < arr1.length; i++) {
+        int largest = arr1[0];
+//        int largest = Integer.MIN_VALUE;
+        for (int i = 1; i < arr1.length; i++) {
             if (largest < arr1[i]) {
                 largest = arr1[i];
             }

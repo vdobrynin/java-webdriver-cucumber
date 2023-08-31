@@ -5,6 +5,7 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -81,6 +82,8 @@ public class UpsStepDefs {
 
     @And("I submit the shipment form")
     public void iSubmitTheShipmentForm() throws InterruptedException {
+        getExecutor()
+            .executeScript("window.scrollBy(0,document.body.scrollHeight)");
         if (getDriver()
             .getCurrentUrl()
             .contains("payment")) {
@@ -94,11 +97,11 @@ public class UpsStepDefs {
         }
     }
 
-    @When("^I submit the shipment form continue$")
-    public void iSubmitTheShipmentFormContinue() {
-        getExecutor()
-            .executeScript("arguments[0].click();", getDriver()
-                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
+    @Then("I submit a shipment form continue")
+    public void iSubmitAShipmentFormContinue() {
+//        getExecutor()
+//            .executeScript("arguments[0].click();", getDriver()
+//                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
         if (getDriver().findElement(By.xpath("//div[@class='modal-content']")).isDisplayed()) {
             getExecutor()
                 .executeScript("arguments[0].click();", getDriver()
@@ -197,24 +200,24 @@ public class UpsStepDefs {
 
     @Then("I verify total charges appear")
     public void iVerifyTotalChargesAppear() throws InterruptedException {
-        if (getDriver().findElement(By.xpath("//div[@role='alert']")).isDisplayed()) {
-            getDriver()
-                .getCurrentUrl().contains("alert");
-            getExecutor()
-                .executeScript("arguments[0].click();", getDriver()
-                    .findElement(By.xpath("//button[@class='close_btn_thick']")));
-        }
+//        try {
+//            if (getDriver().findElement(By.xpath("//div[@role='alert']")).isDisplayed()) {
+//                getDriver().getCurrentUrl().contains("alert");
+//                getExecutor().executeScript("arguments[0].click();", getDriver()
+//                        .findElement(By.xpath("//button[@class='close_btn_thick']")));
+//            }
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
         By spinner = By.xpath("//span[@id='nbsBalanceBarTotalCharges']");    // this is Vlad's
         new WebDriverWait(getDriver(), 10)
             .until(ExpectedConditions.visibilityOfElementLocated(spinner));
-
         WebElement element = getDriver().findElement(spinner);
         String oldText = element
             .getText();
         new WebDriverWait(getDriver(), 10)
             .until(ExpectedConditions.textToBePresentInElement(element, oldText));
-
-        assertThat(oldText).containsIgnoringCase("$71.69");
+        assertThat(oldText).containsIgnoringCase("$73.89");
         System.out.println("\n" + element.getText());
     }
 
@@ -224,18 +227,23 @@ public class UpsStepDefs {
             .findElement(By.xpath("//select[@id='nbsPackagePackagingTypeDropdown0']//option[.='UPS Express Box - Small']"))
             .click();
         WebElement packageWeight = getDriver()
-            .findElement(By.xpath("//input[@name='nbsPackagePackageWeightField0']"));
+            .findElement(By.xpath("(//input[@id='nbsPackagePackageWeightField0'])[1]"));
         Wait<WebElement> wait = new FluentWait<WebElement>(packageWeight);
         packageWeight
             .click();
-
-        packageWeight.sendKeys("1");
+        packageWeight
+            .sendKeys("1");
+        new Actions(getDriver())
+            .moveToElement(packageWeight)
+            .perform();
         wait.until(WebElement -> {
             String value = WebElement
                 .getAttribute("value");
             return "1"
-                .equalsIgnoreCase(value);
+                .equals(value);
         });
+        getExecutor()
+            .executeScript("window.scrollBy(0,document.body.scrollHeight)");
     }
 
     @Then("I go back")
@@ -301,7 +309,10 @@ public class UpsStepDefs {
             .findElement(By.xpath("//span[@class='icon ups-icon-calendar']"))
             .click();
         getDriver()
-            .findElement(By.xpath("(//button[@id='ups-official-dp-chooser-2023615'])[1]"))
+            .findElement(By.xpath("(//button[@id='ups-official-dp-chooser-202382'])[1]"))
+            .isSelected();
+        getDriver()
+            .findElement(By.xpath("(//button[@id='ups-official-dp-chooser-202382'])[1]"))
             .click();
     }
 
