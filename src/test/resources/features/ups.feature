@@ -24,9 +24,9 @@ Feature: UPS scenarios
 
         When I fill out destination shipment fields
         When I submit the shipment form
-        Then I submit a shipment form continue
+#        Then I submit the shipment form
         And I set packaging type
-        And I submit the shipment form
+        And I submit a shipment form continue
         Then I verify total charges appear
         And I select cheapest delivery option
 
