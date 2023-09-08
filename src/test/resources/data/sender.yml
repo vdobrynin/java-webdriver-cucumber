@@ -1,9 +1,7 @@
-full name: Admin
-#name: VD
-address Line 1: "4970 El Camino Real"
+name: Admin
+street: "4970 El Camino Real"
 zip: "94022"
 city: Los Altos
-#state: California
-state: CA
+state: California
 email: admin@example.com
 phone: "1234567890"

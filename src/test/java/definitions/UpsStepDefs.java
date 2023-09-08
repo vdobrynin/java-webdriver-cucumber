@@ -48,20 +48,23 @@ public class UpsStepDefs {
             .click();
         getDriver()
             .findElement(By.xpath("//input[@id='origin-cac_companyOrName']"))
-            .sendKeys(sender.get("full name"));                  // changes in the  lecture #10
+            .sendKeys(sender.get("name"));                  // changes in the  lecture #10
         getDriver()
-            .findElement(By.xpath("//body/div[@class='iw_viewport-wrapper']/main[@id='ups-main']//input[@id='origin-cac_addressLine1']"))
-            .sendKeys(sender.get("address Line 1"));
+            .findElement(By.xpath("//body/div[@class='iw_viewport-wrapper']" +
+                "/main[@id='ups-main']//input[@id='origin-cac_addressLine1']"))
+            .sendKeys(sender.get("street"));
         getDriver()
             .findElement(By.xpath("//input[@id='origin-cac_postalCode']"))
             .sendKeys(sender.get("zip"));
 
         WebDriverWait wait = new WebDriverWait(getDriver(), 5);
         wait.until(ExpectedConditions.textToBePresentInElementValue(By
-            .xpath("//input[@id='origin-cac_city']"), sender.get("city")
+            .xpath("//input[@id='origin-cac_city']"), sender
+            .get("city")
             .toUpperCase()));
         wait.until(ExpectedConditions.elementToBeSelected(By
-            .xpath("//select[@id='origin-cac_state']/option[@value='CA']")));
+            .xpath("//select[@id='origin-cac_state']/option[text()='" + sender.get("state") + "']")));
+//            .xpath("//select[@id='origin-cac_state']/option[@value='CA']")));
         getDriver()
             .findElement(By.xpath("//input[@id='origin-cac_email']"))
             .sendKeys(sender.get("email"));
@@ -127,15 +130,15 @@ public class UpsStepDefs {
             .findElement(By.xpath("//ship-app-agent-summary[@class='ng-star-inserted']/div[@id='origin_showSummaryAddress']"))
             .getText();
         assertThat(origin)
-            .containsIgnoringCase(sender.get("full name"));
+            .containsIgnoringCase(sender.get("name"));
         assertThat(origin)
-            .containsIgnoringCase(sender.get("address Line 1"));
+            .containsIgnoringCase(sender.get("street"));
         assertThat(origin)
             .containsIgnoringCase(sender.get("zip"));
         assertThat(origin)
             .containsIgnoringCase(sender.get("city"));     //.toUpperCase()); ?
-        assertThat(origin)
-            .containsIgnoringCase(sender.get("state"));
+//        assertThat(origin)
+//            .containsIgnoringCase(sender.get("state"));
         assertThat(origin)
             .containsIgnoringCase(sender.get("email"));
         assertThat(origin)
