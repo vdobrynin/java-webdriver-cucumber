@@ -29,7 +29,7 @@ Feature: Converter function
         Examples:
             | tab    | tab_content       |
             | About  | Our mission is to |
-            | Store  | Special Offers    |
+            | Store  | Popular on        |
             | Images | How Search works  |
 
 
