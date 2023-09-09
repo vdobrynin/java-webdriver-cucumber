@@ -74,7 +74,7 @@ public class MarketStepDefs {
             case "careers":
                 getDriver().get("https://workday.wd5.myworkdayjobs.com/Workday");
                 break;
-            case "converters":
+            case "converter":
                 getDriver().get("https://www.unitconverters.net/");
                 break;
             case "google":

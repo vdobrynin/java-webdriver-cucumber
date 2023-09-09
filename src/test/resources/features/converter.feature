@@ -1,16 +1,16 @@
 @converter
-Feature: Converter function
+Feature: Converter functions
 
     @converter1
     Scenario: Validate Fahrenheit to Celsius
-        Given I go to "converters" page
+        Given I go to "converter" page
         When I click on "Temperature"
         And I set "Fahrenheit" to "Celsius"
         Then I enter into From field "54" and verify "12.2" result
 
     @converter2
     Scenario Outline: Validate more
-        Given I go to "converters" page
+        Given I go to "converter" page
         When I click on "<tab>"
         And I set "<from>" to "<to>"
         Then I enter into From field "<fromValue>" and verify "<toValue>" result
