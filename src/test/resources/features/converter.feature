@@ -9,6 +9,20 @@ Feature: Converter functions
         Then I enter into From field "54" and verify "12.2" result
 
     @converter2
+    Scenario: Validate Pound to Kilogram
+        Given I go to "converter" page
+        When I click on "Weight"
+        And I set "Pound" to "Kilogram"
+        Then I enter into From field "170" and verify "77" result
+
+#    @converter3
+#    Scenario: Validate Volume
+#        Given I go to "converter" page
+#        When I click on "Volume"
+#        And I set "<from>" to "<to>"
+#        Then I enter into From field "<fromValue>" and verify "<toValue>" result
+
+    @converter4
     Scenario Outline: Validate more
         Given I go to "converter" page
         When I click on "<tab>"
@@ -20,7 +34,6 @@ Feature: Converter functions
             | Weight      | Pound      | Kilogram  | 170       | 77      |
             | Length      | Mile       | Kilometer | 50        | 80.4    |
 
-
     @google1
     Scenario Outline: Validate various
         Given I go to "google" page
@@ -31,7 +44,3 @@ Feature: Converter functions
             | About  | Our mission is to |
             | Store  | Popular on        |
             | Images | How Search works  |
-
-
-
-
