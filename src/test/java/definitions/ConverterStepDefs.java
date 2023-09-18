@@ -23,7 +23,7 @@ public class ConverterStepDefs {
     @Then("I enter into From field {string} and verify {string} result")
     public void iEnterIntoFromFieldAndVerifyResult(String fromValue, String toValue) {
         getDriver().findElement(By.xpath("//input[@name='fromVal']")).sendKeys(fromValue);
-        String result = getDriver().findElement(By.xpath("//input[@name='toVal']")).getAttribute("value");
+        String result = getDriver().findElement(By.xpath( "//input[@name='toVal']")).getAttribute("value");
         assertThat(result).contains(toValue);
         System.out.println(result);
     }

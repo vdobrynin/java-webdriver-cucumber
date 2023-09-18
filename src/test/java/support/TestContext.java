@@ -50,9 +50,7 @@ public class TestContext {
         return (JavascriptExecutor) driver;
     }
 
-    public static WebDriverWait getWait() {
-        return getWait(10);
-    }
+    public static WebDriverWait getWait() { return getWait(10); }
 
     public static WebDriverWait getWait(int timeout) {
         return new WebDriverWait(driver, timeout);

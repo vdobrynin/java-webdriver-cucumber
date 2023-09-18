@@ -38,7 +38,7 @@ public class UpsStepDefs {
     }
 
     @When("I fill out origin shipment fields")
-    public void iFillOutOriginShipmentFields() throws InterruptedException, FileNotFoundException {
+    public void iFillOutOriginShipmentFields() {
         Map<String, String> sender = getData("sender");                     // to get data from file .yml lecture #10
         getDriver()
             .findElement(By.xpath("//select[@id='origin-cac_country']//option[@value='252']"))
