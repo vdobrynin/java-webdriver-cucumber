@@ -29,10 +29,11 @@ Feature: Converter functions
         And I set "<from>" to "<to>"
         Then I enter into From field "<fromValue>" and verify "<toValue>" result
         Examples:
-            | tab         | from       | to        | fromValue | toValue |
-            | Temperature | Fahrenheit | Celsius   | 54        | 12.2    |
-            | Weight      | Pound      | Kilogram  | 170       | 77      |
-            | Length      | Mile       | Kilometer | 50        | 80.4    |
+            | tab         | from            | to          | fromValue | toValue   |
+            | Temperature | Fahrenheit      | Celsius     | 54        | 12.2      |
+            | Weight      | Pound           | Kilogram    | 170       | 77        |
+            | Length      | Mile            | Kilometer   | 50        | 80.4      |
+            | Volume      | Cubic Kilometer | Cubic Meter | 0.5       | 500000000 |
 
     @google1
     Scenario Outline: Validate various
@@ -42,5 +43,5 @@ Feature: Converter functions
         Examples:
             | tab    | tab_content       |
             | About  | Our mission is to |
-            | Store  | Popular on        |
+            | Store  | Shop popular      |
             | Images | How Search works  |

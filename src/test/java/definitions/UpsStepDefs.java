@@ -64,7 +64,6 @@ public class UpsStepDefs {
             .toUpperCase()));
         wait.until(ExpectedConditions.elementToBeSelected(By
             .xpath("//select[@id='origin-cac_state']/option[text()='" + sender.get("state") + "']")));
-//            .xpath("//select[@id='origin-cac_state']/option[@value='CA']")));
         getDriver()
             .findElement(By.xpath("//input[@id='origin-cac_email']"))
             .sendKeys(sender.get("email"));
