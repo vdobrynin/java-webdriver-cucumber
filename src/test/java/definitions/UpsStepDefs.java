@@ -85,7 +85,8 @@ public class UpsStepDefs {
         if (getDriver()
             .getCurrentUrl()
             .contains("payment")) {
-            getExecutor().executeScript("arguments[0].click();", getDriver()
+            getExecutor()
+                .executeScript("arguments[0].click();", getDriver()
                 .findElement(By.xpath("//button[@id='nbsBackForwardNavigationReviewPrimaryButton']")));
         } else {
             getExecutor().executeScript("arguments[0].click();", getDriver()
@@ -99,7 +100,8 @@ public class UpsStepDefs {
 //            .executeScript("arguments[0].click();", getDriver()
 //                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
         if (getDriver().findElement(By.xpath("//div[@class='modal-content']")).isDisplayed()) {
-            getExecutor().executeScript("arguments[0].click();", getDriver().findElement(By
+            getExecutor()
+                .executeScript("arguments[0].click();", getDriver().findElement(By
                 .xpath("(//label[@for='vm.residentialAddressControlId']//span[@class='ups-lever_switch_no'][normalize-space()='No'])[1]")));
             getExecutor().executeScript("arguments[0].click();", getDriver()
                 .findElement(By.xpath("//button[@id='nbsAddressClassificationContinue']")));
