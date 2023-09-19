@@ -15,12 +15,12 @@ Feature: Converter functions
         And I set "Pound" to "Kilogram"
         Then I enter into From field "170" and verify "77" result
 
-#    @converter3
-#    Scenario: Validate Volume
-#        Given I go to "converter" page
-#        When I click on "Volume"
-#        And I set "<from>" to "<to>"
-#        Then I enter into From field "<fromValue>" and verify "<toValue>" result
+    @converter3
+    Scenario: Validate Volume
+        Given I go to "converter" page
+        When I click on "Volume"
+        And I set "Cubic Kilometer" to "Cubic Meter"
+        Then I enter into From field "0.5" and verify "500000000" result
 
     @converter4
     Scenario Outline: Validate more

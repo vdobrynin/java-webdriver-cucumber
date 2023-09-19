@@ -41,7 +41,7 @@ public class TestContext {
         try {
             stream = new FileInputStream(file);
         } catch (FileNotFoundException exception) {
-            System.err.println(exception.getMessage());
+            System.err.println(exception.getMessage());     // shows in red
         }
         return new Yaml().load(stream);
     }
