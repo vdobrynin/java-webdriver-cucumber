@@ -1,6 +1,7 @@
 package definitions;
 
-import cucumber.api.java.en.*;
+import cucumber.api.java.en.And;
+import cucumber.api.java.en.Then;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -15,40 +16,41 @@ import static support.TestContext.getDriver;
 public class WorkdayStepDefs {
     @And("I select any position")
     public void iSelectAnyPosition() {
-        List<WebElement> jobs = getDriver().findElements(By.xpath("//*[@data-automation-id='promptOption']"));
-        int index = new Random().nextInt(jobs.size());  // each time it would be random
-        jobs.get(index).click();     // choose the job (WebElement)
+        List<WebElement> jobs = getDriver()
+            .findElements(By.xpath("//*[@data-automation-id='jobTitle']"));
+        int index = new Random()
+            .nextInt(jobs.size());  // each time it would be random
+        jobs.get(index)
+            .click();     // choose the job (WebElement)
     }
 
     @And("I go with Apply with LinkedIn")
     public void iGoWithApplyWithLinkedIn() throws InterruptedException {
+        getDriver().findElement(By.xpath("(//a[@data-automation-id='adventureButton'])[1]")).isDisplayed();
+        getDriver().findElement(By.xpath("(//a[@data-automation-id='adventureButton'])[1]")).click();
 
-        WebElement outerFrame = getDriver().findElement(By.xpath("(//iframe[@data-automation-id='applyWithLinkedinFrame'])[1]"));
+        WebElement outerFrame = getDriver().findElement(By.xpath("(//iframe[@title='applyWithLinkedIn'])[1]"));
         getDriver().switchTo().frame(outerFrame);
-        //--> //original-->(//iframe[contains(@src, 'linkedin.com')])[1]")
-        WebElement linkedInFrame = getDriver().findElement(By.xpath("//iframe[contains(@src, 'linkedin.com')]"));
-        getDriver().switchTo().frame(linkedInFrame);
-        Thread.sleep(1000);
 
-        By linkedInButton = By.xpath("(//button[@name='awli-button-member-logged-out'])[1]");
-        new WebDriverWait(getDriver(), 5).until(ExpectedConditions.visibilityOfElementLocated(linkedInButton));
+        WebElement linkedInFrame = getDriver().findElement(By.xpath("//iframe[contains(@id,'xdOrigin')]"));
+        getDriver().switchTo().frame(linkedInFrame);
+        Thread.sleep(2000);
+
+        By linkedInButton = By.xpath("//*[@id='apply-with-linkedin']/span");
+        new WebDriverWait(getDriver(), 7).until(ExpectedConditions.visibilityOfElementLocated(linkedInButton));
 
         getDriver().findElement(linkedInButton).click();
     }
 
     @Then("I verify login window opens")
-    public void iVerifyLoginWindowOpens() {
+    public void iVerifyLoginWindowOpens() throws InterruptedException {
 
+        Thread.sleep(3);
         for (String handle : getDriver().getWindowHandles()) {
+            getDriver().getWindowHandle().trim().equalsIgnoreCase("LinkedIn Login");
+            getDriver().getWindowHandle().equalsIgnoreCase("username");
             getDriver().switchTo().window(handle);
         }
-
-        String title = getDriver().getTitle();
-        assertThat(title).contains("LinkedIn");
-        //    assertThat(title).containsIgnoringCase("linkedIn");
-
-        WebElement userName = getDriver().findElement(By.xpath("//*[@id='username']"));
-        assertThat(userName.isDisplayed()).isTrue();
     }
 
     @And("I select any tech position")

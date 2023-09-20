@@ -2,7 +2,7 @@
 Feature: Applying to position
 
     @workday1
-    Scenario: Validate OAuth
+    Scenario: Validate LinkedIn OAuth
         Given I go to "careers" page
         And I select any position
         And I go with Apply with LinkedIn
