@@ -12,8 +12,10 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.getDriver;
+import static support.TestContext.getWait;
 
 public class WorkdayStepDefs {
+
     @And("I select any position")
     public void iSelectAnyPosition() {
         List<WebElement> jobs = getDriver()
@@ -78,23 +80,24 @@ public class WorkdayStepDefs {
     public void iSelectAnyTechPosition() {
 
         List<WebElement> jobs = getDriver()
-            .findElements(By.xpath("//a[@class='dice-btn-link loggedInVisited easy-apply']"));
+            .findElements(By.xpath("//div[@class='d-flex justify-content-between title-container']"));
         int index = new Random()
             .nextInt(jobs.size());
-//        getWait().until(ExpectedConditions
-//            .visibilityOfElementLocated(By
-//                .xpath("//a[@class='dice-btn-link loggedInVisited easy-apply']"), getDriver().findElement(By.id(jobs.get(index).click()))));
-        jobs.get(index).click();
-
+        getWait().until(ExpectedConditions
+            .visibilityOfAllElements(By
+                .xpath("//div[@class='d-flex justify-content-between title-container']", index)));
+//        jobs.get(index).click();
     }
 
     @And("I go with Apply")
     public void iGoWithApply() {
+
         getDriver().findElement(By.xpath("//div[@class='pull-right hidden-xs']//button[@id='applybtn-2']")).click();
     }
 
     @Then("I verify opens login window")
     public void iVerifyOpensLoginWindow() {
+
         String register = getDriver().findElement(By.xpath("//body[@class='modal-open']//div[@class='modal-dialog login-reg-modal-dailog']" +
             "//div[@class='modal-content']//li[@class=\"col-lg-6 col-md-6 col-sm-6 col-xs-6 ''\"]//a[contains(text(),'Register')]")).getText();
         assertThat(register).containsIgnoringCase("Register");
