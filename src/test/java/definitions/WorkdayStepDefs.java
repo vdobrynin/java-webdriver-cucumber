@@ -4,15 +4,15 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
 import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 import static support.TestContext.getDriver;
-import static support.TestContext.getWait;
+import static support.TestContext.getExecutor;
 
 public class WorkdayStepDefs {
 
@@ -52,7 +52,7 @@ public class WorkdayStepDefs {
         By linkedInButton = By
             .xpath("//*[@id='apply-with-linkedin']/span");
         new WebDriverWait(getDriver(), 7)
-            .until(ExpectedConditions.visibilityOfElementLocated(linkedInButton));
+            .until(visibilityOfElementLocated(linkedInButton));
         getDriver()
             .findElement(linkedInButton)
             .click();
@@ -80,19 +80,18 @@ public class WorkdayStepDefs {
     public void iSelectAnyTechPosition() {
 
         List<WebElement> jobs = getDriver()
-            .findElements(By.xpath("//div[@class='d-flex justify-content-between title-container']"));
+            .findElements(By.xpath("//*[@data-cy='card-title-link']"));
         int index = new Random()
             .nextInt(jobs.size());
-        getWait().until(ExpectedConditions
-            .visibilityOfAllElements(By
-                .xpath("//div[@class='d-flex justify-content-between title-container']", index)));
-//        jobs.get(index).click();
+        getExecutor().executeScript("arguments[0].click();", jobs.get(index));
     }
 
     @And("I go with Apply")
     public void iGoWithApply() {
 
-        getDriver().findElement(By.xpath("//div[@class='pull-right hidden-xs']//button[@id='applybtn-2']")).click();
+        getDriver()
+            .findElement(By.cssSelector(".btn.btn-primary"))
+            .click();
     }
 
     @Then("I verify opens login window")
