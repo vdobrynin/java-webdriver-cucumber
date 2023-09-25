@@ -96,7 +96,7 @@ public class TestContext {
                     .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 4.7.3.0.crx"));
                 if (isHeadless) {   // <-- headed // --> (!isHeadless)
                     chromeOptions.setHeadless(true);
-                    chromeOptions.addArguments("--window-size=2560,1440");
+//                    chromeOptions.addArguments("--window-size=2560,1440");
                     chromeOptions.addArguments("--window-size=1920,1080");
                     chromeOptions.addArguments("--disable-gpu");
                 }

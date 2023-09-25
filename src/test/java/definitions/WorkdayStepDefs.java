@@ -26,20 +26,34 @@ public class WorkdayStepDefs {
 
     @And("I go with Apply with LinkedIn")
     public void iGoWithApplyWithLinkedIn() throws InterruptedException {
-        getDriver().findElement(By.xpath("(//a[@data-automation-id='adventureButton'])[1]")).isDisplayed();
-        getDriver().findElement(By.xpath("(//a[@data-automation-id='adventureButton'])[1]")).click();
 
-        WebElement outerFrame = getDriver().findElement(By.xpath("(//iframe[@title='applyWithLinkedIn'])[1]"));
-        getDriver().switchTo().frame(outerFrame);
+        getDriver()
+            .findElement(By.xpath("(//a[@data-automation-id='adventureButton'])[1]"))
+            .isDisplayed();
+        getDriver()
+            .findElement(By.xpath("(//a[@data-automation-id='adventureButton'])[1]"))
+            .click();
 
-        WebElement linkedInFrame = getDriver().findElement(By.xpath("//iframe[contains(@id,'xdOrigin')]"));
-        getDriver().switchTo().frame(linkedInFrame);
+        WebElement outerFrame = getDriver()
+            .findElement(By.xpath("(//iframe[@title='applyWithLinkedIn'])[1]"));
+        getDriver()
+            .switchTo()
+            .frame(outerFrame);
+
+        WebElement linkedInFrame = getDriver()
+            .findElement(By.xpath("//iframe[contains(@id,'xdOrigin')]"));
+        getDriver()
+            .switchTo()
+            .frame(linkedInFrame);
         Thread.sleep(2000);
 
-        By linkedInButton = By.xpath("//*[@id='apply-with-linkedin']/span");
-        new WebDriverWait(getDriver(), 7).until(ExpectedConditions.visibilityOfElementLocated(linkedInButton));
-
-        getDriver().findElement(linkedInButton).click();
+        By linkedInButton = By
+            .xpath("//*[@id='apply-with-linkedin']/span");
+        new WebDriverWait(getDriver(), 7)
+            .until(ExpectedConditions.visibilityOfElementLocated(linkedInButton));
+        getDriver()
+            .findElement(linkedInButton)
+            .click();
     }
 
     @Then("I verify login window opens")
@@ -47,18 +61,31 @@ public class WorkdayStepDefs {
 
         Thread.sleep(3);
         for (String handle : getDriver().getWindowHandles()) {
-            getDriver().getWindowHandle().trim().equalsIgnoreCase("LinkedIn Login");
-            getDriver().getWindowHandle().equalsIgnoreCase("username");
-            getDriver().switchTo().window(handle);
+            getDriver()
+                .getWindowHandle()
+                .trim()
+                .equalsIgnoreCase("LinkedIn Login");
+            getDriver()
+                .getWindowHandle()
+                .equalsIgnoreCase("username");
+            getDriver()
+                .switchTo()
+                .window(handle);
         }
     }
 
     @And("I select any tech position")
     public void iSelectAnyTechPosition() {
 
-        List<WebElement> jobs = getDriver().findElements(By.xpath("//a[@class='dice-btn-link loggedInVisited easy-apply']"));
-        int index = new Random().nextInt(jobs.size());
+        List<WebElement> jobs = getDriver()
+            .findElements(By.xpath("//a[@class='dice-btn-link loggedInVisited easy-apply']"));
+        int index = new Random()
+            .nextInt(jobs.size());
+//        getWait().until(ExpectedConditions
+//            .visibilityOfElementLocated(By
+//                .xpath("//a[@class='dice-btn-link loggedInVisited easy-apply']"), getDriver().findElement(By.id(jobs.get(index).click()))));
         jobs.get(index).click();
+
     }
 
     @And("I go with Apply")

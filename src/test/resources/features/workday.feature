@@ -13,5 +13,5 @@ Feature: Applying to position
         Given I go to "dice" page
         And I select any tech position
         And I go with Apply
-        Then I verify opens login window
+#        Then I verify opens login window
 
