@@ -4,6 +4,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.List;
@@ -89,8 +90,10 @@ public class WorkdayStepDefs {
     @And("I go with Apply")
     public void iGoWithApply() {
 
-        getDriver()
-            .findElement(By.cssSelector(".btn.btn-primary"))
+        new WebDriverWait(getDriver(),
+            20)
+            .until(ExpectedConditions.visibilityOfElementLocated(By
+                .xpath("(//apply-button-wc[@class='ml-4 flex-auto md:flex-initial hydrated'])[1]")))
             .click();
     }
 
