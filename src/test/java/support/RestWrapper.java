@@ -5,10 +5,8 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -216,10 +214,12 @@ public class RestWrapper {
 
     public Map<String, Object> createCandidate(Map<String, String> candidate) {
 
-        String dateOpen = candidate.get("dateOpen");                           // convert date from US format to ISO format
-        //System.out.println(dateOpen);                                           // simple check what we have
-        String isoDateOpen = new SimpleDateFormat("yyyy-MM-dd").format(new Date(dateOpen));
-        candidate.put("dateOpen", isoDateOpen);                                              // convert date back
+        String dateOpen = candidate.get("dateOpen");
+        //System.out.println(dateOpen);                                             // simple check what we have
+        // Convert the date from US format to ISO format
+        LocalDate localDate = LocalDate.parse(dateOpen, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
+        String isoDateOpen = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        candidate.put("dateOpen", isoDateOpen);                                        // convert date back
 
         //prepare
         RequestSpecification request = RestAssured

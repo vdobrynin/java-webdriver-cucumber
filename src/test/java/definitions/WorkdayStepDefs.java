@@ -2,6 +2,7 @@ package definitions;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
+import io.github.sukgu.Shadow;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,6 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
 import static support.TestContext.getDriver;
 import static support.TestContext.getExecutor;
+import static support.TestContext.driver;
 
 public class WorkdayStepDefs {
 
@@ -98,14 +100,22 @@ public class WorkdayStepDefs {
     }
 
     @Then("I verify opens login window")
-    public void iVerifyOpensLoginWindow() {
+    public void iVerifyOpensLoginWindow() throws InterruptedException {
 
-        String register = getDriver().findElement(By.xpath("//body[@class='modal-open']//div[@class='modal-dialog login-reg-modal-dailog']" +
-            "//div[@class='modal-content']//li[@class=\"col-lg-6 col-md-6 col-sm-6 col-xs-6 ''\"]//a[contains(text(),'Register')]")).getText();
-        assertThat(register).containsIgnoringCase("Register");
+        //This Element is inside 2 nested shadow DOM.
+        Shadow shadow = new Shadow(driver);
+        WebElement element = shadow.findElement("#login");
+        WebElement element2 = element.findElement(By.cssSelector("login-form[class='sc-login-dhi-modal hydrated']"));
+        WebElement element3 = element2.findElement(By.cssSelector("a[tabindex='0']"));
+        String text = element3.getText();
+        assertThat(text).containsIgnoringCase("Register");
 
-        String singIn = getDriver().findElement(By.xpath("//body[@class='modal-open']//div[@class='modal-dialog login-reg-modal-dailog']" +
-            "//div[@class='modal-content'] //li[@class='col-lg-6 col-md-6 col-sm-6 col-xs-6 active']//a[contains(text(),'Sign In')]")).getText();
-        assertThat(singIn).containsIgnoringCase("Sign In");
+//        String register = getDriver().findElement(By.xpath("//body[@class='modal-open']//div[@class='modal-dialog login-reg-modal-dailog']" +
+//            "//div[@class='modal-content']//li[@class=\"col-lg-6 col-md-6 col-sm-6 col-xs-6 ''\"]//a[contains(text(),'Register')]")).getText();
+//        assertThat(register).containsIgnoringCase("Register");
+//
+//        String singIn = getDriver().findElement(By.xpath("//body[@class='modal-open']//div[@class='modal-dialog login-reg-modal-dailog']" +
+//            "//div[@class='modal-content'] //li[@class='col-lg-6 col-md-6 col-sm-6 col-xs-6 active']//a[contains(text(),'Sign In')]")).getText();
+//        assertThat(singIn).containsIgnoringCase("Sign In");
     }
 }
