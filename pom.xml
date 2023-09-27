@@ -10,8 +10,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <selenium-java-version>3.141.59</selenium-java-version>
-        <cucumber-java-version>4.4.0</cucumber-java-version>
+        <selenium-java-version>4.6.0</selenium-java-version>
+        <cucumber-java-version>7.8.1</cucumber-java-version>
         <maven-surefire-plugin-version>3.0.0</maven-surefire-plugin-version>
     </properties>
 
@@ -74,11 +74,11 @@
             <artifactId>selenium-java</artifactId>
             <version>${selenium-java-version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-server</artifactId>
-            <version>${selenium-java-version}</version>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.seleniumhq.selenium</groupId>-->
+<!--            <artifactId>selenium-server</artifactId>-->
+<!--            <version>${selenium-java-version}</version>-->
+<!--        </dependency>-->
         <dependency>
             <groupId>org.seleniumhq.selenium</groupId>
             <artifactId>selenium-remote-driver</artifactId>
