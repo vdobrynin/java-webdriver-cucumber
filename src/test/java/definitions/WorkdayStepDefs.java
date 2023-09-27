@@ -2,7 +2,7 @@ package definitions;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
-import io.github.sukgu.*;
+import io.github.sukgu.Shadow;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -98,27 +98,26 @@ public class WorkdayStepDefs {
     }
 
     @Then("I verify opens login window")
-    public void iVerifyOpensLoginWindow() throws InterruptedException {
+    public void iVerifyOpensLoginWindow() {
 
-//body//div[@id='__next']//main[@class='flex flex-col']//login-modal[@id='login']
-//#dhi-modal_b0lyPOn4fg
-//login-form[class='sc-login-dhi-modal hydrated']
-        //a[tabindex='0']
-
-        //This Element is inside 2 nested shadow DOM.
         Shadow shadow = new Shadow(driver);
-        WebElement element = shadow.findElement(String.valueOf(By.id("//body//div[@id='__next']//main[@class='flex flex-col']//login-modal[@id='login']")));
-        WebElement element2 = element.findElement(By.cssSelector("login-form[class='sc-login-dhi-modal hydrated']"));
-        WebElement element3 = element2.findElement(By.cssSelector("a[tabindex='0']"));
-        String text = element3.getText();
-        assertThat(text).containsIgnoringCase("Register");
+        WebElement element = shadow.findElement("a[tabindex='0']");
+        String text = element.getText();
+        assertThat(text).contains("Register");
+        System.out.println(text);
 
-//        String register = getDriver().findElement(By.xpath("//body[@class='modal-open']//div[@class='modal-dialog login-reg-modal-dailog']" +
-//            "//div[@class='modal-content']//li[@class=\"col-lg-6 col-md-6 col-sm-6 col-xs-6 ''\"]//a[contains(text(),'Register')]")).getText();
-//        assertThat(register).containsIgnoringCase("Register");
-//
-//        String singIn = getDriver().findElement(By.xpath("//body[@class='modal-open']//div[@class='modal-dialog login-reg-modal-dailog']" +
-//            "//div[@class='modal-content'] //li[@class='col-lg-6 col-md-6 col-sm-6 col-xs-6 active']//a[contains(text(),'Sign In')]")).getText();
-//        assertThat(singIn).containsIgnoringCase("Sign In");
+//        Shadow shadow2 = new Shadow(driver);
+
+//        WebElement element2 = shadow2.findElement(".neutral.sc-login-dhi-button");
+//        String text2 = element2.getText();
+//        assertThat(text2).contains("Cancel");
+//        System.out.println("-->" + text2 + "<--");
+//        System.out.println(text2);
+
+//        WebElement element2 = shadow2.findElement(String.valueOf(".accent.sc-login-dhi-button"));
+//        String text2 = element2.getText();
+//        assertThat(text2).contains("Log in");
+//        System.out.println("-->" + text2 + "<--");
+//        System.out.println(text2);
     }
 }
