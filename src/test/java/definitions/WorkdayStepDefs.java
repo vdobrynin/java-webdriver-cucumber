@@ -2,7 +2,7 @@ package definitions;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
-import io.github.sukgu.Shadow;
+import io.github.sukgu.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -13,9 +13,7 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-import static support.TestContext.getDriver;
-import static support.TestContext.getExecutor;
-import static support.TestContext.driver;
+import static support.TestContext.*;
 
 public class WorkdayStepDefs {
 
@@ -102,9 +100,14 @@ public class WorkdayStepDefs {
     @Then("I verify opens login window")
     public void iVerifyOpensLoginWindow() throws InterruptedException {
 
+//body//div[@id='__next']//main[@class='flex flex-col']//login-modal[@id='login']
+//#dhi-modal_b0lyPOn4fg
+//login-form[class='sc-login-dhi-modal hydrated']
+        //a[tabindex='0']
+
         //This Element is inside 2 nested shadow DOM.
         Shadow shadow = new Shadow(driver);
-        WebElement element = shadow.findElement("#login");
+        WebElement element = shadow.findElement(String.valueOf(By.id("//body//div[@id='__next']//main[@class='flex flex-col']//login-modal[@id='login']")));
         WebElement element2 = element.findElement(By.cssSelector("login-form[class='sc-login-dhi-modal hydrated']"));
         WebElement element3 = element2.findElement(By.cssSelector("a[tabindex='0']"));
         String text = element3.getText();
