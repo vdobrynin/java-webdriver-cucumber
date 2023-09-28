@@ -2,7 +2,6 @@ package definitions;
 
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Then;
-import io.github.sukgu.Shadow;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -14,7 +13,8 @@ import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-import static support.TestContext.*;
+import static support.TestContext.getDriver;
+import static support.TestContext.getExecutor;
 
 public class WorkdayStepDefs {
 
@@ -105,24 +105,24 @@ public class WorkdayStepDefs {
     @Then("I verify opens login window")
     public void iVerifyOpensLoginWindow() {
 
-        Shadow shadow = new Shadow(driver);
-        WebElement element = shadow.findElement("a[tabindex='0']");
+        new WebDriverWait(getDriver(), Duration.ofSeconds(7))
+            .until(visibilityOfElementLocated(By
+                .xpath("//slot-fb[@class='sc-login-form']//a[normalize-space()='Register']")));
+        WebElement element = getDriver()
+            .findElement(By
+                .xpath("//slot-fb[@class='sc-login-form']//a[normalize-space()='Register']"));
         String text = element.getText();
         assertThat(text).contains("Register");
         System.out.println(text);
 
-//        Shadow shadow2 = new Shadow(driver);
-
-//        WebElement element2 = shadow2.findElement(".neutral.sc-login-dhi-button");
-//        String text2 = element2.getText();
-//        assertThat(text2).contains("Cancel");
-//        System.out.println("-->" + text2 + "<--");
-//        System.out.println(text2);
-
-//        WebElement element2 = shadow2.findElement(String.valueOf(".accent.sc-login-dhi-button"));
-//        String text2 = element2.getText();
-//        assertThat(text2).contains("Log in");
-//        System.out.println("-->" + text2 + "<--");
-//        System.out.println(text2);
+        new WebDriverWait(getDriver(), Duration.ofSeconds(7)) //slot-fb[@class='sc-login-form']//a[normalize-space()='Register']
+            .until(visibilityOfElementLocated(By
+                .xpath("//div[@class='button-container sc-login-form']//login-dhi-button[@id='signin']//button[@type='button']")));
+        WebElement element1 = getDriver()
+            .findElement(By
+                .xpath("//div[@class='button-container sc-login-form']//login-dhi-button[@id='signin']//button[@type='button']"));
+        String text2 = element1.getText();
+        assertThat(text2).contains("Log in");
+        System.out.println(text2);
     }
 }

@@ -25,13 +25,18 @@ import static support.TestContext.*;
 public class UpsStepDefs {
     @And("I open Shipping menu")
     public void iOpenShippingMenu() {
-        getDriver()
-            .findElement(By.xpath("//nav[@aria-label='Mega Menu']//a[@id='mainNavDropdown1'][normalize-space()='Shipping']"))
-            .click();
+
+        getExecutor()
+            .executeScript("window.scrollBy(0,350)");
+        getExecutor()
+            .executeScript("arguments[0].click();", getDriver()
+            .findElement(By
+                .xpath("(//*[@class='navbar-nav']//*[@role='none']//*[@id='mainNavDropdown1'])[1]")));
     }
 
     @And("I go to Create a Shipment")
     public void iGoToCreateAShipment() {
+
         getDriver().findElement(By.xpath("//a[normalize-space()='Create a Shipment']"))
             .isDisplayed();
         getExecutor().executeScript("arguments[0].click();", getDriver()
@@ -40,6 +45,7 @@ public class UpsStepDefs {
 
     @When("I fill out origin shipment fields")
     public void iFillOutOriginShipmentFields() {
+
         Map<String, String> sender = getData("sender");                     // to get data from file .yml lecture #10
         getDriver()
             .findElement(By.xpath("//select[@id='origin-cac_country']//option[@value='252']"))
@@ -79,6 +85,7 @@ public class UpsStepDefs {
 
     @And("I submit the shipment form")
     public void iSubmitTheShipmentForm() throws InterruptedException {
+
         getExecutor()
             .executeScript("window.scrollBy(0,document.body.scrollHeight)");
         if (getDriver()
@@ -109,6 +116,7 @@ public class UpsStepDefs {
 
     @And("^I check a few more details$")
     public void iCheckAFewMoreDetails() {
+
         getDriver()
             .findElement(By.xpath("//input[@id='nbsShipmentDescription']"))
             .sendKeys("USB Cable");
@@ -120,6 +128,7 @@ public class UpsStepDefs {
 
     @When("I verify origin shipment fields submitted")
     public void iVerifyOriginShipmentFieldsSubmitted() throws InterruptedException, FileNotFoundException {
+
         boolean shipmentIsDisplayed = getDriver()
             .findElement(By.xpath("//ship-app-agent-summary[@class='ng-star-inserted']/div[@id='origin_showSummaryAddress']"))
             .isDisplayed();
@@ -148,6 +157,7 @@ public class UpsStepDefs {
 
     @And("I cancel the shipment form")
     public void iCancelTheShipmentForm() {
+
         getExecutor().executeScript("arguments[0].click();", getDriver()
             .findElement(By.xpath("//button[@id='nbsBackForwardNavigationCancelShipmentButton']")));
         getDriver()
@@ -157,6 +167,7 @@ public class UpsStepDefs {
 
     @When("I verify shipment form is reset")
     public void iVerifyShipmentFormIsReset() {
+
         String name = getDriver()
             .findElement(By.xpath("//input[@id='origin-cac_companyOrName']"))
             .getAttribute("value");
@@ -166,6 +177,7 @@ public class UpsStepDefs {
 
     @When("I fill out destination shipment fields")
     public void iFillOutDestinationShipmentFields() throws InterruptedException {
+
         getDriver()
             .findElement(By.xpath("//select[@id='destination-cac_country']//option[.='United States']"))
             .click();
@@ -214,6 +226,7 @@ public class UpsStepDefs {
 
     @And("I set packaging type")
     public void iSetPackagingType() throws InterruptedException {
+
         getDriver()
             .findElement(By.xpath("//select[@id='nbsPackagePackagingTypeDropdown0']//option[.='UPS Express Box - Small']"))
             .click();
@@ -239,12 +252,14 @@ public class UpsStepDefs {
 
     @Then("I go back")
     public void iGoBack() {
+
         getExecutor().executeScript("arguments[0].click();", getDriver()
             .findElement(By.xpath("//button[@id='nbsBackForwardNavigationBackButton']")));
     }
 
     @Then("I verify total charges changed")
     public void iVerifyTotalChargesChanged() {
+
         By spinner = By
             .xpath("//span[@id='total-charges-spinner']");       //--> this is Vlad's
         new WebDriverWait(getDriver(), Duration.ofSeconds(10))
@@ -257,6 +272,7 @@ public class UpsStepDefs {
 
     @And("I select cheapest delivery option")
     public void iSelectCheapestDeliveryOption() throws ParseException, InterruptedException {
+
         List<WebElement> prices = getDriver()
             .findElements(By.xpath("//p[contains(@id,'nbsServiceTileTotalCharge')]"));
         Locale locale = new Locale("en", "US");
@@ -280,6 +296,7 @@ public class UpsStepDefs {
 
     @And("I set packaging type {int}nd time")
     public void iSetPackagingTypeNdTime(int arg0) {
+
         getDriver()
             .findElement(By.xpath("//input[@id='nbsPackagePackageWeightField0']"))
             .clear();
@@ -296,6 +313,7 @@ public class UpsStepDefs {
 
     @And("I set Saturday Delivery type")
     public void iSetSaturdayDeliveryType() {
+
         getDriver()
             .findElement(By.xpath("//span[@class='icon ups-icon-calendar']"))
             .click();
@@ -309,6 +327,7 @@ public class UpsStepDefs {
 
     @And("I select Paypal payment type")
     public void iSelectPaypalPaymentType() {
+
         getDriver()
             .findElement(By.xpath("//label[@for='other-ways-to-pay-tile']"))
             .click();
@@ -319,6 +338,7 @@ public class UpsStepDefs {
 
     @Then("I review all recorded details on the review page")
     public void iReviewAllRecordedDetailsOnTheReviewPage() {
+
         new WebDriverWait(getDriver(), Duration.ofSeconds(5))
             .until(ExpectedConditions.visibilityOfElementLocated(By
                 .xpath("//ng-component[@class='ng-star-inserted']//div[@class='ups-wrap_inner']")));
