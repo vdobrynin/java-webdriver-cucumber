@@ -14,6 +14,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.io.FileNotFoundException;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.time.Duration;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -57,7 +58,7 @@ public class UpsStepDefs {
             .findElement(By.xpath("//input[@id='origin-cac_postalCode']"))
             .sendKeys(sender.get("zip"));
 
-        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.textToBePresentInElementValue(By
             .xpath("//input[@id='origin-cac_city']"), sender
             .get("city")
@@ -71,9 +72,9 @@ public class UpsStepDefs {
             .findElement(By.xpath("//input[@id='origin-cac_phone']"))
             .sendKeys(sender.get("phone"));
 
-        new WebDriverWait(getDriver(), 10).until(ExpectedConditions.textToBePresentInElementValue(By
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(ExpectedConditions.textToBePresentInElementValue(By
             .xpath("//input[@id='origin-cac_city']"), "LOS ALTOS"));
-        new WebDriverWait(getDriver(), 10).until(ExpectedConditions.elementToBeSelected(By
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(ExpectedConditions.elementToBeSelected(By
             .xpath("//select[@id='origin-cac_state']//option[@value='CA'][normalize-space()='California']")));
     }
 
@@ -182,7 +183,7 @@ public class UpsStepDefs {
             .findElement(By.xpath("//input[@id='destination-cac_postalCode']"))
             .sendKeys("10019");
 
-        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions
             .textToBePresentInElementValue(By.xpath("//input[@id='destination-cac_city']"), "NEW YORK"));
         wait.until(ExpectedConditions
@@ -201,12 +202,12 @@ public class UpsStepDefs {
 //            throw new RuntimeException(e);
 //        }
         By spinner = By.xpath("//span[@id='nbsBalanceBarTotalCharges']");    // this is Vlad's
-        new WebDriverWait(getDriver(), 10)
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
             .until(ExpectedConditions.visibilityOfElementLocated(spinner));
         WebElement element = getDriver().findElement(spinner);
         String oldText = element
             .getText();
-        new WebDriverWait(getDriver(), 10)
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
             .until(ExpectedConditions.textToBePresentInElement(element, oldText));
         assertThat(oldText).containsIgnoringCase("$73.89");
         System.out.println("\n" + element.getText());
@@ -247,7 +248,7 @@ public class UpsStepDefs {
     public void iVerifyTotalChargesChanged() {
         By spinner = By
             .xpath("//span[@id='total-charges-spinner']");       //--> this is Vlad's
-        new WebDriverWait(getDriver(), 10)
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
             .until(ExpectedConditions.visibilityOfElementLocated(spinner));
         WebElement element = getDriver()
             .findElement(spinner);
@@ -319,7 +320,7 @@ public class UpsStepDefs {
 
     @Then("I review all recorded details on the review page")
     public void iReviewAllRecordedDetailsOnTheReviewPage() {
-        new WebDriverWait(getDriver(), 5)
+        new WebDriverWait(getDriver(), Duration.ofSeconds(5))
             .until(ExpectedConditions.visibilityOfElementLocated(By
                 .xpath("//ng-component[@class='ng-star-inserted']//div[@class='ups-wrap_inner']")));
         String result1 = getDriver()

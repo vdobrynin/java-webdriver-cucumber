@@ -6,6 +6,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 import static support.TestContext.getDriver;
 
 public class UspsSignIn extends Page {
@@ -28,7 +30,8 @@ public class UspsSignIn extends Page {
         signInButton.click();
 
         try {
-            new WebDriverWait(getDriver(), 5).until(ExpectedConditions.visibilityOf(usernameError));
+            new WebDriverWait(getDriver(), Duration.ofSeconds(5))
+                .until(ExpectedConditions.visibilityOf(usernameError));
             return true;
 
         } catch (TimeoutException e) {

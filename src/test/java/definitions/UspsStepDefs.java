@@ -11,6 +11,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.getDriver;
 import static support.TestContext.getExecutor;
@@ -51,7 +53,7 @@ public class UspsStepDefs {
 
     @Then("I validate {string} zip code exists in the result")
     public void iValidateZipCodeExistsInTheResult(String zip) throws InterruptedException {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
 //        wait.until(ExpectedConditions.textToBePresentInElementLocated(By
 //                .xpath("//div[@id='zipByAddressDiv']"), zip));              //--> it's assertion itself
         wait.until(driver -> !driver
@@ -255,7 +257,7 @@ public class UspsStepDefs {
 
     @Then("I verify {string} present in search results")
     public void iVerifyPresentInSearchResults(String city) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions
             .textToBePresentInElementLocated(By.xpath("(//div[@class='floating-map result-inside-container']//div[@id='resultBox'])[1]"), city));
         WebElement cityName = getDriver()
@@ -315,7 +317,7 @@ public class UspsStepDefs {
         getDriver()
             .findElement(By.xpath("(//div[@class='search-btn-container'])[1]"))
             .click();
-        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions
             .textToBePresentInElementLocated(By
                 .xpath("(//div[@class='location-address']//strong[contains(text(), '" + text + "')])[1]"), text));
@@ -332,7 +334,7 @@ public class UspsStepDefs {
                 .xpath("(//div[@id='po-location-detail'])[1]"));
         assertThat(resultColumn.isDisplayed())
             .isTrue();
-        WebDriverWait wait1 = new WebDriverWait(getDriver(), 5);
+        WebDriverWait wait1 = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         wait1.until(ExpectedConditions
             .visibilityOfElementLocated(By
                 .xpath("(//div[@id='resultBox'])[1]")));
@@ -341,7 +343,7 @@ public class UspsStepDefs {
             .getText();
         assertThat(results1)
             .contains(address);
-        WebDriverWait wait2 = new WebDriverWait(getDriver(), 5);
+        WebDriverWait wait2 = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         wait2.until(ExpectedConditions
             .visibilityOfElementLocated(By
                 .xpath("(//div[@id='commonServices'])[1]")));

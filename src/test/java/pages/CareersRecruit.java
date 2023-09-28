@@ -5,6 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import support.Loggable;
 
+import java.time.Duration;
 import java.util.List;
 
 import static support.TestContext.getDriver;
@@ -26,9 +27,9 @@ public class CareersRecruit extends CareersHeader implements Loggable {
 
     public String getLastCreatedPositionTitle() throws InterruptedException {
 
-        new WebDriverWait(getDriver(), 5).until(driver -> positionTitles.size() > 2);
+        new WebDriverWait(getDriver(), Duration.ofSeconds(5))
+            .until(driver -> positionTitles.size() > 2);
         int size = positionTitles.size();
-
 //    System.out.println("\nTotal position: " + size);
         getLogger().info("\nTotal position: " + size);
 

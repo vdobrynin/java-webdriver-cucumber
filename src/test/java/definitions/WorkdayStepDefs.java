@@ -8,6 +8,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 import java.util.Random;
 
@@ -52,7 +53,7 @@ public class WorkdayStepDefs {
 
         By linkedInButton = By
             .xpath("//*[@id='apply-with-linkedin']/span");
-        new WebDriverWait(getDriver(), 7)
+        new WebDriverWait(getDriver(), Duration.ofSeconds(7))
             .until(visibilityOfElementLocated(linkedInButton));
         getDriver()
             .findElement(linkedInButton)
@@ -80,6 +81,10 @@ public class WorkdayStepDefs {
     @And("I select any tech position")
     public void iSelectAnyTechPosition() {
 
+        new WebDriverWait(getDriver(),
+            Duration.ofSeconds(30))
+            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By
+                .xpath("//*[@data-cy='card-title-link']")));
         List<WebElement> jobs = getDriver()
             .findElements(By.xpath("//*[@data-cy='card-title-link']"));
         int index = new Random()
@@ -91,7 +96,7 @@ public class WorkdayStepDefs {
     public void iGoWithApply() {
 
         new WebDriverWait(getDriver(),
-            20)
+            Duration.ofSeconds(20))
             .until(ExpectedConditions.visibilityOfElementLocated(By
                 .xpath("(//apply-button-wc[@class='ml-4 flex-auto md:flex-initial hydrated'])[1]")))
             .click();

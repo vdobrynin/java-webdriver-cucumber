@@ -6,6 +6,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+
 import static support.TestContext.getDriver;
 import static support.TestContext.getExecutor;
 
@@ -31,7 +33,8 @@ public class Page {
 
     public void waitForClickable(WebElement element) {
 
-        new WebDriverWait(getDriver(), 5).until(ExpectedConditions.elementToBeClickable(element));
+        new WebDriverWait(getDriver(), Duration.ofSeconds(5))
+            .until(ExpectedConditions.elementToBeClickable(element));
     }
 
     public void clickWithJS(WebElement element) {

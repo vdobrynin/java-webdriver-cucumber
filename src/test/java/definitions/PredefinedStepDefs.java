@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
+import java.time.Duration;
 import java.util.Date;
 import java.util.Iterator;
 
@@ -54,13 +55,13 @@ public class PredefinedStepDefs {
 
     @Then("^I wait for element with xpath \"([^\"]*)\" to be present$")
     public void iWaitForElementWithXpathToBePresent(String xpath) {
-        new WebDriverWait(getDriver(), 10, 200)
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
             .until(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath)));
     }
 
     @Then("^I wait for element with xpath \"([^\"]*)\" to not be present$")
     public void iWaitForElementWithXpathToNotBePresent(String xpath) {
-        new WebDriverWait(getDriver(), 10, 200)
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
             .until(ExpectedConditions.not(ExpectedConditions.presenceOfElementLocated(By.xpath(xpath))));
     }
 
@@ -137,7 +138,7 @@ public class PredefinedStepDefs {
 
     @Then("^element with xpath \"([^\"]*)\" should contain text \"([^\"]*)\"$")
     public void elementWithXpathShouldContainText(String xpath, String text) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), 5);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(xpath)));
 
         String actualText = getDriver().findElement(By.xpath(xpath)).getText();
