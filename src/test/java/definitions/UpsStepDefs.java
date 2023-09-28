@@ -49,10 +49,9 @@ public class UpsStepDefs {
             .click();
         getDriver()
             .findElement(By.xpath("//input[@id='origin-cac_companyOrName']"))
-            .sendKeys(sender.get("name"));                  // changes in the  lecture #10
+            .sendKeys(sender.get("name"));                                      // changes in the  lecture #10
         getDriver()
-            .findElement(By.xpath("//body/div[@class='iw_viewport-wrapper']" +
-                "/main[@id='ups-main']//input[@id='origin-cac_addressLine1']"))
+            .findElement(By.xpath("(//input[@id='origin-cac_addressLine1'])[1]"))
             .sendKeys(sender.get("street"));
         getDriver()
             .findElement(By.xpath("//input[@id='origin-cac_postalCode']"))

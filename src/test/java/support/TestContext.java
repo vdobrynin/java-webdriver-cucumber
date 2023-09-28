@@ -90,8 +90,8 @@ public class TestContext {
                 chromeOptions.addExtensions(new File(System
                     .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.2.0.crx"));
 
-                if (!isHeadless) {
-                    chromeOptions.setHeadless(true);
+                if (isHeadless) {
+                    chromeOptions.setHeadless(false);
 //                    chromeOptions.addArguments("--window-size=2560,1440");
                     chromeOptions.addArguments("--window-size=1920,1080");
                     chromeOptions.addArguments("--disable-gpu");
