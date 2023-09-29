@@ -20,6 +20,7 @@ public class WorkdayStepDefs {
 
     @And("I select any position")
     public void iSelectAnyPosition() {
+
         List<WebElement> jobs = getDriver()
             .findElements(By.xpath("//*[@data-automation-id='jobTitle']"));
         int index = new Random()
@@ -31,13 +32,18 @@ public class WorkdayStepDefs {
     @And("I go with Apply with LinkedIn")
     public void iGoWithApplyWithLinkedIn() throws InterruptedException {
 
+        new WebDriverWait(getDriver(),
+            Duration.ofSeconds(7))
+            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By
+                .xpath("(//a[@role='button'][normalize-space()='Apply'])[1]")));
         getDriver()
-            .findElement(By.xpath("(//a[@data-automation-id='adventureButton'])[1]"))
-            .isDisplayed();
-        getDriver()
-            .findElement(By.xpath("(//a[@data-automation-id='adventureButton'])[1]"))
+            .findElement(By.xpath("(//a[@role='button'][normalize-space()='Apply'])[1]"))
             .click();
 
+        new WebDriverWait(getDriver(),
+            Duration.ofSeconds(15))
+            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By
+                .xpath("(//iframe[@title='applyWithLinkedIn'])[1]")));
         WebElement outerFrame = getDriver()
             .findElement(By.xpath("(//iframe[@title='applyWithLinkedIn'])[1]"));
         getDriver()
@@ -52,8 +58,8 @@ public class WorkdayStepDefs {
         Thread.sleep(2000);
 
         By linkedInButton = By
-            .xpath("//*[@id='apply-with-linkedin']/span");
-        new WebDriverWait(getDriver(), Duration.ofSeconds(7))
+            .xpath("//*[@id='apply-with-linkedin']/span"); //div[@class='workday-popup-centeringRoot workday-popup-fullGlass']
+        new WebDriverWait(getDriver(), Duration.ofSeconds(15))
             .until(visibilityOfElementLocated(linkedInButton));
         getDriver()
             .findElement(linkedInButton)
@@ -86,10 +92,12 @@ public class WorkdayStepDefs {
             .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By
                 .xpath("//*[@data-cy='card-title-link']")));
         List<WebElement> jobs = getDriver()
-            .findElements(By.xpath("//*[@data-cy='card-title-link']"));
+            .findElements(By
+                .xpath("//*[@data-cy='card-title-link']"));
         int index = new Random()
             .nextInt(jobs.size());
-        getExecutor().executeScript("arguments[0].click();", jobs.get(index));
+        getExecutor()
+            .executeScript("arguments[0].click();", jobs.get(index));
     }
 
     @And("I go with Apply")
@@ -105,22 +113,22 @@ public class WorkdayStepDefs {
     @Then("I verify opens login window")
     public void iVerifyOpensLoginWindow() {
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(7))
+        new WebDriverWait(getDriver(), Duration.ofSeconds(15))
             .until(visibilityOfElementLocated(By
-                .xpath("//slot-fb[@class='sc-login-form']//a[normalize-space()='Register']")));
+                .xpath("(//a[normalize-space()='Register'])[1]")));
         WebElement element = getDriver()
             .findElement(By
-                .xpath("//slot-fb[@class='sc-login-form']//a[normalize-space()='Register']"));
+                .xpath("(//a[normalize-space()='Register'])[1]"));
         String text = element.getText();
         assertThat(text).contains("Register");
         System.out.println(text);
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(7)) //slot-fb[@class='sc-login-form']//a[normalize-space()='Register']
+        new WebDriverWait(getDriver(), Duration.ofSeconds(15))
             .until(visibilityOfElementLocated(By
-                .xpath("//div[@class='button-container sc-login-form']//login-dhi-button[@id='signin']//button[@type='button']")));
+                .xpath("//div[@class='button-container sc-login-form']//login-dhi-button[@id='signin']/button[@type='button']")));
         WebElement element1 = getDriver()
             .findElement(By
-                .xpath("//div[@class='button-container sc-login-form']//login-dhi-button[@id='signin']//button[@type='button']"));
+                .xpath("//div[@class='button-container sc-login-form']//login-dhi-button[@id='signin']/button[@type='button']"));
         String text2 = element1.getText();
         assertThat(text2).contains("Log in");
         System.out.println(text2);
