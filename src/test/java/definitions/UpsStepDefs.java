@@ -24,23 +24,26 @@ import static support.TestContext.*;
 
 public class UpsStepDefs {
     @And("I open Shipping menu")
-    public void iOpenShippingMenu() {
+    public void iOpenShippingMenu() throws InterruptedException {
 
-        getExecutor()
-            .executeScript("window.scrollBy(0,350)");
-        getExecutor()
-            .executeScript("arguments[0].click();", getDriver()
-            .findElement(By
-                .xpath("(//*[@class='navbar-nav']//*[@role='none']//*[@id='mainNavDropdown1'])[1]")));
+        Thread.sleep(10);
+//        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20));
+//        wait.until(ExpectedConditions
+//            .visibilityOfElementLocated(By
+//                .xpath("(//nav[@aria-label='Mega Menu']//a[@id='mainNavDropdown1'])[1]")));
+        getExecutor().executeScript("arguments[0].click();", getDriver()
+            .findElement(By.xpath("(//nav[@aria-label='Mega Menu']//a[@id='mainNavDropdown1'])[1]")));
     }
 
     @And("I go to Create a Shipment")
     public void iGoToCreateAShipment() {
 
-        getDriver().findElement(By.xpath("//a[normalize-space()='Create a Shipment']"))
-            .isDisplayed();
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(15));
+        wait.until(ExpectedConditions
+                .visibilityOfElementLocated(By
+                    .xpath("//nav[@aria-label='Mega Menu']//a[normalize-space()='Create a Shipment']")));
         getExecutor().executeScript("arguments[0].click();", getDriver()
-            .findElement(By.xpath("//a[contains(text(),'Create a Shipment')]")));
+            .findElement(By.xpath("//nav[@aria-label='Mega Menu']//a[normalize-space()='Create a Shipment']")));
     }
 
     @When("I fill out origin shipment fields")
@@ -93,7 +96,7 @@ public class UpsStepDefs {
             .contains("payment")) {
             getExecutor()
                 .executeScript("arguments[0].click();", getDriver()
-                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationReviewPrimaryButton']")));
+                    .findElement(By.xpath("//button[@id='nbsBackForwardNavigationReviewPrimaryButton']")));
         } else {
             getExecutor().executeScript("arguments[0].click();", getDriver()
                 .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
@@ -108,7 +111,7 @@ public class UpsStepDefs {
         if (getDriver().findElement(By.xpath("//div[@class='modal-content']")).isDisplayed()) {
             getExecutor()
                 .executeScript("arguments[0].click();", getDriver().findElement(By
-                .xpath("(//label[@for='vm.residentialAddressControlId']//span[@class='ups-lever_switch_no'][normalize-space()='No'])[1]")));
+                    .xpath("(//label[@for='vm.residentialAddressControlId']//span[@class='ups-lever_switch_no'][normalize-space()='No'])[1]")));
             getExecutor().executeScript("arguments[0].click();", getDriver()
                 .findElement(By.xpath("//button[@id='nbsAddressClassificationContinue']")));
         }

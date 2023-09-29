@@ -37,6 +37,7 @@ public class TestContext {
     }
 
     public static Map<String, String> getData(String fileName) {
+
         String path = System.getProperty("user.dir") + "/src/test/resources/data/" + fileName + ".yml";
         File file = new File(path);
         FileInputStream stream = null;
@@ -77,23 +78,34 @@ public class TestContext {
     }
 
     public static void initialize(String browser, boolean isHeadless) {
+
         String osName = System.getProperty("os.name");
         boolean isUnixBased = osName != null && (osName.contains("Mac") || osName.contains("Linux"));
 
         switch (browser) {
+
             case "chrome":
                 String chromeDriverName = isUnixBased ? "chromedriver" : "chromedriver.exe";
                 System.setProperty("webdriver.chrome.driver", getDriversDirPath() + chromeDriverName);
+                Map<String, Object> prefs = new HashMap<>();
+                prefs.put("profile.managed_default_content_settings.geolocation", 2);
+                prefs.put("profile.managed_default_content_settings.notifications", 2);
+                prefs.put("download.prompt_for_download", false);
+                prefs.put("download.directory_upgrade", true);
+                prefs.put("download.default_directory", getDownloadsPath());
+                prefs.put("credentials_enable_service", false);
+                prefs.put("password_manager_enabled", false);
+                prefs.put("safebrowsing.enabled", true);
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--start-maximized");
-                chromeOptions.setExperimentalOption("prefs", getChromePreferences());
+                chromeOptions.setExperimentalOption("prefs", prefs);
                 chromeOptions.addExtensions(new File(System
                     .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.2.0.crx"));
 
                 if (isHeadless) {
-                    chromeOptions.setHeadless(false);
-//                    chromeOptions.addArguments("--window-size=2560,1440");
-                    chromeOptions.addArguments("--window-size=1920,1080");
+                    chromeOptions.addArguments("--headless");
+                    chromeOptions.addArguments("--start-maximized");
+                    chromeOptions.addArguments("--disable-geolocation");
                     chromeOptions.addArguments("--disable-gpu");
                 }
 
@@ -118,7 +130,7 @@ public class TestContext {
             case "ie":
                 System.setProperty("webdriver.ie.driver", getDriversDirPath() + "IEDriverServer.exe");
                 InternetExplorerOptions ieOptions = new InternetExplorerOptions();
-                                                                                        // Configure IE-specific options if needed
+                // Configure IE-specific options if needed
                 driver = new InternetExplorerDriver(ieOptions);
                 break;
             case "grid":
@@ -139,6 +151,7 @@ public class TestContext {
     }
 
     private static Map<String, Object> getChromePreferences() {
+
         Map<String, Object> chromePreferences = new HashMap<>();
         chromePreferences.put("profile.default_content_settings.geolocation", 2);
         chromePreferences.put("download.prompt_for_download", false);
@@ -151,6 +164,7 @@ public class TestContext {
     }
 
     private static FirefoxProfile getFirefoxProfile() {
+
         FirefoxProfile firefoxProfile = new FirefoxProfile();
         firefoxProfile.setPreference("xpinstall.signatures.required", false);
         firefoxProfile.setPreference("app.update.enabled", false);
