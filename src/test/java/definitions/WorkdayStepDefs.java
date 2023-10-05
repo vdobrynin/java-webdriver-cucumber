@@ -35,7 +35,7 @@ public class WorkdayStepDefs {
     public void iGoWithApplyWithLinkedIn() throws InterruptedException {
 
         new WebDriverWait(getDriver(),
-            Duration.ofSeconds(30))
+            Duration.ofSeconds(3))
             .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".css-e46bon")));
         getDriver()
             .findElement(By.cssSelector(".css-e46bon"))
@@ -88,7 +88,7 @@ public class WorkdayStepDefs {
     public void iSelectAnyTechPosition() {
 
         new WebDriverWait(getDriver(),
-            Duration.ofSeconds(30))
+            Duration.ofSeconds(3))
             .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[@data-cy='card-title-link']")));
         List<WebElement> jobs = getDriver()
             .findElements(By.xpath("//*[@data-cy='card-title-link']"));
