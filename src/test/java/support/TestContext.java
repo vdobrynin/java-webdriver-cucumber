@@ -88,8 +88,9 @@ public class TestContext {
                 String chromeDriverName = isUnixBased ? "chromedriver" : "chromedriver.exe";
                 System.setProperty("webdriver.chrome.driver", getDriversDirPath() + chromeDriverName);
                 Map<String, Object> prefs = new HashMap<>();
-                prefs.put("profile.managed_default_content_settings.geolocation", 2);
-                prefs.put("profile.managed_default_content_settings.notifications", 2);
+                prefs.put("profile.managed_default_content_setting_values.geolocation", 2);
+                prefs.put("profile.managed_default_content_setting_values.notifications", 2);
+                prefs.put("profile.managed_default_content_setting_values.popups", 2);
                 prefs.put("download.prompt_for_download", false);
                 prefs.put("download.directory_upgrade", true);
                 prefs.put("download.default_directory", getDownloadsPath());
@@ -105,7 +106,6 @@ public class TestContext {
                 if (isHeadless) {
                     chromeOptions.addArguments("--headless");
                     chromeOptions.addArguments("--start-maximized");
-                    chromeOptions.addArguments("--disable-geolocation");
                     chromeOptions.addArguments("--disable-gpu");
                 }
 

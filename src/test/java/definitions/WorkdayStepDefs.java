@@ -19,31 +19,33 @@ import static support.TestContext.getExecutor;
 public class WorkdayStepDefs {
 
     @And("I select any position")
-    public void iSelectAnyPosition() {
+    public void iSelectAnyPosition() throws InterruptedException {
 
+        new WebDriverWait(getDriver(), Duration.ofSeconds(3))
+            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[@data-automation-id='jobTitle']")));
         List<WebElement> jobs = getDriver()
             .findElements(By.xpath("//*[@data-automation-id='jobTitle']"));
         int index = new Random()
-            .nextInt(jobs.size());  // each time it would be random
+            .nextInt(jobs.size());      // each time it would be random
         jobs.get(index)
-            .click();     // choose the job (WebElement)
+            .click();                   // choose the job (WebElement)
     }
 
     @And("I go with Apply with LinkedIn")
     public void iGoWithApplyWithLinkedIn() throws InterruptedException {
 
         new WebDriverWait(getDriver(),
-            Duration.ofSeconds(7))
-            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By
-                .xpath("(//a[@role='button'][normalize-space()='Apply'])[1]")));
+            Duration.ofSeconds(30))
+            .until(ExpectedConditions.presenceOfElementLocated(By.cssSelector(".css-e46bon")));
         getDriver()
-            .findElement(By.xpath("(//a[@role='button'][normalize-space()='Apply'])[1]"))
+            .findElement(By.cssSelector(".css-e46bon"))
             .click();
 
         new WebDriverWait(getDriver(),
-            Duration.ofSeconds(15))
-            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By
-                .xpath("(//iframe[@title='applyWithLinkedIn'])[1]")));
+            Duration.ofSeconds(3))
+            .until(ExpectedConditions
+                .presenceOfElementLocated(By
+                    .xpath("(//iframe[@title='applyWithLinkedIn'])[1]")));
         WebElement outerFrame = getDriver()
             .findElement(By.xpath("(//iframe[@title='applyWithLinkedIn'])[1]"));
         getDriver()
@@ -55,11 +57,10 @@ public class WorkdayStepDefs {
         getDriver()
             .switchTo()
             .frame(linkedInFrame);
-        Thread.sleep(2000);
 
         By linkedInButton = By
-            .xpath("//*[@id='apply-with-linkedin']/span"); //div[@class='workday-popup-centeringRoot workday-popup-fullGlass']
-        new WebDriverWait(getDriver(), Duration.ofSeconds(15))
+            .xpath("//*[@id='apply-with-linkedin']/span");
+        new WebDriverWait(getDriver(), Duration.ofSeconds(3))
             .until(visibilityOfElementLocated(linkedInButton));
         getDriver()
             .findElement(linkedInButton)
@@ -69,7 +70,6 @@ public class WorkdayStepDefs {
     @Then("I verify login window opens")
     public void iVerifyLoginWindowOpens() throws InterruptedException {
 
-        Thread.sleep(3);
         for (String handle : getDriver().getWindowHandles()) {
             getDriver()
                 .getWindowHandle()
@@ -89,11 +89,9 @@ public class WorkdayStepDefs {
 
         new WebDriverWait(getDriver(),
             Duration.ofSeconds(30))
-            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By
-                .xpath("//*[@data-cy='card-title-link']")));
+            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[@data-cy='card-title-link']")));
         List<WebElement> jobs = getDriver()
-            .findElements(By
-                .xpath("//*[@data-cy='card-title-link']"));
+            .findElements(By.xpath("//*[@data-cy='card-title-link']"));
         int index = new Random()
             .nextInt(jobs.size());
         getExecutor()
@@ -104,31 +102,29 @@ public class WorkdayStepDefs {
     public void iGoWithApply() {
 
         new WebDriverWait(getDriver(),
-            Duration.ofSeconds(20))
-            .until(ExpectedConditions.visibilityOfElementLocated(By
-                .xpath("(//apply-button-wc[@class='ml-4 flex-auto md:flex-initial hydrated'])[1]")))
+            Duration.ofSeconds(3))
+            .until(ExpectedConditions
+                .visibilityOfElementLocated(By.xpath("(//apply-button-wc[@class='ml-4 flex-auto md:flex-initial hydrated'])[1]")))
             .click();
     }
 
     @Then("I verify opens login window")
     public void iVerifyOpensLoginWindow() {
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(15))
-            .until(visibilityOfElementLocated(By
-                .xpath("(//a[normalize-space()='Register'])[1]")));
+        new WebDriverWait(getDriver(), Duration.ofSeconds(3))
+            .until(visibilityOfElementLocated(By.xpath("(//a[normalize-space()='Register'])[1]")));
         WebElement element = getDriver()
-            .findElement(By
-                .xpath("(//a[normalize-space()='Register'])[1]"));
+            .findElement(By.xpath("(//a[normalize-space()='Register'])[1]"));
         String text = element.getText();
         assertThat(text).contains("Register");
         System.out.println(text);
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(15))
-            .until(visibilityOfElementLocated(By
-                .xpath("//div[@class='button-container sc-login-form']//login-dhi-button[@id='signin']/button[@type='button']")));
+        new WebDriverWait(getDriver(), Duration.ofSeconds(3))
+            .until(visibilityOfElementLocated(By.xpath("//div[@class='button-container sc-login-form']" +
+                "//login-dhi-button[@id='signin']/button[@type='button']")));
         WebElement element1 = getDriver()
-            .findElement(By
-                .xpath("//div[@class='button-container sc-login-form']//login-dhi-button[@id='signin']/button[@type='button']"));
+            .findElement(By.xpath("//div[@class='button-container sc-login-form']" +
+                "//login-dhi-button[@id='signin']/button[@type='button']"));
         String text2 = element1.getText();
         assertThat(text2).contains("Log in");
         System.out.println(text2);
