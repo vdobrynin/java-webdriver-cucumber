@@ -90,7 +90,7 @@ public class TestContext {
                 Map<String, Object> prefs = new HashMap<>();
                 prefs.put("profile.managed_default_content_setting_values.geolocation", 2);
                 prefs.put("profile.managed_default_content_setting_values.notifications", 2);
-                prefs.put("profile.managed_default_content_setting_values.popups", 2);
+                prefs.put("profile.managed_default_content_setting_values.popups", 0);
                 prefs.put("download.prompt_for_download", false);
                 prefs.put("download.directory_upgrade", true);
                 prefs.put("download.default_directory", getDownloadsPath());
@@ -98,14 +98,14 @@ public class TestContext {
                 prefs.put("password_manager_enabled", false);
                 prefs.put("safebrowsing.enabled", true);
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--start-maximized");
+                chromeOptions.addArguments("--window-size=1920,1200");
                 chromeOptions.setExperimentalOption("prefs", prefs);
                 chromeOptions.addExtensions(new File(System
                     .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.2.0.crx"));
 
-                if (isHeadless) {
+                if (!isHeadless) {
+                    chromeOptions.addArguments("--window-size=1920,1200");
                     chromeOptions.addArguments("--headless");
-                    chromeOptions.addArguments("--start-maximized");
                     chromeOptions.addArguments("--disable-gpu");
                 }
 
