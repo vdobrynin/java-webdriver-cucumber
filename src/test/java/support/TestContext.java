@@ -98,14 +98,14 @@ public class TestContext {
                 prefs.put("password_manager_enabled", false);
                 prefs.put("safebrowsing.enabled", true);
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--window-size=1920,1200");
+                chromeOptions.addArguments("--start-maximized");
                 chromeOptions.setExperimentalOption("prefs", prefs);
                 chromeOptions.addExtensions(new File(System
                     .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.2.0.crx"));
 
-                if (!isHeadless) {
+                if (isHeadless) {
                     chromeOptions.addArguments("--window-size=1920,1200");
-                    chromeOptions.addArguments("--headless");
+                    chromeOptions.addArguments("--headless=new");
                     chromeOptions.addArguments("--disable-gpu");
                 }
 
