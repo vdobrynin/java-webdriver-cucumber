@@ -69,7 +69,7 @@ public class WorkdayStepDefs {
     @Then("I verify login window opens")
     public void iVerifyLoginWindowOpens() throws InterruptedException {
 
-        Thread.sleep(15);
+        Thread.sleep(3000);
         Set<String> allWindows = getDriver().getWindowHandles();
 //                                                                    // switch to last window
         for (String window : allWindows) {
@@ -77,7 +77,8 @@ public class WorkdayStepDefs {
         }
 
         String actual = getDriver()
-            .findElement(By.xpath("(//form[@class='login__form']//label[normalize-space()='Email or Phone'][contains(.,'Email or Phone')])[1]"))
+            .findElement(By.xpath("(//form[@class='login__form']" +
+                "//label[normalize-space()='Email or Phone'][contains(.,'Email or Phone')])[1]"))
             .getText();
         assertThat(actual)
             .toString()
@@ -86,7 +87,8 @@ public class WorkdayStepDefs {
         System.out.println(actual);
 
         String name = getDriver()
-            .findElement(By.xpath("(//form[@class='login__form']//button[normalize-space()='Sign in'][contains(.,'Sign in')])[1]"))
+            .findElement(By.xpath("(//form[@class='login__form']" +
+                "//button[normalize-space()='Sign in'][contains(.,'Sign in')])[1]"))
             .getText();
         assertThat(name)
             .toString()
@@ -113,7 +115,7 @@ public class WorkdayStepDefs {
     public void iGoWithApply() {
 
         new WebDriverWait(getDriver(),
-            Duration.ofSeconds(7))
+            Duration.ofSeconds(15))
             .until(ExpectedConditions
                 .visibilityOfElementLocated(By.xpath("(//apply-button-wc[@class='ml-4 flex-auto md:flex-initial hydrated'])[1]")))
             .click();
@@ -122,7 +124,7 @@ public class WorkdayStepDefs {
     @Then("I verify opens login window")
     public void iVerifyOpensLoginWindow() {
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(5))
+        new WebDriverWait(getDriver(), Duration.ofSeconds(7))
             .until(visibilityOfElementLocated(By.xpath("(//a[normalize-space()='Register'])[1]")));
         WebElement element = getDriver()
             .findElement(By.xpath("(//a[normalize-space()='Register'])[1]"));
