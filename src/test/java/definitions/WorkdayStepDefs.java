@@ -84,7 +84,7 @@ public class WorkdayStepDefs {
             .toString()
             .trim()
             .contains("Email or Phone");
-        System.out.println(actual);
+//        System.out.println(actual);
 
         String name = getDriver()
             .findElement(By.xpath("(//form[@class='login__form']" +
@@ -94,14 +94,14 @@ public class WorkdayStepDefs {
             .toString()
             .trim()
             .contains("Sign in");
-        System.out.println(name);
+//        System.out.println(name);
     }
 
     @And("I select any tech position")
     public void iSelectAnyTechPosition() {
 
         new WebDriverWait(getDriver(),
-            Duration.ofSeconds(7))
+            Duration.ofSeconds(10))
             .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[@data-cy='card-title-link']")));
         List<WebElement> jobs = getDriver()
             .findElements(By.xpath("//*[@data-cy='card-title-link']"));
@@ -130,7 +130,7 @@ public class WorkdayStepDefs {
             .findElement(By.xpath("(//a[normalize-space()='Register'])[1]"));
         String text = element.getText();
         assertThat(text).contains("Register");
-        System.out.println(text);
+//        System.out.println(text);
 
         new WebDriverWait(getDriver(), Duration.ofSeconds(5))
             .until(visibilityOfElementLocated(By.xpath("//div[@class='button-container sc-login-form']" +
@@ -140,6 +140,6 @@ public class WorkdayStepDefs {
                 "//login-dhi-button[@id='signin']/button[@type='button']"));
         String text2 = element1.getText();
         assertThat(text2).contains("Log in");
-        System.out.println(text2);
+//        System.out.println(text2);
     }
 }
