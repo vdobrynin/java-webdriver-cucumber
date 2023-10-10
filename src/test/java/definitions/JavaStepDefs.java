@@ -286,7 +286,7 @@ public class JavaStepDefs {
 
     @Given("I work with classes")
     public void iWorkWithClasses() {
-//   Cat tom = new Cat("Tom");         // constructor (value "Tom")
+//   Cat tom = new Cat("Tom");                  // constructor (value of 'Tom')
         Animal tom = new Cat("Tom");
         tom.walk();
         tom.sleep();
@@ -295,8 +295,8 @@ public class JavaStepDefs {
         tom.speak();
         System.out.println();
 
-//      Dog jack = new Dog();
-        Animal jack = new Dog();
+//      Dog jack = new Dog("Jack");
+        Animal jack = new Dog("Jack");
         jack.walk();
         jack.sleep();
         jack.eat("bone");

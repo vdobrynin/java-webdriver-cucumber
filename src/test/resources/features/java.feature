@@ -52,7 +52,7 @@ Feature: Java feature
 #        And I print characters from 3rd position to 8th in a string
 
     @java12
-    Scenario: Classes
+    Scenario: Animal Classes
         Given I work with classes
 
     @java13

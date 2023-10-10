@@ -6,7 +6,7 @@ public class Dog extends Animal {
 	}
 
 	public Dog(String name) {
-		setName(name);
+        setName(name);
 	}
 
 //	public void bark() {
@@ -14,6 +14,6 @@ public class Dog extends Animal {
 //	}
 
 	public void speak() {
-		System.out.println(getName() + " is barking!");
+        System.out.println(getName() + " is barking!");
 	}
 }

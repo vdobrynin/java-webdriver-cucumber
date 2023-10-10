@@ -44,7 +44,7 @@ public class TestContext {
         try {
             stream = new FileInputStream(file);
         } catch (FileNotFoundException exception) {
-            System.err.println(exception.getMessage());     // shows in red
+            System.err.println(exception.getMessage());     // 'err' will show in red
         }
         return new Yaml().load(stream);
     }
@@ -99,6 +99,7 @@ public class TestContext {
                 prefs.put("safebrowsing.enabled", true);
                 ChromeOptions chromeOptions = new ChromeOptions();
                 chromeOptions.addArguments("--start-maximized");
+                chromeOptions.addArguments("--remote-allow-origins=*");
                 chromeOptions.setExperimentalOption("prefs", prefs);
                 chromeOptions.addExtensions(new File(System
                     .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.2.0.crx"));
@@ -106,6 +107,7 @@ public class TestContext {
                 if (!isHeadless) {
                     chromeOptions.addArguments("--window-size=1920,1200");
                     chromeOptions.addArguments("--headless=new");
+                    chromeOptions.addArguments("--remote-allow-origins=*");
                     chromeOptions.addArguments("--disable-gpu");
                 }
 

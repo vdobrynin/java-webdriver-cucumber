@@ -6,7 +6,7 @@ public class Cow extends Animal {
 	}
 
 	public Cow(String name) {
-		setName(name);
+        setName(name);
 	}
 
 //	public void moo() {
@@ -14,6 +14,6 @@ public class Cow extends Animal {
 //	}
 
 	public void speak() {
-		System.out.println(getName() + " is mooing!");
+        System.out.println(getName() + " is mooing!");
 	}
 }
