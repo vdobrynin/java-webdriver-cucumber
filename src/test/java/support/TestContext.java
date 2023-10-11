@@ -81,9 +81,7 @@ public class TestContext {
 
         String osName = System.getProperty("os.name");
         boolean isUnixBased = osName != null && (osName.contains("Mac") || osName.contains("Linux"));
-
         switch (browser) {
-
             case "chrome":
                 String chromeDriverName = isUnixBased ? "chromedriver" : "chromedriver.exe";
                 System.setProperty("webdriver.chrome.driver", getDriversDirPath() + chromeDriverName);
@@ -103,8 +101,7 @@ public class TestContext {
                 chromeOptions.setExperimentalOption("prefs", prefs);
                 chromeOptions.addExtensions(new File(System
                     .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.2.0.crx"));
-
-                if (!isHeadless) {
+                if (isHeadless) {
                     chromeOptions.addArguments("--window-size=1920,1200");
                     chromeOptions.addArguments("--headless=new");
                     chromeOptions.addArguments("--remote-allow-origins=*");
