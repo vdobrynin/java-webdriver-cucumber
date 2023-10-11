@@ -106,7 +106,7 @@ public class UspsStepDefs {
         String priceToVerify = getDriver().findElement(By.xpath("//div[@id='wrap']//div[@class='container']"))
             .getText();
         assertThat(priceToVerify)
-            .containsIgnoringCase("2.90");
+            .containsIgnoringCase("3.00");
         System.out.println(price);
     }
 
@@ -185,7 +185,7 @@ public class UspsStepDefs {
     public void iUnselectStampsCheckbox() {
 
         getDriver()
-            .findElement(By.xpath("//label[@for='checkbox-type-Category-Stamps'][contains(text(),'Stamps (91)')]"))
+            .findElement(By.cssSelector("label[for='checkbox-type-Category-Stamps']"))
             .click();
     }
 
@@ -194,7 +194,7 @@ public class UspsStepDefs {
 
         getExecutor()
             .executeScript("arguments[0].click();", getDriver()
-                .findElement(By.xpath("//label[normalize-space()='Large (18)']")));
+                .findElement(By.xpath("(//label[@class='checkbox-label'][contains(text(),'X-Large')])[1]")));
     }
 
     @And("I click {string} color")
@@ -375,7 +375,7 @@ public class UspsStepDefs {
             .getText();
         assertThat(results1)
             .contains(address);
-        WebDriverWait wait2 = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait2 = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
         wait2.until(ExpectedConditions
             .visibilityOfElementLocated(By
                 .xpath("(//div[@id='commonServices'])[1]")));

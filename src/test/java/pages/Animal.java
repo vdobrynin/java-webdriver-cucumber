@@ -5,7 +5,8 @@ public abstract class Animal {
     private String name;
 
     public Animal() {
-        name = "nameless one";
+        name = " " ;
+//        name = "nameless one" ;
     }
 
     public String getName() {
@@ -32,6 +33,7 @@ public abstract class Animal {
     }
 
     public void speak() {
-        System.out.println("Undefined");
+        System.out.println(" ");
+//        System.out.println("Undefined");
     }
 }

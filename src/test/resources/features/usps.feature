@@ -48,7 +48,7 @@ Feature: USPS fill out forms
         When I go to Calculate Price Page
         And I selected "United Kingdom" with "Postcard" shape
         And I define "2" quantity
-        Then I calculate the price and validate cost is "$2.90"
+        Then I calculate the price and validate cost is "$3.00"
 
     @usps7
     Scenario: Verify color

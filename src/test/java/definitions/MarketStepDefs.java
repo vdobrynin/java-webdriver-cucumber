@@ -23,6 +23,7 @@ public class MarketStepDefs {
 
     @And("I print page details")
     public void iPrintPageDetails() {
+
         System.out.println(getDriver().getTitle());
         System.out.println(getDriver().getCurrentUrl());
         System.out.println(getDriver().getWindowHandles());
@@ -30,6 +31,7 @@ public class MarketStepDefs {
 
     @When("I fill out required fields")
     public void iFillOutRequiredFields() throws InterruptedException {
+
         getDriver()
             .findElement(By.xpath("//input[@name='username']")).sendKeys("vskryabin");
         getDriver()
@@ -53,11 +55,13 @@ public class MarketStepDefs {
 
     @And("I submit the form")
     public void iSubmitTheForm() throws InterruptedException {
+
         getDriver().findElement(By.xpath("//button[@id='formSubmit']")).click();
     }
 
     @Given("I go to {string} page")
     public void iGoToPage(String page) {
+
         switch (page.toLowerCase()) {
             case "quote":
                 getDriver().get("https://skryabin.com/market/quote.html");
@@ -96,6 +100,7 @@ public class MarketStepDefs {
 
     @And("I go back and forward, then refresh the page")
     public void iGoBackAndForwardThenRefreshThePage() {
+
         getDriver()
             .navigate()
             .back();
@@ -109,6 +114,7 @@ public class MarketStepDefs {
 
     @Then("I verify required fields")
     public void iVerifyRequiredFields() {
+
         String result = getDriver()
             .findElement(By.xpath("//div[@id='quotePageResult']//section")).getText();
         assertThat(result)
@@ -133,6 +139,7 @@ public class MarketStepDefs {
 
     @And("I print console logs")
     public void iPrintConsoleLogs() throws InterruptedException {
+
         LogEntries logs = getDriver()
             .manage()
             .logs()
@@ -146,6 +153,7 @@ public class MarketStepDefs {
 
     @And("I change resolution to {string}")
     public void iChangeResolutionTo(String pageSize) {
+
         if (pageSize.equals("phone")) {
             getDriver()
                 .manage()
@@ -161,6 +169,7 @@ public class MarketStepDefs {
 
     @When("I fill out optional fields")
     public void iFillOutOptionalFields() {
+
         getDriver()
             .findElement(By.xpath("//input[@name='phone']"))
             .sendKeys("1234567890");
@@ -203,6 +212,7 @@ public class MarketStepDefs {
 
     @And("I submit the page")
     public void iSubmitThePage() {
+
         getDriver()
             .findElement(By.xpath("//button[@id='formSubmit']"))
             .click();
@@ -210,6 +220,7 @@ public class MarketStepDefs {
 
     @When("I verify email field behavior")
     public void iVerifyEmailFieldBehavior() {
+
         getDriver()
             .findElement(By.xpath("//input[@name='email']"))
             .clear();
@@ -242,6 +253,7 @@ public class MarketStepDefs {
 
     @And("I {string} agreement")
     public void iAgreement(String clickArg) {
+
         WebElement thirdPartyButton = getDriver()
             .findElement(By.xpath("//*[@id='thirdPartyButton']"));
         TestContext.getExecutor()
@@ -261,6 +273,7 @@ public class MarketStepDefs {
 
     @Then("I verify that fields values recorded correctly")
     public void iVerifyThatFieldsValuesRecordedCorrectly() {
+
         boolean resultDisplayed = getDriver()
             .findElement(By.xpath("//legend[@class='applicationResult']"))
             .isDisplayed();
@@ -285,6 +298,7 @@ public class MarketStepDefs {
 
     @When("I {string} third party agreement")
     public void iThirdPartyAgreement(String action) throws InterruptedException {
+
         getDriver()
             .findElement(By.xpath("//button[@id='thirdPartyButton']"))
             .click();
@@ -308,6 +322,7 @@ public class MarketStepDefs {
 
     @And("I input {string} {string} as contact")
     public void  iInputAsContact(String firstName, String lastName) {
+
         getDriver()
             .switchTo()
             .frame("additionalInfo");               // --> switch to "iframe" & it has a name "additionalInfo"
@@ -324,6 +339,7 @@ public class MarketStepDefs {
 
     @And("I validate document {string} present")
     public void iValidateDocumentPresent(String document) {
+
         String savedWindowsHandle = getDriver()
             .getWindowHandle(); // --> remember current windows before switch to new window (tab)
 //        System.out.println(savedWindowsHandle);
