@@ -19,12 +19,13 @@ import static support.TestContext.getExecutor;
 
 public class UspsStepDefs {
     @And("I go to Lookup ZIP page by address")
-    public void iGoToLookupZIPPageByAddress() { // --> change that at the lecture #8
+    public void iGoToLookupZIPPageByAddress() {
+//                                                    // → change that at the lecture #8
         WebElement quickTools = getDriver()
             .findElement(By.xpath("//li[contains(@class, 'qt-nav')]"));// save in variable xpath was custom
         new Actions(getDriver())
             .moveToElement(quickTools)
-            .perform();                 // initializing directly driver to new Actions to have mouse over
+            .perform();                         // initializing directly driver to new Actions to have mouse over
         getDriver()
             .findElement(By.xpath("//img[@alt='Zip Code™ Lookup Icon']"))
             .click();
@@ -35,6 +36,7 @@ public class UspsStepDefs {
 
     @And("I fill out {string} street, {string} city, {string} state")
     public void iFillOutStreetCityState(String street, String city, String state) {
+
         getDriver()
             .findElement(By.xpath("//input[@id='tAddress']"))
             .sendKeys(street);
@@ -53,6 +55,7 @@ public class UspsStepDefs {
 
     @Then("I validate {string} zip code exists in the result")
     public void iValidateZipCodeExistsInTheResult(String zip) throws InterruptedException {
+
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
 //        wait.until(ExpectedConditions.textToBePresentInElementLocated(By
 //                .xpath("//div[@id='zipByAddressDiv']"), zip));              //--> it's assertion itself
@@ -76,8 +79,10 @@ public class UspsStepDefs {
 
     @And("I selected {string} with {string} shape")
     public void iSelectedWithShape(String str1, String str2) {
+
         getDriver()
-            .findElement(By.xpath("//select[@id='CountryID']//option[contains(text(),'United Kingdom (United Kingdom of Great Britain an')]"))
+            .findElement(By.xpath("//select[@id='CountryID']//option[contains(text()," +
+                "'United Kingdom (United Kingdom of Great Britain an')]"))
             .click();
         getDriver()
             .findElement(By.xpath("//input[@id='option_1']"))
@@ -86,6 +91,7 @@ public class UspsStepDefs {
 
     @And("I define {string} quantity")
     public void iDefineQuantity(String num) {
+
         getDriver()
             .findElement(By.xpath("//input[@id='quantity-0']"))
             .sendKeys("2");
@@ -96,6 +102,7 @@ public class UspsStepDefs {
 
     @Then("I calculate the price and validate cost is {string}")
     public void iCalculateThePriceAndValidateCostIs(String price) {
+
         String priceToVerify = getDriver().findElement(By.xpath("//div[@id='wrap']//div[@class='container']"))
             .getText();
         assertThat(priceToVerify)
@@ -105,6 +112,7 @@ public class UspsStepDefs {
 
     @When("I go to {string} tab")
     public void iGoToTab(String tab) {
+
         getDriver()
             .findElement(By.xpath("//a[normalize-space()='" + tab + "']"))
             .click();                                               // it's easy to access through "tab" everywhere
@@ -112,6 +120,7 @@ public class UspsStepDefs {
 
     @And("I enter {string} into store search")
     public void iEnterIntoStoreSearch(String text) {
+
         getDriver()
             .findElement(By.xpath("//input[@id='store-search']"))
             .sendKeys(text);
@@ -119,6 +128,7 @@ public class UspsStepDefs {
 
     @Then("I search and validate no products found")
     public void iSearchAndValidateNoProductsFound() {
+
         getDriver()
             .findElement(By.xpath("//input[@id='store-search-btn']"))
             .click();
@@ -133,6 +143,7 @@ public class UspsStepDefs {
 
     @When("I go to Stamps and Supplies page")
     public void iGoToStampsAndSuppliesPage() {
+
         WebElement mailShip = getDriver().findElement(By.xpath("//a[@id='mail-ship-width']"));
         new Actions(getDriver())
             .moveToElement(mailShip)
@@ -144,6 +155,7 @@ public class UspsStepDefs {
 
     @And("I open Stamps")
     public void iOpenStamps() {
+
         getDriver()
             .findElement(By.xpath("//li[@class='stamps-navigation ']//span[normalize-space()='Stamps']"))
             .click();
@@ -151,6 +163,7 @@ public class UspsStepDefs {
 
     @And("choose category Priority Mail")
     public void chooseCategoryPriorityMail() {
+
         getExecutor()
             .executeScript("arguments[0].click();", getDriver()
                 .findElement(By.xpath("//label[normalize-space()='Priority Mail (1)']")));
@@ -159,6 +172,7 @@ public class UspsStepDefs {
 
     @Then("I verify {int} item found in result")
     public void iVerifyItemFoundInResult(int count) {                         // findElements --> plural
+
         int actualCount = getDriver()
             .findElements(By.xpath("//div[@class='result-products-holder']"))
             .size();
@@ -169,6 +183,7 @@ public class UspsStepDefs {
 
     @When("I unselect Stamps checkbox")
     public void iUnselectStampsCheckbox() {
+
         getDriver()
             .findElement(By.xpath("//label[@for='checkbox-type-Category-Stamps'][contains(text(),'Stamps (91)')]"))
             .click();
@@ -176,6 +191,7 @@ public class UspsStepDefs {
 
     @And("select size {string}")
     public void selectSize(String arg0) {
+
         getExecutor()
             .executeScript("arguments[0].click();", getDriver()
                 .findElement(By.xpath("//label[normalize-space()='Large (18)']")));
@@ -183,6 +199,7 @@ public class UspsStepDefs {
 
     @And("I click {string} color")
     public void iClickColor(String arg0) {
+
         getExecutor()
             .executeScript("arguments[0].click();", getDriver()
                 .findElement(By.xpath("//div[@class='result-grid'][contains(@style, 'background-color:#033366;')]")));
@@ -190,6 +207,7 @@ public class UspsStepDefs {
 
     @Then("I verify {string} and {string} filters")
     public void iVerifyAndFilters(String arg0, String arg1) {
+
         WebElement result = getDriver()
             .findElement(By.xpath("//div[@class=' d-none d-lg-block breadcrumb-cartridge']//div[@class='cartridge-viewport']"));
         assertThat(result.isDisplayed())
@@ -202,6 +220,7 @@ public class UspsStepDefs {
 
     @Then("I verify {string} sale")
     public void iVerifySale(String arg0) {
+
         WebElement result = getDriver()
             .findElement(By.xpath("//div[@class='result-products-holder']"));
         assertThat(result.isDisplayed())
@@ -212,6 +231,7 @@ public class UspsStepDefs {
 
     @When("I perform {string} search")
     public void iPerformSearch(String text) throws InterruptedException {
+
         WebElement search = getDriver()
             .findElement(By.xpath("//li[contains(@class, 'nav-search')]"));
         WebElement searchInput = getDriver()
@@ -226,6 +246,7 @@ public class UspsStepDefs {
 
     @And("I select {string} in results")
     public void iSelectInResults(String resultText) {
+
         getExecutor()
             .executeScript("arguments[0].click();", getDriver()
                 .findElement(By
@@ -234,6 +255,7 @@ public class UspsStepDefs {
 
     @And("I click {string} button")
     public void iClickButton(String buttonText) {
+
         getDriver()
             .findElement(By.xpath("//a[normalize-space()='" + buttonText + "']"))
             .click();
@@ -241,6 +263,7 @@ public class UspsStepDefs {
 
     @And("I select {string} zip code within {string} and search")
     public void iSelectZipCodeWithinAndSearch(String zip, String miles) {
+
         getDriver()
             .findElement(By.xpath("//input[@id='city-state-input']"))
             .sendKeys(zip);                                                                     // input zip
@@ -257,9 +280,11 @@ public class UspsStepDefs {
 
     @Then("I verify {string} present in search results")
     public void iVerifyPresentInSearchResults(String city) {
+
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions
-            .textToBePresentInElementLocated(By.xpath("(//div[@class='floating-map result-inside-container']//div[@id='resultBox'])[1]"), city));
+            .textToBePresentInElementLocated(By
+                .xpath("(//div[@class='floating-map result-inside-container']//div[@id='resultBox'])[1]"), city));
         WebElement cityName = getDriver()
             .findElement(By.xpath("//strong[.='" + city + "']"));
         WebElement result = getDriver()
@@ -272,17 +297,20 @@ public class UspsStepDefs {
 
     @When("I go to {string} under {string}")
     public void iGoToUnder(String menuItem, String menu) {
+
         WebElement quickTools = getDriver()
-            .findElement(By.xpath("//li[contains(@class, 'qt-nav')]//a[text()='" + menu + "']"));// save in variable xpath was custom
+            .findElement(By.xpath("//li[contains(@class, 'qt-nav')]//a[text()='" + menu + "']")); // save in variable xpath custom
         new Actions(getDriver())
             .moveToElement(quickTools)
             .perform();
         getDriver()
-            .findElement(By.xpath("//li[@class='qt-nav menuheader']//p[.='" + menuItem + "']")).click();
+            .findElement(By.xpath("//li[@class='qt-nav menuheader']//p[.='" + menuItem + "']"))
+            .click();
     }
 
     @And("I reserve new PO box for {string}")
     public void iReserveNewPOBoxFor(String zip) {
+
         getDriver()
             .findElement(By.xpath("//input[@id='searchHero']"))
             .sendKeys(zip);
@@ -293,6 +321,7 @@ public class UspsStepDefs {
 
     @Then("I verify that {string} present")
     public void iVerifyThatPresent(String location) {
+
         String actualSearchResult = getDriver()
             .findElement(By.xpath("//h2[contains(.,'" + location + "')]"))
             .getText();
@@ -302,18 +331,20 @@ public class UspsStepDefs {
 
     @And("I verify that {string} PO Box is available in {string}")
     public void iVerifyThatPOBoxIsAvailableIn(String size, String location) {
+
         getDriver()
             .findElement(By.xpath("//h2[contains(.,'" + location + "')]"))
             .click();
         String actualSizes = getDriver()
-            .findElement(By.xpath("//label[@for='boxXL']//p[@class='fourteen size']"))
-            .getText();                                                                 //--> find all available boxes to get text
+            .findElement(By.xpath("//div[@id='availableboxes']"))
+            .getText();                                                                 //—→ find all available boxes to get text
         assertThat(actualSizes)
             .containsIgnoringCase(size);
     }
 
     @When("I open {string} search results")
     public void iOpenSearchResults(String text) {
+
         getDriver()
             .findElement(By.xpath("(//div[@class='search-btn-container'])[1]"))
             .click();
@@ -329,6 +360,7 @@ public class UspsStepDefs {
 
     @Then("I verify {string} address, {string} appointment hours, {string} photo hours")
     public void iVerifyAddressAppointmentHoursPhotoHours(String address, String appointmentHours, String photoHours) {
+
         WebElement resultColumn = getDriver()
             .findElement(By
                 .xpath("(//div[@id='po-location-detail'])[1]"));
@@ -358,6 +390,7 @@ public class UspsStepDefs {
 
     @When("I go back to list")
     public void iGoBackToList() {
+
         getDriver().getWindowHandle();
         getDriver().navigate().back();
         getDriver().navigate().refresh();
@@ -365,6 +398,7 @@ public class UspsStepDefs {
 
     @Then("I verify I'm on Find Locations search page")
     public void iVerifyIMOnFindLocationsSearchPage() {
+
         getDriver()
             .findElement(By.xpath("//a[@href='#'][contains(.,'Back to Find Locations')]"))
             .isDisplayed();
