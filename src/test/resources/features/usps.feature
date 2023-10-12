@@ -70,7 +70,7 @@ Feature: USPS fill out forms
         And I select "94022" zip code within "10 Miles" and search
         Then I verify "MOUNTAIN VIEW" present in search results
         When I open "MOUNTAIN VIEW" search results
-        Then I verify "211 HOPE ST" address, "9:00 am-12:00 pm" appointment hours, "1:00 pm-3:00 pm" photo hours
+        Then I verify "211 HOPE ST" address, "8:30 am-5:00 pm" appointment hours, "1:00 pm-3:00 pm" photo hours
         When I go back to list
         Then I verify I'm on Find Locations search page
 

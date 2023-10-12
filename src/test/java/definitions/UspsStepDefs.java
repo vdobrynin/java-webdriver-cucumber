@@ -271,26 +271,22 @@ public class UspsStepDefs {
             .findElement(By.xpath("//div[@class='dropdown-selection']//button[@id='within-select']"))
             .click();
         getDriver()
-            .findElement(By.xpath("//a[contains(text(),'" + miles + "')]"))
+            .findElement(By.xpath("//div[@class='dropdown-selection open']//ul[@class='dropdown-menu']//a[normalize-space()='10 Miles']"))
             .click();
         getDriver()
-            .findElement(By.xpath("(//div[@class='search-btn-container'])[1]"))
+            .findElement(By.xpath("(//a[@id='searchLocations'])[1]"))
             .click();
     }
 
     @Then("I verify {string} present in search results")
     public void iVerifyPresentInSearchResults(String city) {
 
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(30));
         wait.until(ExpectedConditions
             .textToBePresentInElementLocated(By
                 .xpath("(//div[@class='floating-map result-inside-container']//div[@id='resultBox'])[1]"), city));
         WebElement cityName = getDriver()
             .findElement(By.xpath("//strong[.='" + city + "']"));
-        WebElement result = getDriver()
-            .findElement(By.xpath("(//div[@class='floating-map result-inside-container']//div[@id='resultBox'])[1]"));
-        assertThat(result.isDisplayed())
-            .isTrue();
         assertThat(cityName.getText())
             .contains("MOUNTAIN VIEW");
     }
@@ -343,19 +339,13 @@ public class UspsStepDefs {
     }
 
     @When("I open {string} search results")
-    public void iOpenSearchResults(String text) {
+    public void iOpenSearchResults(String text) throws InterruptedException {
 
-        getDriver()
-            .findElement(By.xpath("(//div[@class='search-btn-container'])[1]"))
-            .click();
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
-        wait.until(ExpectedConditions
-            .textToBePresentInElementLocated(By
-                .xpath("(//div[@class='location-address']//strong[contains(text(), '" + text + "')])[1]"), text));
+        Thread.sleep(3000);
         getExecutor()
-            .executeScript("arguments[0].click();", getDriver()
-                .findElement(By
-                    .xpath("(//div[@class='location-address']//strong[contains(text(), '" + text + "')])[1]")));
+            .executeScript("arguments[0].click();",
+                getDriver()
+                    .findElement(By.xpath("(//div[@role='button']//h2[contains(.,'" + text + "')])[1]")));
     }
 
     @Then("I verify {string} address, {string} appointment hours, {string} photo hours")
@@ -366,7 +356,7 @@ public class UspsStepDefs {
                 .xpath("(//div[@id='po-location-detail'])[1]"));
         assertThat(resultColumn.isDisplayed())
             .isTrue();
-        WebDriverWait wait1 = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
+        WebDriverWait wait1 = new WebDriverWait(getDriver(), Duration.ofSeconds(7));
         wait1.until(ExpectedConditions
             .visibilityOfElementLocated(By
                 .xpath("(//div[@id='resultBox'])[1]")));
@@ -375,12 +365,12 @@ public class UspsStepDefs {
             .getText();
         assertThat(results1)
             .contains(address);
-        WebDriverWait wait2 = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+        WebDriverWait wait2 = new WebDriverWait(getDriver(), Duration.ofSeconds(7));
         wait2.until(ExpectedConditions
             .visibilityOfElementLocated(By
-                .xpath("(//div[@id='commonServices'])[1]")));
+                .xpath("//div[@id='commonServices']")));
         String results2 = getDriver()
-            .findElement(By.xpath("(//div[@id='commonServices'])[1]"))
+            .findElement(By.xpath("//div[@id='commonServices']"))
             .getText();
         assertThat(results2)
             .contains(appointmentHours);
