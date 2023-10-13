@@ -23,13 +23,9 @@ public class Page {
         return url;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
-    }
+    public void setUrl(String url) { this.url = url; }
 
-    public void open() {
-        getDriver().get(url);
-    }
+    public void open() { getDriver().get(url); }
 
     public void waitForClickable(WebElement element) {
 
@@ -37,18 +33,13 @@ public class Page {
             .until(ExpectedConditions.elementToBeClickable(element));
     }
 
-    public void clickWithJS(WebElement element) {
-
-        getExecutor().executeScript("argument[0].click", element);
-    }
+    public void clickWithJS(WebElement element) { getExecutor().executeScript("argument[0].click", element); }
 
     public void click(WebElement element) {
 
         waitForClickable(element);
-
         try {
             element.click();
-
         } catch (ElementClickInterceptedException exception) {
 
             System.out.println(exception.getMessage());

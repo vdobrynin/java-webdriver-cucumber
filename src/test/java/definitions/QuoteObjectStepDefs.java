@@ -47,7 +47,8 @@ public class QuoteObjectStepDefs implements Loggable {
     @And("I submit the form oop")
     public void iSubmitTheFormOop() throws InterruptedException {
 
-        new QuoteForm().clickSubmit();      // --> submit the form
+        new QuoteForm()
+            .clickSubmit();      // ---> submit the form
         Thread.sleep(3000);
     }
 
@@ -55,13 +56,20 @@ public class QuoteObjectStepDefs implements Loggable {
     public void iVerifyRequiredFieldsOop() {
 
         QuoteResult resultPage = new QuoteResult();               // define new page verification (construct the class wyh the name)
-        String actualResultText = resultPage.getSectionResult();
-        String actualPrivacyPolicy = resultPage.getPrivacyPolicy();
+        String actualResultText = resultPage
+            .getSectionResult();
+        String actualPrivacyPolicy = resultPage
+            .getPrivacyPolicy();
 
-        assertThat(actualPrivacyPolicy).isEqualTo("true");
-        assertThat(actualResultText).contains(("skryabin"));
-        assertThat(actualResultText).contains("slava@skryabin.com");
-        assertThat(actualResultText).doesNotContain("welcome");
-        assertThat(actualResultText).contains("Slava Vlad Skryabin");
+        assertThat(actualPrivacyPolicy)
+            .isEqualTo("true");
+        assertThat(actualResultText)
+            .contains(("skryabin"));
+        assertThat(actualResultText)
+            .contains("slava@skryabin.com");
+        assertThat(actualResultText)
+            .doesNotContain("welcome");
+        assertThat(actualResultText)
+            .contains("Slava Vlad Skryabin");
     }
 }
