@@ -1,8 +1,6 @@
 package definitions;
 
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.*;
 import org.openqa.selenium.By;
 
 import static org.assertj.core.api.Assertions.assertThat;

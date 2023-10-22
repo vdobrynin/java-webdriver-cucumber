@@ -1,6 +1,6 @@
 package definitions;
 
-import cucumber.api.java.en.*;
+import io.cucumber.java.en.*;
 import pages.*;
 import support.*;
 

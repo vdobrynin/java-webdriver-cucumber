@@ -1,7 +1,7 @@
 package definitions;
 
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Given;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
 import pages.*;
 
 import java.util.*;

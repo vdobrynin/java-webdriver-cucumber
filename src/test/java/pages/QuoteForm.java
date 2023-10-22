@@ -20,9 +20,9 @@ public class QuoteForm extends Page {
     private WebElement password;
     @FindBy(xpath = "//input[@id='confirmPassword']")
     private WebElement confirmPassword;
+//                                                // ---> Name dialog - start -
     @FindBy(xpath = "//input[@id='name']")
     private WebElement name;
-//                                                // ---> Name dialog - start -
     @FindBy(xpath = "//input[@id='firstName']")
     private WebElement firstName;
     @FindBy(xpath = "//input[@id='middleName']")
@@ -35,8 +35,8 @@ public class QuoteForm extends Page {
     @FindBy(xpath = "//input[@name='agreedToPrivacyPolicy']")
     private WebElement privacy;
     @FindBy(xpath = "//button[@id='formSubmit']")
-    private WebElement submitButton;                // ---> submit
-
+    private WebElement submitButton;              // ---> submit
+//
     public void clickSubmit() {
         //        submitButton.click();                                         //--> first solution will not work
         getExecutor().executeScript("arguments[0].click();", submitButton); // see above like PrivacyPolicy
@@ -65,25 +65,21 @@ public class QuoteForm extends Page {
     }
 
     public void fillUsername(String value) {
-
         username.sendKeys(value);
     }
 
     public void fillEmail(String value) {
-
         email.sendKeys(value);
     }
 
     public void fillPassword(String value) {
-
         password.sendKeys(value);
     }
 
     public void fillConfirmPassword(String value) {
-
         confirmPassword.sendKeys(value);
     }
 
-    public void fillOutRequiredFields() {
-    }
+//    public void fillOutRequiredFields() {         // empty stub
+//    }
 }

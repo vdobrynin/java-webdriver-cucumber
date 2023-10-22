@@ -1,7 +1,7 @@
 package support;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.junit.Cucumber;
+import io.cucumber.junit.CucumberOptions;
+import io.cucumber.junit.Cucumber;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
     plugin = {"pretty", "html:target/cucumber", "json:target/cucumber/report.json"},
     features = {"src/test/resources/features"},
     glue = {"definitions", "support"},
-    tags = {"@workday"}//"@predefined" // same as VM option -Dcucumber.options="--tags @predefined"
+    tags = "@workday"//"@predefined" // same as VM option -Dcucumber.options="--tags @predefined"
 )
 public class TestRunner {
     @BeforeClass

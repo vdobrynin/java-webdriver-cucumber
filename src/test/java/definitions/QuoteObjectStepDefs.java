@@ -1,7 +1,6 @@
 package definitions;
 
-import cucumber.api.java.en.*;
-//import io.cucumber.java.en.*;
+import io.cucumber.java.en.*;
 import pages.Careers;
 import pages.QuoteForm;
 import pages.QuoteResult;
@@ -14,9 +13,9 @@ public class QuoteObjectStepDefs implements Loggable {
 
     @Given("I go to {string} page oop")
     public void iGoToPageOop(String page) {
-        //System.out.println("Navigating to "+page);
-        //LogManager.getLogger(QuoteObjectStepDefs.class).info("Navigating to " + page);
-//    getLogger().info("Navigating to " + page);                                    // look above
+//        System.out.println("Navigating to " + page);
+//        LogManager.getLogger(QuoteObjectStepDefs.class).info("Navigating to " + page);
+//    getLogger().info("Navigating to " + page);                                    // ---> look above
         switch (page) {
             case "quote":
                 new QuoteForm().open();

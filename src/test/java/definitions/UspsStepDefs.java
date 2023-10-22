@@ -1,8 +1,6 @@
 package definitions;
 
-import cucumber.api.java.en.And;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
+import io.cucumber.java.en.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
@@ -319,7 +317,8 @@ public class UspsStepDefs {
     public void iVerifyThatPresent(String location) {
 
         String actualSearchResult = getDriver()
-            .findElement(By.xpath("//h2[contains(.,'" + location + "')]"))
+            .findElement(By.xpath("//h2[string()='" + location + "']")) //change back what in a lecture NO.12.4
+//            .findElement(By.xpath("//h2[contains(.,'" + location + "')]"))
             .getText();
         assertThat(actualSearchResult)
             .containsIgnoringCase(location);
