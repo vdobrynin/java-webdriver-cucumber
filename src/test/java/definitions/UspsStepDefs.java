@@ -327,8 +327,9 @@ public class UspsStepDefs {
     @And("I verify that {string} PO Box is available in {string}")
     public void iVerifyThatPOBoxIsAvailableIn(String size, String location) {
 
+//            //.findElement(By.xpath("//h2[contains(.,'" + location + "')]")) // below i change back from lecture NO.'12.4'
         getDriver()
-            .findElement(By.xpath("//h2[contains(.,'" + location + "')]"))
+            .findElement(By.xpath("//h2[string()='" + location + "']"))
             .click();
         String actualSizes = getDriver()
             .findElement(By.xpath("//div[@id='availableboxes']"))
