@@ -74,6 +74,8 @@ public class TestContext {
     }
 
     public static void teardown() {
+
+        driver.close();
         driver.quit();
     }
 
