@@ -15,7 +15,7 @@ public class QuoteObjectStepDefs implements Loggable {
     public void iGoToPageOop(String page) {
 //        System.out.println("Navigating to " + page);
 //        LogManager.getLogger(QuoteObjectStepDefs.class).info("Navigating to " + page);
-//    getLogger().info("Navigating to " + page);                                    // ---> look above
+//        getLogger().info("Navigating to " + page);                                    // ---> look above
         switch (page) {
             case "quote":
                 new QuoteForm().open();
@@ -48,7 +48,6 @@ public class QuoteObjectStepDefs implements Loggable {
 
         new QuoteForm()
             .clickSubmit();      // ---> submit the form
-        Thread.sleep(3000);
     }
 
     @Then("I verify required fields oop")
