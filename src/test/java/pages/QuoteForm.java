@@ -1,19 +1,16 @@
 package pages;
 
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.*;
 
 import static support.TestContext.getExecutor;
 
 public class QuoteForm extends Page {
 
-    public QuoteForm() {
-
-        setUrl("https://skryabin.com/market/quote.html");
-    }
+    public QuoteForm() { setUrl("https://skryabin.com/market/quote.html"); }
 
     @FindBy(xpath = "//input[@name='username']")
-    private WebElement username;
+    private WebElement  username;
     @FindBy(xpath = "//input[@name='email']")
     private WebElement email;
     @FindBy(xpath = "//input[@id='password']")
@@ -64,9 +61,7 @@ public class QuoteForm extends Page {
         saveButton.click();
     }
 
-    public void fillUsername(String value) {
-        username.sendKeys(value);
-    }
+    public void fillUsername(String value) { username.sendKeys(value);}
 
     public void fillEmail(String value) {
         email.sendKeys(value);
