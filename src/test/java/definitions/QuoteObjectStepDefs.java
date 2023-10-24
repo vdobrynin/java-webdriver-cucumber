@@ -47,13 +47,13 @@ public class QuoteObjectStepDefs implements Loggable {
     @And("I submit the form oop")
     public void iSubmitTheFormOop() throws InterruptedException {
 
-        new QuoteForm().clickSubmit();         //                      // ---> submit the form
+        new QuoteForm().clickSubmit();         //         // ---> submit the form
     }
 
     @Then("I verify required fields oop")
     public void iVerifyRequiredFieldsOop() {
 
-        QuoteResult resultPage = new QuoteResult();               // define new page verification (construct the class wyh the name)
+        QuoteResult resultPage = new QuoteResult();      // define new page verification (construct the class wit h the name)
         String actualResultText = resultPage
             .getSectionResult();
         String actualPrivacyPolicy = resultPage
