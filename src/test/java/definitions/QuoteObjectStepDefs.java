@@ -40,7 +40,7 @@ public class QuoteObjectStepDefs implements Loggable {
         form.fillPassword("welcome");
         form.fillConfirmPassword("welcome");
         form.fillName("Slava", "Skryabin");
-//        form.fillName("Slava", "Vlad", "Skryabin");
+        form.fillName("Slava", "Vlad", "Skryabin");
         form.clickPrivacy();
     }
 
@@ -68,6 +68,6 @@ public class QuoteObjectStepDefs implements Loggable {
         assertThat(actualResultText)
             .doesNotContain("welcome");
         assertThat(actualResultText)
-            .contains("Slava Skryabin");
+            .contains("Slava Vlad Skryabin");
     }
 }

@@ -22,8 +22,8 @@ public class QuoteForm extends Page {
     private WebElement name;
     @FindBy(xpath = "//input[@id='firstName']")
     private WebElement firstName;
-//    @FindBy(xpath = "//input[@id='middleName']")
-//    private WebElement middleName;
+    @FindBy(xpath = "//input[@id='middleName']")
+    private WebElement middleName;
     @FindBy(xpath = "//input[@id='lastName']")
     private WebElement lastName;
     @FindBy(xpath = "//span[text()='Save']")
@@ -52,14 +52,14 @@ public class QuoteForm extends Page {
         saveButton.click();
     }
 
-//    public void fillName(String firstName, String middleName, String lastName) {
-//
-//        name.click();
-//        this.firstName.sendKeys(firstName);
-//        this.middleName.sendKeys(middleName);
-//        this.lastName.sendKeys(lastName);
-//        saveButton.click();
-//    }
+    public void fillName(String firstName, String middleName, String lastName) {
+
+        name.click();
+        this.firstName.sendKeys(firstName);
+        this.middleName.sendKeys(middleName);
+        this.lastName.sendKeys(lastName);
+        saveButton.click();
+    }
 
     public void fillUsername(String value) { username.sendKeys(value);}
 
