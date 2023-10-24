@@ -39,15 +39,15 @@ public class QuoteObjectStepDefs implements Loggable {
         form.fillEmail("slava@skryabin.com");
         form.fillPassword("welcome");
         form.fillConfirmPassword("welcome");
-        form.fillName("Slava", "Vlad", "Skryabin");
+        form.fillName("Slava", "Skryabin");
+//        form.fillName("Slava", "Vlad", "Skryabin");
         form.clickPrivacy();
     }
 
     @And("I submit the form oop")
     public void iSubmitTheFormOop() throws InterruptedException {
 
-        new QuoteForm()
-            .clickSubmit();      // ---> submit the form
+        new QuoteForm().clickSubmit();         //                      // ---> submit the form
     }
 
     @Then("I verify required fields oop")
@@ -68,6 +68,6 @@ public class QuoteObjectStepDefs implements Loggable {
         assertThat(actualResultText)
             .doesNotContain("welcome");
         assertThat(actualResultText)
-            .contains("Slava Vlad Skryabin");
+            .contains("Slava Skryabin");
     }
 }
