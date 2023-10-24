@@ -571,7 +571,7 @@ public class JavaStepDefs {
 //        "divisible by 3" if number is divisible by 3
 //        "divisible by 4" if element is divisible by 4
 //        "divisible by 3 and 4" if divisible by 3 and 4
-        int num = 20;
+        int num = 24;
 
         if (num % 3 == 0 && num % 4 == 0) {
             System.out.println("The " + num + " divisible by 3 & 4");
@@ -591,9 +591,9 @@ public class JavaStepDefs {
 //        "divisible by 5" if element is divisible by 5
 //        "divisible by 10" if element is divisible by 2 and 5
 
-        int num = 33;
+        int num = 42;
 
-        if (num % 2 == 0 && num % 5 == 0) {
+        if (num % 2 == 0 && num % 5 == 0 && num % 10 == 0) {
             System.out.println("The " + num + " divisible by 10, by 5, by 2");
         } else if (num % 2 == 0) {
             System.out.println("The " + num + " divisible by 2");
