@@ -41,7 +41,6 @@ public class Page {
         try {
             element.click();
         } catch (ElementClickInterceptedException exception) {
-
             System.out.println(exception.getMessage());
             clickWithJS(element);
         }

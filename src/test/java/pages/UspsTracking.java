@@ -8,8 +8,5 @@ public class UspsTracking extends Page {
     @FindBy(xpath = "//a[contains(@href,'Registration')]")
     private WebElement signUpButton;
 
-    public boolean isSignUpPossible() {
-
-        return signUpButton.isDisplayed() && signUpButton.isEnabled();
-    }
+    public boolean isSignUpPossible() { return signUpButton.isDisplayed() && signUpButton.isEnabled(); }
 }

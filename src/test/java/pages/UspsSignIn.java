@@ -28,7 +28,6 @@ public class UspsSignIn extends Page {
     public boolean isSignInRequired() {
 
         signInButton.click();
-
         try {
             new WebDriverWait(getDriver(), Duration.ofSeconds(5))
                 .until(ExpectedConditions.visibilityOf(usernameError));

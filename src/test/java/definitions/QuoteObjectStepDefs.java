@@ -16,7 +16,7 @@ public class QuoteObjectStepDefs implements Loggable {
 //        System.out.println("Navigating to " + page);
 //        LogManager.getLogger(QuoteObjectStepDefs.class).info("Navigating to " + page);
 //        getLogger().info("Navigating to " + page);                                    // ---> look above
-        switch (page) {
+        switch (page.toLowerCase()) {
             case "quote":
                 new QuoteForm().open();
                 break;

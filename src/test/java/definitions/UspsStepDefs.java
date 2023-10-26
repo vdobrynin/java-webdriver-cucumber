@@ -16,16 +16,17 @@ import static support.TestContext.getDriver;
 import static support.TestContext.getExecutor;
 
 public class UspsStepDefs {
+
     @And("I go to Lookup ZIP page by address")
     public void iGoToLookupZIPPageByAddress() {
 //                                                    // → change that at the lecture #8
         WebElement quickTools = getDriver()
-            .findElement(By.xpath("//li[contains(@class, 'qt-nav')]"));// save in variable xpath was custom
+            .findElement(By.xpath("//li[@class='qt-nav menuheader']"));// save in variable xpath was custom
         new Actions(getDriver())
             .moveToElement(quickTools)
             .perform();                         // initializing directly driver to new Actions to have mouse over
         getDriver()
-            .findElement(By.xpath("//img[@alt='Zip Code™ Lookup Icon']"))
+            .findElement(By.xpath("(//li[@class='qt-nav menuheader']//img[@alt='Zip Code™ Lookup Icon'])[1]"))
             .click();
         getDriver()
             .findElement(By.xpath("//a[normalize-space()='Find by Address']"))
@@ -71,7 +72,7 @@ public class UspsStepDefs {
             .findElement(By.xpath("//a[@id='mail-ship-width']"))
             .click();
         getDriver()
-            .findElement(By.xpath("//a[@href='/calculateretailpostage/welcome.htm'][.='Calculate a Price']"))
+            .findElement(By.xpath("//a[contains(@href,'/calculateretailpostage/welcome.htm')][contains(text(),'Calculate a Price')]"))
             .click();
     }
 
@@ -298,7 +299,7 @@ public class UspsStepDefs {
             .moveToElement(quickTools)
             .perform();
         getDriver()
-            .findElement(By.xpath("//li[@class='qt-nav menuheader']//p[.='" + menuItem + "']"))
+            .findElement(By.xpath("//li[@class='qt-nav menuheader']//p[normalize-space()='" + menuItem + "']"))
             .click();
     }
 

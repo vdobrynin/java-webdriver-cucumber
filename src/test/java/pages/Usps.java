@@ -12,17 +12,12 @@ public class Usps extends Page {
         setUrl("https://usps.com/");
     }
 
-    //  @FindBy(xpath = "//*[text() = 'Stamps']")
-    @FindBy(xpath = "//*[text() = '\n\t\t\t\t\t\t\t\t\tStamps\n\t\t\t\t\t\t\t\t']")
-//  @CacheLookup
-    private WebElement stampButton;
-
+    @FindBy(xpath = "(//a[@class='button--primary'][normalize-space()='Buy Stamps'])[1]")
+    private WebElement stampsButton;
     @FindBy(xpath = "//a[@id='orderButton']")
     private WebElement boxesButton;
-
     @FindBy(xpath = "//a[@id='quickMenuButtonShip']")
     private WebElement labelsButton;
-
     @FindBy(xpath = "//input[@id='trackButton']")
     private WebElement trackButton;
 
@@ -34,8 +29,8 @@ public class Usps extends Page {
         trackButton.click();
     }
 
-    public void clickOnStamps() {
-        stampButton.click();
+    public void clickStamps() {
+        stampsButton.click();
     }
 
     public void clickBoxes() {
@@ -43,6 +38,8 @@ public class Usps extends Page {
     }
 
     public void clickMenuItem(String menu) {
-        getDriver().findElement(By.xpath("//*[text()='" + menu + "']")).click();
+        getDriver()
+            .findElement(By.xpath("//a[text()='" + menu + "']"))
+            .click();
     }
 }
