@@ -2,6 +2,7 @@ package definitions;
 
 import io.cucumber.java.en.*;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import pages.Usps;
 import pages.UspsPostalStore;
 import pages.UspsSignIn;
@@ -11,6 +12,7 @@ import java.text.ParseException;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static support.TestContext.getDriver;
+import static support.TestContext.getExecutor;
 
 public class UspsObjectStepDefs {
 
@@ -36,10 +38,12 @@ public class UspsObjectStepDefs {
 
     @And("I sort by {string} oop")
     public void iSortByOop(String text) {
+
+        WebElement button = getDriver().findElement(By.xpath("(//div[contains(@class,'dropdown-selection align-self-center open')])[1]"));
+        getExecutor()
+            .executeScript("arguments[0].scrollIntoView();", button);
         new UspsPostalStore()
-            .click(getDriver().findElement(By.xpath("//span[normalize-space()='Holiday']")));
-        new UspsPostalStore()
-            .click(getDriver().findElement(By.xpath("(//button[contains(@type,'button')][normalize-space()='Issue Date'])[1]")));
+            .click(button);
          new UspsPostalStore().selectSortBy(text);
     }
 
@@ -67,18 +71,23 @@ public class UspsObjectStepDefs {
 
     @When("I go to {string} menu oop")
     public void iGoToMenuOop(String menu) {
+
         new Usps().clickMenuItem(menu);
     }
 
     @And("I search for {string} in store oop")
     public void iSearchForInStoreOop(String search) {
+
         new UspsPostalStore().searchFor(search);
     }
 
     @Then("I verify that {string} is required oop")
     public void iVerifyThatIsRequiredOop(String action) throws ParseException, InterruptedException {
-        boolean isRequired = new UspsSignIn().isSignInRequired();
-        assertThat(isRequired).isTrue();
+
+        boolean isRequired = new UspsSignIn()
+            .isSignInRequired();
+        assertThat(isRequired)
+            .isTrue();
     }
 
     @Then("I verify that {string} is possible oop")

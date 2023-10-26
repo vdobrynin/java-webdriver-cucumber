@@ -3,25 +3,22 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
+import static support.TestContext.getDriver;
+import static support.TestContext.getExecutor;
+
 public class UspsPostalStore extends Page {
 
-    //div[contains(@class,'d-none d-md-block align-self-center sort-by-dropdown')]//button[contains(@type,'button')][normalize-space()='Issue Date']
-    //div[contains(@class,'d-none d-md-block align-self-center sort-by-dropdown')]//ul[contains(@class,'align-self-center dropdown-menu show')]//a[contains(@class,'dropdown-item')][normalize-space()='Price (Low-High)']
-
-
-
-    @FindBy(xpath = "(//a[contains(@class,'dropdown-item')][normalize-space()='Price (Low-High)'])[1]")
+    @FindBy(xpath = "(//a[@class='dropdown-item'][contains(.,'Price (Low-High)')])[1]")
     private WebElement sortBy;
     @FindBy(xpath = "(//div[@class='results-product-info'])[1]")
     private WebElement firstFoundItem;
     @FindBy(xpath = "//div[@class='results-product-info']")
     private List<WebElement> foundItems;
 
-    @FindBy(xpath = "//div[@class='result-checkbox-filter-by-holder']")
+    @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'$0 to $5 ')]")
     private WebElement leftFilterBar;
     @FindBy(xpath = "//input[@id='store-search']")
     private WebElement searchInput;
@@ -35,8 +32,11 @@ public class UspsPostalStore extends Page {
 
     public void selectSortBy(String text) {
 
-//        getExecutor().executeScript("argument[0].click", sortBy);
-        new Select(sortBy).selectByVisibleText(text);
+        sortBy.isSelected();                    // i can't select anymore text, i have to start using click. 10/25/2023 review.
+        sortBy.click();
+        new UspsPostalStore()
+            .click(getDriver().findElement(By.xpath("//span[normalize-space()='Holiday']")));
+//        new Select(sortBy).selectByVisibleText(text);
     }
 
     public String getFirstFoundItem() {
@@ -44,9 +44,11 @@ public class UspsPostalStore extends Page {
         return firstFoundItem.getText();
     }
 
-//                                        //--> Lecture #14 changes
+    //                                        //--> Lecture #14 changes
     public String getLeftFilters() {
 
+        getExecutor()
+            .executeScript("arguments[0].scrollIntoView();", leftFilterBar);
         return leftFilterBar.getText();
     }
 

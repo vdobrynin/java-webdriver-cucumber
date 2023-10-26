@@ -6,7 +6,7 @@ Feature: Usps Test Suite
         Given I go to "usps" page oop
         When I go to "Stamps" oop
         And I sort by "Price (Low-High)" oop
-#        Then I verify that "Tiffany Lamp" is cheapest oop
+        Then I verify that "Tiffany Lamp" is cheapest oop
 
     @usps_object2
     Scenario: Usps Boxes
