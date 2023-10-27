@@ -1,8 +1,12 @@
 package definitions;
 
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.Usps;
 import pages.UspsPostalStore;
 import pages.UspsSignIn;
@@ -11,13 +15,13 @@ import pages.UspsTracking;
 import java.text.ParseException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static support.TestContext.getDriver;
-import static support.TestContext.getExecutor;
+import static support.TestContext.*;
 
 public class UspsObjectStepDefs {
 
     @When("I go to {string} oop")
     public void iGoToOop(String buttonType) {
+
         switch (buttonType.toLowerCase()) {
             case "stamps":
                 new Usps().clickStamps();
@@ -39,34 +43,55 @@ public class UspsObjectStepDefs {
     @And("I sort by {string} oop")
     public void iSortByOop(String text) {
 
-        WebElement button = getDriver().findElement(By.xpath("(//div[contains(@class,'dropdown-selection align-self-center open')])[1]"));
+        boolean isPresent;
+        try {
+            WebElement holiday = getDriver()
+                .findElement(By.xpath("(//span[normalize-space()='Holiday'])[1]"));
+            isPresent = holiday.isDisplayed();
+            new UspsPostalStore().click(holiday);
+        } catch (NoSuchElementException e) {
+            isPresent = false;
+        }
+
+        WebElement button = getDriver()
+            .findElement(By.xpath("(//div[contains(@class,'dropdown-selection align-self-center open')])[1]"));
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", button);
+        getWait()
+            .until(ExpectedConditions.visibilityOf(button));
         new UspsPostalStore()
             .click(button);
-         new UspsPostalStore().selectSortBy(text);
+        new UspsPostalStore().selectSortBy(text);
     }
 
     @Then("I verify that {string} is cheapest oop")
     public void iVerifyThatIsCheapestOop(String expected) throws ParseException, InterruptedException {
 
-//        boolean isFound = new UspsPostalStore()
-//            .isCheapestItem(expected);
-//        assertThat(isFound)
-//            .isTrue();
+        boolean isFound = new UspsPostalStore()
+            .isCheapestItem(expected);
+        assertThat(isFound)
+            .isTrue();
 //                                                  //--> before Lecture #14
-  String actualItem = new UspsPostalStore()
-      .getFirstFoundItem();
-  System.out.println("Actual: " + actualItem);
-  System.out.println("Expected: " + expected);
-  assertThat(actualItem)
-      .contains(expected);
+        String actualItem = new UspsPostalStore()
+            .getFirstFoundItem();
+        System.out.println("Actual: " + actualItem);
+        System.out.println("Expected: " + expected);
+        assertThat(actualItem)
+            .contains(expected);
     }
 
     @And("I verify section {string} exists oop")
     public void iVerifySectionExistsOop(String section) throws InterruptedException {
-        String filterText = new UspsPostalStore().getLeftFilters();
-        assertThat(filterText).containsIgnoringCase(section);
+
+        String filterText = new UspsPostalStore()
+            .getLeftFilters();
+        assertThat(filterText)
+            .containsIgnoringCase(section);
+
+        WebElement button = getDriver()
+            .findElement(By.xpath("(//div[contains(@class,'dropdown-selection align-self-center open')])[1]"));
+        getExecutor()
+            .executeScript("arguments[0].scrollIntoView();", button);
     }
 
     @When("I go to {string} menu oop")
@@ -92,7 +117,7 @@ public class UspsObjectStepDefs {
 
     @Then("I verify that {string} is possible oop")
     public void iVerifyThatIsPossibleOop(String action) {
-        // Based on below URLs:
+//                                                            // Based on below URLs:
         // https://reg.usps.com/entreg/LoginAction_input
         // https://tools.usps.com/go/TrackConfirmAction
 

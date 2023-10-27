@@ -38,30 +38,40 @@ public class Usps extends Page {
 
     public void clickLabels() {
 
-        labelsButton.click();
+        labelsButton
+            .click();
     }
 
     public void clickTracking() {
-        trackButton.click();
+
+        trackButton
+            .click();
     }
 
     public void clickStamps() {
 
-        stampsButton.click();
+        stampsButton
+            .click();
     }
 
     public void clickBoxes() {
 
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", orderNow);
-        orderNow.click();
-        closeSupplies.click();
-        closePackaging.click();
-        openMore.click();
+        orderNow
+            .click();
+        closeSupplies
+            .click();
+        closePackaging
+            .click();
+        openMore
+            .click();
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", priorityMailExpress);
-        priorityMailExpress.click();
-        formsAndLabels.click();
+        priorityMailExpress
+            .click();
+        formsAndLabels
+            .click();
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", lowerPrice);
         getExecutor()
@@ -69,6 +79,7 @@ public class Usps extends Page {
     }
 
     public void clickMenuItem(String menu) {
+
         getDriver()
             .findElement(By.xpath("//a[text()='" + menu + "']"))
             .click();

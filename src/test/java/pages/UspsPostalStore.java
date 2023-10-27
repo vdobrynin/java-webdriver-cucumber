@@ -6,7 +6,6 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-import static support.TestContext.getDriver;
 import static support.TestContext.getExecutor;
 
 public class UspsPostalStore extends Page {
@@ -26,22 +25,26 @@ public class UspsPostalStore extends Page {
     private WebElement searchButton;
 
     public void searchFor(String search) {
-        searchInput.sendKeys(search);
-        searchButton.click();
+
+        searchInput
+            .sendKeys(search);
+        searchButton
+            .click();
     }
 
     public void selectSortBy(String text) {
 
-        sortBy.isSelected();                    // i can't select anymore text, i have to start using click. 10/25/2023 review.
-        sortBy.click();
-        new UspsPostalStore()
-            .click(getDriver().findElement(By.xpath("//span[normalize-space()='Holiday']")));
+        sortBy
+            .isSelected();                    // i can't select anymore text, i have to start using click. 10/25/2023 review.
+        sortBy
+            .click();
 //        new Select(sortBy).selectByVisibleText(text);
     }
 
     public String getFirstFoundItem() {
 
-        return firstFoundItem.getText();
+        return firstFoundItem
+            .getText();
     }
 
     //                                        //--> Lecture #14 changes
@@ -49,16 +52,21 @@ public class UspsPostalStore extends Page {
 
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", leftFilterBar);
-        return leftFilterBar.getText();
+        return leftFilterBar
+            .getText();
     }
 
     public boolean isCheapestItem(String name) {
 
         for (WebElement item : foundItems) {
             if (item.getText().contains(name)) {
-                By priceSelector = By.xpath("//div[@class='results-product-preview-price']");
-                String itemPrice = item.findElement(priceSelector).getText();
-                String firstFoundPrice = firstFoundItem.findElement(priceSelector).getText();
+                By priceSelector = By.xpath("(//div[@class='row cartridge-viewport'])[1]");
+                String itemPrice = item
+                    .findElement(priceSelector)
+                    .getText();
+                String firstFoundPrice = firstFoundItem
+                    .findElement(priceSelector)
+                    .getText();
 //                      //---> Deals with currency from different country
 //                Locale locale = new Locale("en", "US");
 //                NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
@@ -68,7 +76,8 @@ public class UspsPostalStore extends Page {
 //
 //                formatter.format(itemPriceNumber);  // format back
 //                return itemPriceNumber <= firstPriceNumber;
-                return itemPrice.equals(firstFoundPrice);
+                return itemPrice
+                    .equals(firstFoundPrice);
                 //return firstFoundPrice.equals(itemPrice);
             }
         }

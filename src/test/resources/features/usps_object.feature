@@ -14,7 +14,7 @@ Feature: Usps Test Suite
         When I go to "boxes" oop
         And I verify section "$0 to $5" exists oop
         And I sort by "Price (Low-High)" oop
-        Then I verify that "Priority Mail Express Sticker" is cheapest oop
+        Then I verify that "Priority Mail® Sticker Label" is cheapest oop
 
     @usps_object3
     Scenario: Usps Shoes
