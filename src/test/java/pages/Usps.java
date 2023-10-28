@@ -3,9 +3,9 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static support.TestContext.getDriver;
-import static support.TestContext.getExecutor;
+import static support.TestContext.*;
 
 public class Usps extends Page {
 
@@ -13,7 +13,8 @@ public class Usps extends Page {
         setUrl("https://usps.com/");
     }
 
-    @FindBy(xpath = "(//a[@class='button--primary'][normalize-space()='Buy Stamps'])[1]")
+    @FindBy(xpath = "(//a[@data-gtm-subsection='stamps'])[1]")
+//    @FindBy(xpath = "(//a[@class='button--primary'][normalize-space()='Buy Stamps'])[1]")
     private WebElement stampsButton;
 
     @FindBy(xpath = "(//a[normalize-space()='Order Now'])[1]")
@@ -22,12 +23,12 @@ public class Usps extends Page {
     private WebElement closeSupplies;
     @FindBy(xpath = "//span[normalize-space()='ReadyPost Packaging']")
     private WebElement closePackaging;
-    @FindBy(xpath = "(//a[@class='facet-toggle'][normalize-space()='Show More'])[1]")
-    private WebElement openMore;
-    @FindBy(xpath = "(//label[@class='checkbox-label'][contains(.,'Priority Mail Express ')])[1]")
+//    @FindBy(xpath = "(//a[@class='facet-toggle'][normalize-space()='Show More'])[1]")
+//    private WebElement openMore;
+    @FindBy(xpath = "//label[contains(@for,'checkbox-type-Mail Service-Priority Mail Express')]")
     private WebElement priorityMailExpress;
-    @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'Forms and Labels ')]")
-    private WebElement formsAndLabels;
+//    @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'Forms and Labels ')]")
+//    private WebElement formsAndLabels;
     @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'$0 to $5 ')]")
     private WebElement lowerPrice;
 
@@ -38,18 +39,30 @@ public class Usps extends Page {
 
     public void clickLabels() {
 
+        getExecutor()
+            .executeScript("arguments[0].scrollIntoView();", labelsButton);
+        getWait()
+            .until(ExpectedConditions.elementToBeClickable(labelsButton));
         labelsButton
             .click();
     }
 
     public void clickTracking() {
 
+        getExecutor()
+            .executeScript("arguments[0].scrollIntoView();", trackButton);
+        getWait()
+            .until(ExpectedConditions.elementToBeClickable(trackButton));
         trackButton
             .click();
     }
 
     public void clickStamps() {
 
+        getExecutor()
+            .executeScript("arguments[0].scrollIntoView();", stampsButton);
+        getWait()
+            .until(ExpectedConditions.elementToBeClickable(stampsButton));
         stampsButton
             .click();
     }
@@ -58,20 +71,22 @@ public class Usps extends Page {
 
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", orderNow);
+        getWait()
+            .until(ExpectedConditions.elementToBeClickable(orderNow));
         orderNow
             .click();
         closeSupplies
             .click();
         closePackaging
             .click();
-        openMore
-            .click();
+//        openMore
+//            .click();
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", priorityMailExpress);
         priorityMailExpress
             .click();
-        formsAndLabels
-            .click();
+//        formsAndLabels
+//            .click();
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", lowerPrice);
         getExecutor()
