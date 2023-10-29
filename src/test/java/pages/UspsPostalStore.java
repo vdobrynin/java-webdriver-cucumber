@@ -26,25 +26,20 @@ public class UspsPostalStore extends Page {
 
     public void searchFor(String search) {
 
-        searchInput
-            .sendKeys(search);
-        searchButton
-            .click();
+        searchInput.sendKeys(search);
+        searchButton.click();
     }
 
     public void selectSortBy(String text) {
 
-        sortBy
-            .isSelected();                    // i can't select anymore text, i have to start using click. 10/25/2023 review.
-        sortBy
-            .click();
+        sortBy.isSelected();                    // i can't select anymore text, i have to start using click. 10/25/2023 review.
+        sortBy.click();
 //        new Select(sortBy).selectByVisibleText(text);
     }
 
     public String getFirstFoundItem() {
 
-        return firstFoundItem
-            .getText();
+        return firstFoundItem.getText();
     }
 
     //                                        //--> Lecture #14 changes

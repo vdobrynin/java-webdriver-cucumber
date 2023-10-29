@@ -32,29 +32,20 @@ public class Usps extends Page {
     @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'$0 to $5 ')]")
     private WebElement lowerPrice;
 
-    @FindBy(xpath = "//a[@id='quickMenuButtonShip']")
+    @FindBy(xpath = "(//a[@data-gtm-label='click-n-ship-link'])[1]")
     private WebElement labelsButton;
-    @FindBy(xpath = "//input[@id='trackButton']")
+    @FindBy(xpath = "//p[contains(.,'Track a Package')]")
     private WebElement trackButton;
 
     public void clickLabels() {
-
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", labelsButton);
-        getWait()
-            .until(ExpectedConditions.elementToBeClickable(labelsButton));
-        labelsButton
-            .click();
+        labelsButton.click();
     }
 
     public void clickTracking() {
 
-        getExecutor()
-            .executeScript("arguments[0].scrollIntoView();", trackButton);
-        getWait()
-            .until(ExpectedConditions.elementToBeClickable(trackButton));
-        trackButton
-            .click();
+        trackButton.click();
     }
 
     public void clickStamps() {
@@ -77,16 +68,13 @@ public class Usps extends Page {
             .click();
         closeSupplies
             .click();
-        closePackaging
-            .click();
-//        openMore
-//            .click();
+        closePackaging.click();
+//        openMore.click();
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", priorityMailExpress);
         priorityMailExpress
             .click();
-//        formsAndLabels
-//            .click();
+//        formsAndLabels.click();
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", lowerPrice);
         getExecutor()

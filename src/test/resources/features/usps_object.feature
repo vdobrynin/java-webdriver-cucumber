@@ -23,16 +23,17 @@ Feature: Usps Test Suite
         And I search for "shoe box" in store oop
         And I sort by "Price (Low-High)" oop
         Then I verify that "Priority Mail® Shoe Box" is cheapest oop
-#
-#    @usps_object4
-#    Scenario: Usps Labels
-#        Given I go to "usps" page oop
-#        When I go to "labels" oop
-#        Then I verify that "Sign In" is required oop
-#        Then I verify that "Sign Up" is possible oop
-#
-#    @usps_object5
-#    Scenario: Usps Tracking
-#        Given I go to "usps" page oop
-#        When I go to "tracking" oop
+
+    @usps_object4
+    Scenario: Usps Labels
+        Given I go to "usps" page oop
+        When I go to "labels" oop
+        Then I verify that "Sign In" is required oop
+        Then I verify that "Sign Up" is possible oop
+
+    @usps_object5
+    Scenario: Usps Tracking
+        Given I go to "usps" page oop
+        When I go to "Quick Tools" menu oop
+        When I go to "tracking" oop
 #        Then I verify that "Sign Up" is possible oop
