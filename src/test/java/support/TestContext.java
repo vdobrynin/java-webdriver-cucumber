@@ -1,6 +1,7 @@
 package support;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -14,6 +15,8 @@ import org.openqa.selenium.ie.InternetExplorerOptions;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.yaml.snakeyaml.Yaml;
 
@@ -31,9 +34,22 @@ import java.util.Map;
 public class TestContext {
 
     public static WebDriver driver;
+    public static Wait<WebDriver> fluentWait;
 
     public static WebDriver getDriver() {
         return driver;
+    }
+
+    public static Wait<WebDriver> getFluentWait() {
+        return fluentWait;
+    }
+
+    private static Wait<WebDriver> getWebDriverWait() {
+        Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(getDriver())
+            .withTimeout(Duration.ofSeconds(30))
+            .pollingEvery(Duration.ofSeconds(5))
+            .ignoring(NoSuchElementException.class);
+        return fluentWait;
     }
 
     public static Map<String, String> getData(String fileName) {
@@ -103,7 +119,7 @@ public class TestContext {
                 chromeOptions.setExperimentalOption("prefs", prefs);
                 chromeOptions.addExtensions(new File(System
                     .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.2.0.crx"));
-                if (!isHeadless) {
+                if (isHeadless) {
                     chromeOptions.addArguments("--window-size=1920,1200");
                     chromeOptions.addArguments("--headless=new");
                     chromeOptions.addArguments("--remote-allow-origins=*");
@@ -118,7 +134,7 @@ public class TestContext {
                 FirefoxOptions firefoxOptions = new FirefoxOptions();
                 firefoxOptions.setProfile(getFirefoxProfile());
 
-                if (isHeadless) {
+                if (!isHeadless) {
                     firefoxOptions.addArguments("--headless");
                 }
 
@@ -149,6 +165,8 @@ public class TestContext {
             default:
                 throw new RuntimeException("Driver is not implemented for: " + browser);
         }
+
+        fluentWait = getWebDriverWait();
     }
 
     private static Map<String, Object> getChromePreferences() {
