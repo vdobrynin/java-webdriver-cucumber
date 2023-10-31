@@ -12,11 +12,11 @@ import static support.TestContext.getDriver;
 
 public class UspsSignIn extends Page {
 
-    @FindBy(xpath = "//a[@id='sign-up-button']")
+    @FindBy(xpath = "//*[@id='sign-up-button']")
     private WebElement signUpButton;
-    @FindBy(xpath = "//button[@id='btn-submit']")
+    @FindBy(xpath = "//*[@id='btn-submit']")
     private WebElement signInButton;
-    @FindBy(xpath = "//span[@id='error-username']")
+    @FindBy(xpath = "//*[@id='error-username']")
     private WebElement usernameError;
     private Object scenario;
 
@@ -34,8 +34,8 @@ public class UspsSignIn extends Page {
         try {
             fluentWait.until(ExpectedConditions.visibilityOf(signInButton));
             action.moveToElement(signInButton)
-                .sendKeys(Keys.ENTER)
                 .click(signInButton)
+                .sendKeys(Keys.ENTER)
                 .perform();
 
             fluentWait.until(ExpectedConditions.visibilityOf(usernameError));

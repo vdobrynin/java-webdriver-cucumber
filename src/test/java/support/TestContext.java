@@ -114,19 +114,18 @@ public class TestContext {
                 prefs.put("password_manager_enabled", false);
                 prefs.put("safebrowsing.enabled", true);
                 ChromeOptions chromeOptions = new ChromeOptions();
-                chromeOptions.addArguments("--window-size=1920,1080");
+                chromeOptions.addArguments("--window-size=1920,1200");
                 chromeOptions.addArguments("--remote-allow-origins=*");
                 chromeOptions.setExperimentalOption("prefs", prefs);
                 chromeOptions.addExtensions(new File(System
                     .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.2.0.crx"));
                 if (isHeadless) {
                     chromeOptions.addArguments("--headless=new");
-                    chromeOptions.addArguments("--start-maximize");
-                    chromeOptions.addArguments("--window-size=1920,1080");
+                    chromeOptions.addArguments("--window-size=1920,1200");
+                    chromeOptions.addArguments("--disable-gpu");
                     chromeOptions.addArguments("--force-device-scale-factor=0.75");
                     chromeOptions.addArguments("--remote-allow-origins=*");
                     chromeOptions.addArguments("--disable-features=VizDisplayCompositor");
-                    chromeOptions.addArguments("--disable-gpu");
                     chromeOptions.addArguments("--disable-extensions");
                     chromeOptions.addArguments("--no-sandbox");
                     chromeOptions.addArguments("--disable-dev-shm-usage");
