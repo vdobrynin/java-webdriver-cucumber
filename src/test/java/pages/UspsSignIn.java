@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -33,8 +34,8 @@ public class UspsSignIn extends Page {
         try {
             fluentWait.until(ExpectedConditions.visibilityOf(signInButton));
             action.moveToElement(signInButton)
+                .sendKeys(Keys.ENTER)
                 .click(signInButton)
-                .build()
                 .perform();
 
             fluentWait.until(ExpectedConditions.visibilityOf(usernameError));
