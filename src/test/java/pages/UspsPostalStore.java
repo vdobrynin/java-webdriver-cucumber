@@ -3,9 +3,11 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 
 import java.util.List;
 
+import static support.TestContext.fluentWait;
 import static support.TestContext.getExecutor;
 
 public class UspsPostalStore extends Page {
@@ -47,6 +49,7 @@ public class UspsPostalStore extends Page {
 
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", leftFilterBar);
+        fluentWait.until(ExpectedConditions.visibilityOf(leftFilterBar));
         return leftFilterBar
             .getText();
     }

@@ -25,19 +25,21 @@ public class Usps extends Page {
     private WebElement closePackaging;
 //    @FindBy(xpath = "(//a[@class='facet-toggle'][normalize-space()='Show More'])[1]")
 //    private WebElement openMore;
+    @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'Forms and Labels ')]")
+    private WebElement formsAndLabels;
     @FindBy(xpath = "//label[contains(@for,'checkbox-type-Mail Service-Priority Mail Express')]")
     private WebElement priorityMailExpress;
-//    @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'Forms and Labels ')]")
-//    private WebElement formsAndLabels;
-    @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'$0 to $5 ')]")
+    @FindBy(xpath = "//h4[@class='item-title'][contains(.,'Price')]")
+    private WebElement price;
+    @FindBy(xpath = "//label[contains(@for,'checkbox-type-Price-$0 to $5')]")
     private WebElement lowerPrice;
-
     @FindBy(xpath = "(//a[@data-gtm-label='click-n-ship-link'])[1]")
     private WebElement labelsButton;
     @FindBy(xpath = "//p[contains(.,'Track a Package')]")
     private WebElement trackButton;
 
     public void clickLabels() {
+
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", labelsButton);
         labelsButton.click();
@@ -45,6 +47,8 @@ public class Usps extends Page {
 
     public void clickTracking() {
 
+        getExecutor()
+            .executeScript("arguments[0].scrollIntoView();", trackButton);
         trackButton.click();
     }
 
@@ -54,8 +58,7 @@ public class Usps extends Page {
             .executeScript("arguments[0].scrollIntoView();", stampsButton);
         getWait()
             .until(ExpectedConditions.elementToBeClickable(stampsButton));
-        stampsButton
-            .click();
+        stampsButton.click();
     }
 
     public void clickBoxes() {
@@ -64,21 +67,28 @@ public class Usps extends Page {
             .executeScript("arguments[0].scrollIntoView();", orderNow);
         getWait()
             .until(ExpectedConditions.elementToBeClickable(orderNow));
-        orderNow
-            .click();
-        closeSupplies
-            .click();
-        closePackaging.click();
-//        openMore.click();
+        orderNow.click();
         getExecutor()
-            .executeScript("arguments[0].scrollIntoView();", priorityMailExpress);
-        priorityMailExpress
-            .click();
-//        formsAndLabels.click();
+            .executeScript("arguments[0].scrollIntoView();", closeSupplies);
+        closeSupplies.click();
+        getExecutor()
+            .executeScript("arguments[0].scrollIntoView();", closePackaging);
+        closePackaging.click();
+        getExecutor()
+            .executeScript("window.scrollBy(0,250)");
+        getExecutor()
+            .executeScript("arguments[0].scrollIntoView();", price);
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", lowerPrice);
         getExecutor()
             .executeScript("arguments[0].click();", lowerPrice);
+        getExecutor()
+            .executeScript("arguments[0].scrollIntoView();", formsAndLabels);
+        formsAndLabels.click();
+//        openMore.click();
+        getExecutor()
+            .executeScript("arguments[0].scrollIntoView();", priorityMailExpress);
+        priorityMailExpress.click();
     }
 
     public void clickMenuItem(String menu) {
