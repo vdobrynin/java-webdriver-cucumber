@@ -36,13 +36,9 @@ public class TestContext {
     public static WebDriver driver;
     public static Wait<WebDriver> fluentWait;
 
-    public static WebDriver getDriver() {
-        return driver;
-    }
+    public static WebDriver getDriver() { return driver; }
 
-    public static Wait<WebDriver> getFluentWait() {
-        return fluentWait;
-    }
+    public static Wait<WebDriver> getFluentWait() { return fluentWait; }
 
     private static Wait<WebDriver> getWebDriverWait() {
         Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(getDriver())
