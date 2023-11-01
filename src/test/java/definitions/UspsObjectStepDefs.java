@@ -56,7 +56,7 @@ public class UspsObjectStepDefs {
             .findElement(By.xpath("(//div[contains(@class,'dropdown-selection align-self-center open')])[1]"));
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", button);
-        getWait()
+        fluentWait
             .until(ExpectedConditions.visibilityOf(button));
         new UspsPostalStore()
             .click(button);

@@ -56,7 +56,7 @@ public class Usps extends Page {
 
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", stampsButton);
-        getWait()
+        fluentWait
             .until(ExpectedConditions.elementToBeClickable(stampsButton));
         stampsButton.click();
     }
@@ -65,7 +65,7 @@ public class Usps extends Page {
 
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", orderNow);
-        getWait()
+        fluentWait
             .until(ExpectedConditions.elementToBeClickable(orderNow));
         orderNow.click();
         getExecutor()
