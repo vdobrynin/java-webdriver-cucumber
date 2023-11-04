@@ -3,9 +3,9 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
-import static support.TestContext.*;
+import static support.TestContext.getDriver;
+import static support.TestContext.getExecutor;
 
 public class Usps extends Page {
 
@@ -56,8 +56,6 @@ public class Usps extends Page {
 
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", stampsButton);
-        fluentWait
-            .until(ExpectedConditions.elementToBeClickable(stampsButton));
         stampsButton.click();
     }
 
@@ -65,8 +63,6 @@ public class Usps extends Page {
 
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", orderNow);
-        fluentWait
-            .until(ExpectedConditions.elementToBeClickable(orderNow));
         orderNow.click();
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", closeSupplies);

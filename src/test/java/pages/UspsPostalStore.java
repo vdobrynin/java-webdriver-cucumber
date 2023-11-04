@@ -3,14 +3,13 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
+import java.text.ParseException;
 import java.util.List;
 
-import static support.TestContext.fluentWait;
 import static support.TestContext.getExecutor;
 
-public class UspsPostalStore extends Page { //    @FindBy(xpath = "//div[@class='result-products-holder']")
+public class UspsPostalStore extends Page {
 
     @FindBy(xpath = "(//a[@class='dropdown-item'][contains(.,'Price (Low-High)')])[1]")
     private WebElement sortBy;
@@ -19,8 +18,8 @@ public class UspsPostalStore extends Page { //    @FindBy(xpath = "//div[@class=
     @FindBy(xpath = "//div[@class='results-product-info']")
     private List<WebElement> foundItems;
 
-    @FindBy(xpath = "(//div[@class='col-9 col-md-2 nav-column'])[1]")
-//    @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'$0 to $5 ')]")
+//    @FindBy(xpath = "(//div[@class='col-9 col-md-2 nav-column'])[1]")
+    @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'$0 to $5 ')]")
     private WebElement leftFilterBar;
     @FindBy(xpath = "//input[@id='store-search']")
     private WebElement searchInput;
@@ -50,12 +49,11 @@ public class UspsPostalStore extends Page { //    @FindBy(xpath = "//div[@class=
 
         getExecutor()
             .executeScript("arguments[0].scrollIntoView();", leftFilterBar);
-        fluentWait.until(ExpectedConditions.visibilityOf(leftFilterBar));
         return leftFilterBar
             .getText();
     }
 
-    public boolean isCheapestItem(String name) {
+    public boolean isCheapestItem(String name) throws ParseException {
 
         for (WebElement item : foundItems) {
             if (item.getText().contains(name)) {
@@ -68,14 +66,11 @@ public class UspsPostalStore extends Page { //    @FindBy(xpath = "//div[@class=
                     .findElement(priceSelector)
                     .getText();
 //                                                            //---> Deals with currency for different country
-/*
-                Locale locale = new Locale("en", "US");
-                NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
-
+/*               //Locale locale = new Locale("en", "US");
+                NumberFormat formatter = NumberFormat.getCurrencyInstance(new Locale("en", "US"););
                 double itemPriceNumber = formatter.parse(itemPrice).doubleValue();
                 double firstPriceNumber = formatter.parse(firstFoundPrice).doubleValue();
-
-                formatter.format(itemPriceNumber);  // format back
+                //formatter.format(itemPriceNumber);                  // format back
                 return itemPriceNumber <= firstPriceNumber;
 */
                 return itemPrice

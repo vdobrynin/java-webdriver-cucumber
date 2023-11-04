@@ -29,7 +29,7 @@ public class Page {
 
     public void waitForClickable(WebElement element) {
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
+        new WebDriverWait(getDriver(), Duration.ofSeconds(7))
             .until(ExpectedConditions.elementToBeClickable(element));
     }
 

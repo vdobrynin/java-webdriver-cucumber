@@ -6,7 +6,6 @@ import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.Usps;
 import pages.UspsPostalStore;
 import pages.UspsSignIn;
@@ -15,7 +14,8 @@ import pages.UspsTracking;
 import java.text.ParseException;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static support.TestContext.*;
+import static support.TestContext.getDriver;
+import static support.TestContext.getExecutor;
 
 public class UspsObjectStepDefs {
 
@@ -55,10 +55,6 @@ public class UspsObjectStepDefs {
 
         WebElement button = getDriver()
             .findElement(By.xpath("(//div[contains(@class,'dropdown-selection align-self-center open')])[1]"));
-        getExecutor()
-            .executeScript("arguments[0].scrollIntoView();", button);
-        fluentWait
-            .until(ExpectedConditions.visibilityOf(button));
         new UspsPostalStore()
             .click(button);
         new UspsPostalStore().selectSortBy(text);
