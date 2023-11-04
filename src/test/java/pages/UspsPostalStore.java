@@ -19,7 +19,8 @@ public class UspsPostalStore extends Page { //    @FindBy(xpath = "//div[@class=
     @FindBy(xpath = "//div[@class='results-product-info']")
     private List<WebElement> foundItems;
 
-    @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'$0 to $5 ')]")
+    @FindBy(xpath = "(//div[@class='col-9 col-md-2 nav-column'])[1]")
+//    @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'$0 to $5 ')]")
     private WebElement leftFilterBar;
     @FindBy(xpath = "//input[@id='store-search']")
     private WebElement searchInput;
@@ -66,7 +67,7 @@ public class UspsPostalStore extends Page { //    @FindBy(xpath = "//div[@class=
                 String firstFoundPrice = firstFoundItem
                     .findElement(priceSelector)
                     .getText();
-//                                                            //---> Deals with currency from different country
+//                                                            //---> Deals with currency for different country
 /*
                 Locale locale = new Locale("en", "US");
                 NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
@@ -77,10 +78,10 @@ public class UspsPostalStore extends Page { //    @FindBy(xpath = "//div[@class=
                 formatter.format(itemPriceNumber);  // format back
                 return itemPriceNumber <= firstPriceNumber;
 */
-//                return itemPrice
-//                    .equals(firstFoundPrice);
-                return firstFoundPrice
-                    .equals(itemPrice);
+                return itemPrice
+                    .equals(firstFoundPrice);
+//                return firstFoundPrice
+//                    .equals(itemPrice);
             }
         }
         return false;

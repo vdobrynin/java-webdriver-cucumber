@@ -4,6 +4,7 @@ import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import pages.Usps;
@@ -42,15 +43,15 @@ public class UspsObjectStepDefs {
     @And("I sort by {string} oop")
     public void iSortByOop(String text) {
 
-//        boolean isPresent;            // for holidays
-//        try {
-//            WebElement holiday = getDriver()
-//                .findElement(By.xpath("(//span[normalize-space()='Holiday'])[1]"));
-//            isPresent = holiday.isDisplayed();
-//            new UspsPostalStore().click(holiday);
-//        } catch (NoSuchElementException e) {
-//            isPresent = false;
-//        }
+        boolean isPresent;            // for holidays
+        try {
+            WebElement holiday = getDriver()
+                .findElement(By.xpath("(//span[normalize-space()='Holiday'])[1]"));
+            isPresent = holiday.isDisplayed();
+            new UspsPostalStore().click(holiday);
+        } catch (NoSuchElementException e) {
+            isPresent = false;
+        }
 
         WebElement button = getDriver()
             .findElement(By.xpath("(//div[contains(@class,'dropdown-selection align-self-center open')])[1]"));
