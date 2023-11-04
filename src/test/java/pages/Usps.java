@@ -90,7 +90,7 @@ public class Usps extends Page {
     public void clickMenuItem(String menu) {
 
         getDriver()
-            .findElement(By.xpath("//a[text()='" + menu + "']"))
+            .findElement(By.xpath("//ul[@role='menubar']//a[text()='" + menu + "']"))
             .click();
     }
 }
