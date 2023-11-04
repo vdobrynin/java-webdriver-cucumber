@@ -1,7 +1,9 @@
 package definitions;
 
-import io.cucumber.java.en.*;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
 import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -13,8 +15,7 @@ import java.util.Set;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.openqa.selenium.support.ui.ExpectedConditions.visibilityOfElementLocated;
-import static support.TestContext.getDriver;
-import static support.TestContext.getExecutor;
+import static support.TestContext.*;
 
 public class WorkdayStepDefs {
 
@@ -83,7 +84,7 @@ public class WorkdayStepDefs {
             .toString()
             .trim()
             .contains("Email or Phone");
-//        System.out.println(actual);
+        System.out.println(actual);
 
         String name = getDriver()
             .findElement(By.xpath("(//form[@class='login__form']" +
@@ -93,17 +94,16 @@ public class WorkdayStepDefs {
             .toString()
             .trim()
             .contains("Sign in");
-//        System.out.println(name);
+        System.out.println(name);
     }
 
     @And("I select any tech position")
     public void iSelectAnyTechPosition() {
 
-        new WebDriverWait(getDriver(),
-            Duration.ofSeconds(10))
-            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[@data-cy='card-title-link']")));
+        new WebDriverWait(getDriver(), Duration.ofSeconds(15))
+            .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//a[@data-cy='card-title-link']")));
         List<WebElement> jobs = getDriver()
-            .findElements(By.xpath("//*[@data-cy='card-title-link']"));
+            .findElements(By.xpath("//a[@data-cy='card-title-link']"));
         int index = new Random()
             .nextInt(jobs.size());
         getExecutor()
@@ -111,27 +111,41 @@ public class WorkdayStepDefs {
     }
 
     @And("I go with Apply")
-    public void iGoWithApply() {
+    public void iGoWithApply() throws InterruptedException {
 
-        new WebDriverWait(getDriver(),
-            Duration.ofSeconds(15))
-            .until(ExpectedConditions
-                .visibilityOfElementLocated(By.xpath("(//apply-button-wc[@class='ml-4 flex-auto md:flex-initial hydrated'])[1]")))
-            .click();
+                     //***// This is Element inside single shadow DOM.
+//        String cssSelectorForHost1 = "apply-button-wc[class*='hydrated']";
+        Thread.sleep(15000);
+        WebElement shadow = (WebElement) getDriver()
+            .findElement(By.cssSelector("apply-button-wc[class*='hydrated']")).getShadowRoot();
+        SearchContext shadow2 = shadow
+            .findElement(By.cssSelector("apply-button-wc[class*='hydrated']")).getShadowRoot();
+        Thread.sleep(7000);
+//        SearchContext shadow = getDriver().findElement(By.cssSelector("apply-button-wc[class*='hydrated']")).getShadowRoot();
+        new WebDriverWait(getDriver(), Duration.ofSeconds(15));
+        shadow2.findElement(By.cssSelector(".job-app.hydrated > .btn-group.btn-group--block > .btn.btn-primary"));
+        getExecutor()
+            .executeScript("arguments[0].click();", shadow2);
+
+//        new WebDriverWait(getDriver(),
+//            Duration.ofSeconds(25))
+//            .until(ExpectedConditions
+//                .visibilityOfElementLocated(By.cssSelector(".btn-group.btn-group--block .btn.btn-primary")))
+//            .click();
     }
 
     @Then("I verify opens login window")
     public void iVerifyOpensLoginWindow() {
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(7))
+        fluentWait
             .until(visibilityOfElementLocated(By.xpath("(//a[normalize-space()='Register'])[1]")));
         WebElement element = getDriver()
             .findElement(By.xpath("(//a[normalize-space()='Register'])[1]"));
         String text = element.getText();
         assertThat(text).contains("Register");
-//        System.out.println(text);
+        System.out.println(text);
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(5))
+        fluentWait
             .until(visibilityOfElementLocated(By.xpath("//div[@class='button-container sc-login-form']" +
                 "//login-dhi-button[@id='signin']/button[@type='button']")));
         WebElement element1 = getDriver()
@@ -139,6 +153,6 @@ public class WorkdayStepDefs {
                 "//login-dhi-button[@id='signin']/button[@type='button']"));
         String text2 = element1.getText();
         assertThat(text2).contains("Log in");
-//        System.out.println(text2);
+        System.out.println(text2);
     }
 }

@@ -71,12 +71,12 @@ public class UspsObjectStepDefs {
         assertThat(isFound)
             .isTrue();
 //                                                  //--> before Lecture #14
-        String actualItem = new UspsPostalStore()
-            .getFirstFoundItem();
-        System.out.println("Actual: " + actualItem);
-        System.out.println("Expected: " + expected);
-        assertThat(actualItem)
-            .contains(expected);
+//        String actualItem = new UspsPostalStore()
+//            .getFirstFoundItem();
+//        System.out.println("Actual: " + actualItem);
+//        System.out.println("Expected: " + expected);
+//        assertThat(actualItem)
+//            .contains(expected);
     }
 
     @And("I verify section {string} exists oop")

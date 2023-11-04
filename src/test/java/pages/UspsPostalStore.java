@@ -10,7 +10,7 @@ import java.util.List;
 import static support.TestContext.fluentWait;
 import static support.TestContext.getExecutor;
 
-public class UspsPostalStore extends Page {
+public class UspsPostalStore extends Page { //    @FindBy(xpath = "//div[@class='result-products-holder']")
 
     @FindBy(xpath = "(//a[@class='dropdown-item'][contains(.,'Price (Low-High)')])[1]")
     private WebElement sortBy;
@@ -58,25 +58,29 @@ public class UspsPostalStore extends Page {
 
         for (WebElement item : foundItems) {
             if (item.getText().contains(name)) {
-                By priceSelector = By.xpath("(//div[@class='row cartridge-viewport'])[1]");
+                System.out.println(item.getText());
+                By priceSelector = By.xpath("//div[@class='results-product-preview-price']");
                 String itemPrice = item
                     .findElement(priceSelector)
                     .getText();
                 String firstFoundPrice = firstFoundItem
                     .findElement(priceSelector)
                     .getText();
-//                      //---> Deals with currency from different country
-//                Locale locale = new Locale("en", "US");
-//                NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
-//
-//                double itemPriceNumber = formatter.parse(itemPrice).doubleValue();
-//                double firstPriceNumber = formatter.parse(firstFoundPrice).doubleValue();
-//
-//                formatter.format(itemPriceNumber);  // format back
-//                return itemPriceNumber <= firstPriceNumber;
-                return itemPrice
-                    .equals(firstFoundPrice);
-                //return firstFoundPrice.equals(itemPrice);
+//                                                            //---> Deals with currency from different country
+/*
+                Locale locale = new Locale("en", "US");
+                NumberFormat formatter = NumberFormat.getCurrencyInstance(locale);
+
+                double itemPriceNumber = formatter.parse(itemPrice).doubleValue();
+                double firstPriceNumber = formatter.parse(firstFoundPrice).doubleValue();
+
+                formatter.format(itemPriceNumber);  // format back
+                return itemPriceNumber <= firstPriceNumber;
+*/
+//                return itemPrice
+//                    .equals(firstFoundPrice);
+                return firstFoundPrice
+                    .equals(itemPrice);
             }
         }
         return false;
