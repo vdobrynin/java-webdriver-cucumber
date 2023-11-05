@@ -18,7 +18,6 @@ public class UspsPostalStore extends Page {
     @FindBy(xpath = "//div[@class='results-product-info']")
     private List<WebElement> foundItems;
 
-//    @FindBy(xpath = "(//div[@class='col-9 col-md-2 nav-column'])[1]")
     @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'$0 to $5 ')]")
     private WebElement leftFilterBar;
     @FindBy(xpath = "//input[@id='store-search']")
@@ -34,9 +33,9 @@ public class UspsPostalStore extends Page {
 
     public void selectSortBy(String text) {
 
-        sortBy.isSelected();                    // i can't select anymore text, i have to start using click. 10/25/2023 review.
+        sortBy.isSelected();
         sortBy.click();
-//        new Select(sortBy).selectByVisibleText(text);
+//        new Select(sortBy).selectByVisibleText(text);     // i can't select anymore text, i have to start using click. 10/25/2023 review.
     }
 
     public String getFirstFoundItem() {

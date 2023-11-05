@@ -14,7 +14,6 @@ public class Usps extends Page {
     }
 
     @FindBy(xpath = "(//a[@data-gtm-subsection='stamps'])[1]")
-//    @FindBy(xpath = "(//a[@class='button--primary'][normalize-space()='Buy Stamps'])[1]")
     private WebElement stampsButton;
 
     @FindBy(xpath = "(//a[normalize-space()='Order Now'])[1]")
