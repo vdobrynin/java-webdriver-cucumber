@@ -117,7 +117,7 @@ public class TestContext {
 //                    .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.2.0.crx"));
                 chromeOptions.addExtensions(new File(System
                     .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub _5_1_5_0.crx"));
-                if (!isHeadless) {
+                if (isHeadless) {
                     chromeOptions.addArguments("--headless=new");
                     chromeOptions.addArguments("--window-size=1920,1200");
                     chromeOptions.addArguments("--disable-gpu");

@@ -22,7 +22,7 @@ public class WorkdayStepDefs {
     @And("I select any position")
     public void iSelectAnyPosition() {
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(5))
+        fluentWait
             .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//*[@data-automation-id='jobTitle']")));
         List<WebElement> jobs = getDriver()
             .findElements(By.xpath("//*[@data-automation-id='jobTitle']"));
@@ -35,15 +35,13 @@ public class WorkdayStepDefs {
     @And("I go with Apply with LinkedIn")
     public void iGoWithApplyWithLinkedIn() {
         // click on 'apply' to go to 'applywithlinkedin'
-        new WebDriverWait(getDriver(),
-            Duration.ofSeconds(5)).until(ExpectedConditions.presenceOfElementLocated(By
+        fluentWait.until(ExpectedConditions.presenceOfElementLocated(By
             .cssSelector(".css-e46bon")));
         getDriver()
             .findElement(By.cssSelector(".css-e46bon"))
             .click();
 
-        new WebDriverWait(getDriver(),
-            Duration.ofSeconds(5)).until(ExpectedConditions.presenceOfElementLocated(By
+        fluentWait.until(ExpectedConditions.presenceOfElementLocated(By
             .xpath("(//iframe[@title='applyWithLinkedIn'])[1]")));
         WebElement outerFrame = getDriver()
             .findElement(By.xpath("(//iframe[@title='applyWithLinkedIn'])[1]"));
@@ -81,8 +79,6 @@ public class WorkdayStepDefs {
                 "//label[normalize-space()='Email or Phone'][contains(.,'Email or Phone')])[1]"))
             .getText();
         assertThat(actual)
-            .toString()
-            .trim()
             .contains("Email or Phone");
         System.out.println(actual);
 
@@ -91,8 +87,6 @@ public class WorkdayStepDefs {
                 "//button[normalize-space()='Sign in'][contains(.,'Sign in')])[1]"))
             .getText();
         assertThat(name)
-            .toString()
-            .trim()
             .contains("Sign in");
         System.out.println(name);
     }
@@ -100,7 +94,7 @@ public class WorkdayStepDefs {
     @And("I select any tech position")
     public void iSelectAnyTechPosition() {
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(15))
+       fluentWait
             .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//a[@data-cy='card-title-link']")));
         List<WebElement> jobs = getDriver()
             .findElements(By.xpath("//a[@data-cy='card-title-link']"));
@@ -113,25 +107,27 @@ public class WorkdayStepDefs {
     @And("I go with Apply")
     public void iGoWithApply() throws InterruptedException {
 
-                     //***// This is Element inside single shadow DOM.
-//        String cssSelectorForHost1 = "apply-button-wc[class*='hydrated']";
-        Thread.sleep(15000);
-        WebElement shadow = (WebElement) getDriver()
-            .findElement(By.cssSelector("apply-button-wc[class*='hydrated']")).getShadowRoot();
-        SearchContext shadow2 = shadow
-            .findElement(By.cssSelector("apply-button-wc[class*='hydrated']")).getShadowRoot();
-        Thread.sleep(7000);
-//        SearchContext shadow = getDriver().findElement(By.cssSelector("apply-button-wc[class*='hydrated']")).getShadowRoot();
-        new WebDriverWait(getDriver(), Duration.ofSeconds(15));
-        shadow2.findElement(By.cssSelector(".job-app.hydrated > .btn-group.btn-group--block > .btn.btn-primary"));
-        getExecutor()
-            .executeScript("arguments[0].click();", shadow2);
-
-//        new WebDriverWait(getDriver(),
-//            Duration.ofSeconds(25))
-//            .until(ExpectedConditions
-//                .visibilityOfElementLocated(By.cssSelector(".btn-group.btn-group--block .btn.btn-primary")))
+//        fluentWait.until(ExpectedConditions.visibilityOfElementLocated(By
+//                .xpath("//body/div[@id='__next']/div/main/div/div[@id='dhiJobHeaderRedesign']/div/div/div/div[@id='buttonsDiv']/div/div[@id='buttons']/div[1]")))
 //            .click();
+//        fluentWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#buttonsDiv")))
+//            .click();
+//        fluentWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#buttons")))
+//            .click();
+        fluentWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//apply-button-wc)[1]")))
+            .isDisplayed();
+        fluentWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//apply-button-wc)[1]")))
+            .click();
+                     //***// This is Element inside single shadow DOM.
+        String cssSelectorForHost1 = "apply-button-wc[class*='hydrated']";
+        new WebDriverWait(getDriver(), Duration.ofSeconds(20));
+        SearchContext shadow = driver.findElement(By.cssSelector("apply-button-wc[class*='hydrated']")).getShadowRoot();
+//        SearchContext shadow = driver.findElement(By.cssSelector("apply-button-wc[class*='hydrated']")).getShadowRoot();
+        new WebDriverWait(getDriver(), Duration.ofSeconds(15));
+        shadow.findElement(By.cssSelector("button"));
+//        shadow.findElement(By.cssSelector(".job-app.hydrated > .btn-group.btn-group--block > .btn.btn-primary"));
+        getExecutor()
+            .executeScript("arguments[0].click();", shadow);
     }
 
     @Then("I verify opens login window")
