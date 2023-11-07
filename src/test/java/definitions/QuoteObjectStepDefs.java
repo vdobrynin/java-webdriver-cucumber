@@ -45,7 +45,7 @@ public class QuoteObjectStepDefs implements Loggable {
     }
 
     @And("I submit the form oop")
-    public void iSubmitTheFormOop() throws InterruptedException {
+    public void iSubmitTheFormOop() {
 
         new QuoteForm().clickSubmit();         //         // ---> submit the form
     }

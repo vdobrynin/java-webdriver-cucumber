@@ -34,7 +34,7 @@ public class Usps extends Page {
     private WebElement lowerPrice;
     @FindBy(xpath = "(//a[@data-gtm-label='click-n-ship-link'])[1]")
     private WebElement labelsButton;
-    @FindBy(xpath = "//p[contains(.,'Track a Package')]")
+    @FindBy(xpath = "(//a[@role='menuitem'][contains(.,'Tracking')])[2]")
     private WebElement trackButton;
 
     public void clickLabels() {

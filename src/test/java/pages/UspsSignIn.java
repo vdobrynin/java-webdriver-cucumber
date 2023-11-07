@@ -16,14 +16,10 @@ public class UspsSignIn extends Page {
     private WebElement signInButton;
     @FindBy(xpath = "//*[@id='error-username']")
     private WebElement usernameError;
-    private Object scenario;
 
-    public boolean isSignUpPossible() {
+    public boolean isSignUpPossible() { return signUpButton.isDisplayed() && signUpButton.isEnabled(); }
 
-        return signUpButton.isDisplayed() && signUpButton.isEnabled();
-    }
-
-    public boolean isSignInRequired() throws InterruptedException {
+    public boolean isSignInRequired() {
 
         Actions action = new Actions(getDriver());
         signInButton.click();
