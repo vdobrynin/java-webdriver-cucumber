@@ -35,7 +35,7 @@ public class UspsPostalStore extends Page {
 
         sortBy.isSelected();
         sortBy.click();
-//        new Select(sortBy).selectByVisibleText(text);     // i can't select anymore text, i have to start using click. 10/25/2023 review.
+//        new Select(sortBy).selectByVisibleText(text);     // i can't select anymore text, I have to start using click. 10/25/2023 review.
     }
 
     public String getFirstFoundItem() {

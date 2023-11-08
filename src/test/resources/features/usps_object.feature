@@ -34,6 +34,6 @@ Feature: Usps Test Suite
     @usps_object5
     Scenario: Usps Tracking
         Given I go to "usps" page oop
-        When I go to "Receive" menu oop
+#        When I go to "Receive" menu oop
         When I go to "tracking" oop
         Then I verify that "Sign Up" is possible oop

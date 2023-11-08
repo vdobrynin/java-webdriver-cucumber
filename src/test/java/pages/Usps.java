@@ -2,6 +2,7 @@ package pages;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
 
 import static support.TestContext.getDriver;
@@ -34,7 +35,7 @@ public class Usps extends Page {
     private WebElement lowerPrice;
     @FindBy(xpath = "(//a[@data-gtm-label='click-n-ship-link'])[1]")
     private WebElement labelsButton;
-    @FindBy(xpath = "(//a[@role='menuitem'][contains(.,'Tracking')])[2]")
+    @FindBy(xpath = "(//a[@role='menuitem'][contains(text(),'Tracking')])[2]")
     private WebElement trackButton;
 
     public void clickLabels() {
@@ -46,8 +47,11 @@ public class Usps extends Page {
 
     public void clickTracking() {
 
-        getExecutor()
-            .executeScript("arguments[0].scrollIntoView();", trackButton);
+        WebElement receive = getDriver()
+            .findElement(By.xpath("//a[@class='menuitem'][contains(.,'Receive')]"));
+        new Actions(getDriver())
+            .moveToElement(receive)
+            .perform();
         trackButton.click();
     }
 
