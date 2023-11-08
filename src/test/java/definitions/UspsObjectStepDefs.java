@@ -121,7 +121,7 @@ public class UspsObjectStepDefs {
         if (url.contains("Login")) {
             assertThat(new UspsSignIn()
                 .isSignUpPossible())
-                .isFalse();                      //--> page is login
+                .isTrue();                      //--> page is login
 
         } else if (url.contains("Track")) {
             assertThat(new UspsTracking()
