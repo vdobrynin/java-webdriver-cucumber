@@ -17,7 +17,10 @@ public class UspsSignIn extends Page {
     @FindBy(xpath = "//*[@id='error-username']")
     private WebElement usernameError;
 
-    public boolean isSignUpPossible() { return signUpButton.isDisplayed() && signUpButton.isEnabled(); }
+    public boolean isSignUpPossible() {
+
+        return signUpButton.isDisplayed() && signUpButton.isEnabled();
+    }
 
     public boolean isSignInRequired() {
 
