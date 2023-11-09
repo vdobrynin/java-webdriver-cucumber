@@ -1,7 +1,7 @@
 package pages;
 
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.*;
 
 import java.util.Map;
 
@@ -9,10 +9,8 @@ public class CareersLogin extends CareersHeader {
 
     @FindBy(xpath = "//label[@for='loginUsername']/../input")
     private WebElement username;
-
     @FindBy(xpath = "//label[@for='loginPassword']/../input")
     private WebElement password;
-
     @FindBy(xpath = "//button[@id='loginButton']")
     private WebElement submit;
 
@@ -34,7 +32,7 @@ public class CareersLogin extends CareersHeader {
         return new Careers();
     }
 
-    public Careers login(String username, String password) { // because same name as variable we'll using "this."
+    public Careers login(String username, String password) { // because same name as variable we'll using "this"
 
         this.username.sendKeys(username);
         this.password.sendKeys(password);

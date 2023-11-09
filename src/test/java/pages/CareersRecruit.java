@@ -14,10 +14,8 @@ public class CareersRecruit extends CareersHeader implements Loggable {
 
     @FindBy(xpath = "//a[@href='/new_position']/h4")
     private WebElement newPositionButton;
-
     @FindBy(xpath = "//h4[@class='card-title']")
     private List<WebElement> positionTitles;
-
     public CareersNewPosition clickNewPositionButton() {
 
         click(newPositionButton);
@@ -27,13 +25,16 @@ public class CareersRecruit extends CareersHeader implements Loggable {
 
     public String getLastCreatedPositionTitle() throws InterruptedException {
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(5))
+        new WebDriverWait(getDriver(), Duration
+            .ofSeconds(5))
             .until(driver -> positionTitles.size() > 2);
         int size = positionTitles.size();
 //    System.out.println("\nTotal position: " + size);
         getLogger().info("\nTotal position: " + size);
 
-        WebElement lastPositionTitle = positionTitles.get(size - 1);
-        return lastPositionTitle.getText();
+        WebElement lastPositionTitle = positionTitles
+            .get(size - 1);
+        return lastPositionTitle
+            .getText();
     }
 }

@@ -7,7 +7,6 @@ public class /**/CareersPositions extends Page {
 
     @FindBy(xpath = "//a[contains(@href,'/positions/')]/h4[New_Position]")
     private WebElement automationPosition;                  //a[contains(@href, '/candidates/')]
-
     @FindBy(xpath = "//button[@class='btn btn-primary']")
     private WebElement applyOnPosition;                     //button[@class='btn btn-primary']
 
