@@ -1,12 +1,16 @@
 package support;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,10 +20,8 @@ public class RestWrapper {
 
     private String baseUrl = "https://skryabin.com/recruit/api/v1/";
     private static String loginToken;
-
     private static Map<String, Object> lastPosition;
-
-    private static JsonPath metadata;           // add to check & save metadata
+    private static JsonPath metadata;                           // add to check & save metadata
 
     //value for all
     public static final String CONTENT_TYPE = "Content-Type";
@@ -28,10 +30,10 @@ public class RestWrapper {
 
     public static Map<String, Object> getLastPosition() {
 
-        return lastPosition;                                // get to read data --> last position
+        return lastPosition;                                    // get to read data ---> last position
     }
 
-    public void login(Map<String, String> credentials) {
+    public void login(Map<String, String> credentials) throws JsonParseException {
 
         // prepare
         RequestSpecification request = RestAssured
@@ -42,42 +44,54 @@ public class RestWrapper {
 
         //execute
         Response response = request
-
-            .post(baseUrl + "login");
+            .when()
+            .post("login");
+//            .post(baseUrl + "login");
 
         //verify and extract
-        Map<String, String> result = response
+        Map<String, Object> result = response
             .then()
             .log().all()
             .statusCode(200)
             .extract()
             .jsonPath()
-            .getMap("");                        // give me everything if "" all together
+            .getMap("");                                       // give me everything if "" all together
 
-        loginToken = "Bearer " + result.get("token");
-        getMetadata();                                      // added to grab metadata on login
+        loginToken = "Bearer " + result
+            .get("token");
+        getMetadata();                                              // added to grab metadata on login
     }
 
-    public Map<String, Object> createPosition(Map<String, String> position) {
+    public Map<String, Object> createPosition(Map<String, String> position) throws ParseException {
 
-        String dateOpen = position.get("dateOpen");                           // convert date from US format to ISO format
-        //System.out.println(dateOpen);                                           // simple check what we have
-        LocalDate localDate = LocalDate.parse(dateOpen, DateTimeFormatter.ofPattern("MM/dd/yyyy"));
-        String isoDateOpen = localDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        position.put("dateOpen", isoDateOpen);                                             // convert date back
+        String dateOpen = position
+            .get("dateOpen");                           // convert date from US format to ISO format
+//          System.out.println(dateOpen);                                           // simple check what we have
+        String isoDateOpen = new SimpleDateFormat("yyyy-MM-dd")
+            .format(new SimpleDateFormat("MM/dd/yyyy").parse(dateOpen));
+        position
+            .put("dateOpen", isoDateOpen);                                             // convert date is back
+
+        String title = position.get("title");
+        String uniqueTitle = title + new SimpleDateFormat("-yyyy-MM-dd-HH-mm-sss")
+            .format(new Date());
+        position
+            .put("title", uniqueTitle);
 
         //prepare
         RequestSpecification request = RestAssured
             .given()
             .log().all()
+            .baseUri(baseUrl)
             .header(CONTENT_TYPE, JSON)
             .header(AUTH, loginToken)
             .body(position);
 
         //execute
         Response response = request
-
-            .post(baseUrl + "positions"); // ??? position
+            .when()
+            .post("positions"); // ??? position
+//            .post(baseUrl + "positions"); // ??? position
 
         //verify and extract
         Map<String, Object> result = response

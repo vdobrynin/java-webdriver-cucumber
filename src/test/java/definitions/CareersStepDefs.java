@@ -1,10 +1,15 @@
 package definitions;
 
-import io.cucumber.java.en.*;
+import com.fasterxml.jackson.core.JsonParseException;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import pages.*;
-import support.*;
+import support.Loggable;
+import support.RestWrapper;
 
-import java.util.Date;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 
@@ -16,6 +21,7 @@ public class CareersStepDefs implements Loggable {
 
     @Given("^I open \"([^\"]*)\" page$")
     public void iOpenPage(String page) throws Throwable {
+
         switch (page) {
             case "careers":
                 new Careers().open();
@@ -31,15 +37,23 @@ public class CareersStepDefs implements Loggable {
     @And("I login as {string}")
     public void iLoginAs(String role) {
 
+//        Map<String, String> user = getData(role);  // change to below --> login(getData(role))
+        new Careers()
+            .clickLogin();
+
+        new CareersLogin()
+            .login(getData(role));        // static polymorphism // take (Data) from recruiter file
+
 //        new Careers()
 //            .clickLogin()
-//            .login(getData(role));        // static polymorphism // take (Data) from recruiter file
-        new Careers()
-            .clickLogin()
-            .fillUsername("owen@example.com")
-            .fillPassword("welcome")
-            .clickSubmit()
-            .getLoggedInUser();             // example
+//            .getLoggedInUser();             // example
+
+//        new Careers()
+//            .clickLogin()
+//            .fillUsername("owen@example.com")
+//            .fillPassword("welcome")
+//            .clickSubmit()
+//            .getLoggedInUser();             // this example we change at lecture #15.04
     }
 
     @Then("I verify {string} login")
@@ -120,43 +134,45 @@ public class CareersStepDefs implements Loggable {
     }
 
     @Given("I login to REST API as {string}")
-    public void iLoginToRESTAPIAs(String role) {
+    public void iLoginToRESTAPIAs(String role) throws JsonParseException {
 
         new RestWrapper()
             .login(getData(role));
     }
 
     @When("I create via REST API {string} position")
-    public void iCreateViaRESTAPIPosition(String type) {
+    public void iCreateViaRESTAPIPosition(String type) throws ParseException {
 
         new RestWrapper()
             .createPosition(getData(type));
     }
 
-    @Then("I verify via REST API position is created")
-    public void iVerifyViaRESTAPIPositionIsCreated() {
+    @Then("I verify via REST API position is in the list")
+    public void iVerifyViaRESTAPIPositionIsInTheList() {
 
-        List<Map<String, Object>> positions = new RestWrapper()
+        List<Map<String, Object>> actualPositions = new RestWrapper()
             .getPositions();
         Map<String, Object> lastPosition = RestWrapper
             .getLastPosition();
 
         boolean isFound = false;
-        for (Map<String, Object> position : positions) {                  // String, String I change to the Object -->
+        for (Map<String, Object> actualPosition : actualPositions) {                  // String, String I change to the Object -->
 
-            if (position.get("id").equals(lastPosition.get("id"))) {
+            if (actualPosition.get("id").equals(lastPosition.get("id"))) {
                 isFound = true;
-
                 for (String key : lastPosition.keySet()) {              // check key & keySet
 
                     Object expected = lastPosition
                         .get(key);
-                    Object actual = position.
+                    Object actual = actualPosition.
                         get(key);
-
+                    System.out.println("Verifying field: " + key);
+                    System.out.println("Expected: " + expected);
+                    System.out.println("Actual: " + actual);
                     assertThat(actual)
                         .isEqualTo(expected);
                 }
+//                break;
             }
         }
         assertThat(isFound)
@@ -209,7 +225,11 @@ public class CareersStepDefs implements Loggable {
         new RestWrapper()
             .deletePositionById(expectedPosition
                 .get("id"));
-//    new RestWrapper().deletePosition(((Integer) RestWrapper.getLastPosition().get("id")).toString()); // with "Sasha K."
+
+//        new RestWrapper()
+//            .deletePositionById(((Integer) RestWrapper
+//                .getLastPosition().get("id"))
+//                .toString());                                       // with "Sasha K."
     }
 
     @When("I create via REST API {string} candidate")

@@ -1,17 +1,22 @@
-#username: owen@example.com
-#email: owen@example.com
+#username: slava@skryabin.com
+#email: slava@skryabin.com
 #password: welcome
-#name: Owen Kelley
+#firstName: Slava
+#lastName: Skryabin
 
-
-firstName: Slava
-middleName: Vlad
-lastName: Skryabin
-
-email: example+1@skryabin.com
+username: owen+1@example.com
+email: owen+1@example.com
 password: welcome
+name: Owen Kelley
+
+#firstName: Slava
+#middleName: Vlad
+#lastName: Skryabin
+
+#email: example+1@skryabin.com
+#password: welcome
 confirmPassword: welcome
-summary: "SDET, description for QA Automation  Engineer Lead"
+summary: "SDET, description for QA Automation Engineer Lead"
 address: "4970 El Camino Real"
 city: Los Altos
 state: California

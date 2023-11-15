@@ -5,18 +5,18 @@ address: "4970 El Camino Real"
 city: Los Altos
 state: California
 zip: "94022"
-dateOpen: "08/31/2019"
+dateOpen: "10/31/2023"
 #-
 firstName: Slava
 middleName: Vlad
 lastName: Skryabin
-email: example+65@gmail.com
+email: example+1@gmail.com
 password: welcome
 confirmPassword: welcome
 summary: "QA Automation Engineer, description for QA Automation  Engineer"
-address: "4970 El Camino Real"
-city: Los Altos
-state: California
-zip: "94022"
+#address: "4970 El Camino Real"
+#city: Los Altos
+#state: California
+#zip: "94022"
 
-#titlePrincipal: Principal Automation Engineer
+titlePrincipal: Principal Automation Engineer

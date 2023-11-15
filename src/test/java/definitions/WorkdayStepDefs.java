@@ -9,6 +9,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -27,7 +28,7 @@ public class WorkdayStepDefs {
         List<WebElement> jobs = getDriver()
             .findElements(By.xpath("//*[@data-automation-id='jobTitle']"));
         int index = new Random()
-            .nextInt(jobs.size());      // each time it would be random
+            .nextInt(jobs.size());      // each time it would to be a random
         jobs.get(index)
             .click();                   // choose the job (WebElement)
     }
@@ -94,40 +95,45 @@ public class WorkdayStepDefs {
     @And("I select any tech position")
     public void iSelectAnyTechPosition() {
 
-       fluentWait
+        fluentWait
             .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//a[@data-cy='card-title-link']")));
         List<WebElement> jobs = getDriver()
             .findElements(By.xpath("//a[@data-cy='card-title-link']"));
         int index = new Random()
             .nextInt(jobs.size());
-        getExecutor()
-            .executeScript("arguments[0].click();", jobs.get(index));
+
+        String currentWindow = getDriver().getWindowHandle();                                    // get handle of current window
+        Set<String> handles = getDriver().getWindowHandles();                                    // get handle of all windows
+        Iterator<String> it = handles.iterator();
+        while (it.hasNext()) {
+            if (currentWindow.equals(it.next())) {
+                continue;
+            }
+            driver = getDriver().switchTo().window(it.next());                                  // switch to new window
+
+            getExecutor()
+                .executeScript("arguments[0].click();", jobs.get(index));
+        }
     }
 
     @And("I go with Apply")
     public void iGoWithApply() throws InterruptedException {
-
-//        fluentWait.until(ExpectedConditions.visibilityOfElementLocated(By
-//                .xpath("//body/div[@id='__next']/div/main/div/div[@id='dhiJobHeaderRedesign']/div/div/div/div[@id='buttonsDiv']/div/div[@id='buttons']/div[1]")))
+//        getDriver().findElement(By.cssSelector("#dhiJobHeaderRedesign div[class='flex flex-row flex-wrap mt-2 md:flex-nowrap']"))
 //            .click();
-//        fluentWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#buttonsDiv")))
+//        getDriver().findElement(By.cssSelector("#buttonsDiv"))
 //            .click();
-//        fluentWait.until(ExpectedConditions.visibilityOfElementLocated(By.cssSelector("#buttons")))
-//            .click();
-        fluentWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//apply-button-wc)[1]")))
-            .isDisplayed();
-        fluentWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("(//apply-button-wc)[1]")))
-            .click();
-                     //***// This is Element inside single shadow DOM.
-        String cssSelectorForHost1 = "apply-button-wc[class*='hydrated']";
-        new WebDriverWait(getDriver(), Duration.ofSeconds(20));
-        SearchContext shadow = driver.findElement(By.cssSelector("apply-button-wc[class*='hydrated']")).getShadowRoot();
-//        SearchContext shadow = driver.findElement(By.cssSelector("apply-button-wc[class*='hydrated']")).getShadowRoot();
-        new WebDriverWait(getDriver(), Duration.ofSeconds(15));
-        shadow.findElement(By.cssSelector("button"));
-//        shadow.findElement(By.cssSelector(".job-app.hydrated > .btn-group.btn-group--block > .btn.btn-primary"));
-        getExecutor()
-            .executeScript("arguments[0].click();", shadow);
+//                                                //***// This is Element inside single shadow DOM.
+        String cssSelectorForHost1 = "apply-button-wc[class$='hydrated']";
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+        SearchContext shadow1 = getDriver().findElement(By.cssSelector("apply-button-wc[class$='hydrated']")).getShadowRoot();
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+        SearchContext shadow2 = shadow1.findElement(By.cssSelector(".job-app.hydrated")).getShadowRoot();
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+        SearchContext shadow3 = shadow2.findElement(By.cssSelector(".btn.btn-primary")).getShadowRoot();
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10));
+        shadow3.findElement(By.cssSelector(".btn.btn-primary"));
+//        getExecutor()
+//            .executeScript("arguments[0].click();", shadow2);
     }
 
     @Then("I verify opens login window")

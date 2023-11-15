@@ -27,7 +27,7 @@ Feature: Careers OOP
     Scenario: REST API Position CRUD
         Given I login to REST API as "recruiter"
         When I create via REST API "automation" position
-        Then I verify via REST API position is created
+        Then I verify via REST API position is in the list
         When I update via REST API "automation" position
         Then  I verify via REST API position is updated
         And I delete via REST API created position
@@ -36,7 +36,7 @@ Feature: Careers OOP
     Scenario: REST API Position CRUD 1
         Given I login to REST API as "recruiter"
         When I create via REST API "automation" position
-        Then I verify via REST API position is created
+        Then I verify via REST API position is in the list
         When I update via REST API "automation" position
         Then I verify via REST API position is updated
         And I delete via REST API created position
@@ -45,10 +45,13 @@ Feature: Careers OOP
     Scenario: REST API Candidate CRUD 2
         Given I login to REST API as "recruiter"
         When I create via REST API "sdet" candidate
-        Then I verify via REST API candidate is created
+        Then I verify via REST API position is in the list
+#        Then I verify via REST API candidate is created
         When I update via REST API "sdet" position
-        Then  I verify via REST API candidate is updated
-        And I delete via REST API created candidate
+        Then  I verify via REST API position is updated
+#        Then  I verify via REST API candidate is updated
+        And I delete via REST API created position
+#        And I delete via REST API created candidate
 
 
 

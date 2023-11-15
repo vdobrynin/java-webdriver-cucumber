@@ -7,11 +7,9 @@ public class CareersCandidates extends Page {
 
     @FindBy(xpath = "//a[contains(@href,'/candidates/')]")
     private WebElement candidate;
-
     @FindBy(xpath = "//a[contains(@href, '/positions/')]//h4[contains(text(),'Principal Automation Engineer')]")
     private WebElement chosenPositionTitle;
     //private List<WebElement> chosenPositionTitle;                                //a[contains(@href, '/positions/')]
-
     @FindBy(xpath = "//button[@class='btn btn-primary']")
     private WebElement applyPositionButton;
 

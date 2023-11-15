@@ -32,7 +32,7 @@ public class CareersLogin extends CareersHeader {
         return new Careers();
     }
 
-    public Careers login(String username, String password) { // because same name as variable we'll using "this"
+    public Careers login(String username, String password) {            // because same name as variable we'll using "this"
 
         this.username.sendKeys(username);
         this.password.sendKeys(password);
@@ -40,7 +40,7 @@ public class CareersLogin extends CareersHeader {
         return new Careers();
     }
 
-    public Careers login(Map<String, String> user) {  // polymorphism same method with different arguments
+    public Careers login(Map<String, String> user) {            // polymorphism same method with different arguments
 
         return login(user.get("username"), user.get("password"));
     }
