@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
@@ -35,7 +34,7 @@ public class WorkdayStepDefs {
 
     @And("I go with Apply with LinkedIn")
     public void iGoWithApplyWithLinkedIn() {
-        // click on 'apply' to go to 'applywithlinkedin'
+//                                                // click on 'apply' to go to 'applywithlinkedin'
         fluentWait.until(ExpectedConditions.presenceOfElementLocated(By
             .cssSelector(".css-e46bon")));
         getDriver()
@@ -101,39 +100,34 @@ public class WorkdayStepDefs {
             .findElements(By.xpath("//a[@data-cy='card-title-link']"));
         int index = new Random()
             .nextInt(jobs.size());
+        getExecutor()
+            .executeScript("arguments[0].click();", jobs.get(index));
 
-        String currentWindow = getDriver().getWindowHandle();                                    // get handle of current window
-        Set<String> handles = getDriver().getWindowHandles();                                    // get handle of all windows
-        Iterator<String> it = handles.iterator();
-        while (it.hasNext()) {
-            if (currentWindow.equals(it.next())) {
-                continue;
-            }
-            driver = getDriver().switchTo().window(it.next());                                  // switch to new window
-
-            getExecutor()
-                .executeScript("arguments[0].click();", jobs.get(index));
+        new WebDriverWait(getDriver(), Duration.ofSeconds(30));
+        Set<String> allWindows = getDriver().getWindowHandles();
+//                                                                    // switch to last window
+        for (String window : allWindows) {
+            getDriver().switchTo().window(window);
         }
     }
 
     @And("I go with Apply")
     public void iGoWithApply() throws InterruptedException {
-//        getDriver().findElement(By.cssSelector("#dhiJobHeaderRedesign div[class='flex flex-row flex-wrap mt-2 md:flex-nowrap']"))
-//            .click();
-//        getDriver().findElement(By.cssSelector("#buttonsDiv"))
-//            .click();
-//                                                //***// This is Element inside single shadow DOM.
+
+        getDriver().findElement(By.cssSelector("#dhiJobHeaderRedesign div[class='flex flex-row flex-wrap mt-2 md:flex-nowrap']"))
+            .isDisplayed();
+        getDriver().findElement(By.cssSelector("#buttonsDiv"))
+            .click();
+        getDriver().findElement(By.cssSelector("#buttons"))
+            .click();
+/*
+                                                // This is Element inside single shadow DOM.
+*/
         String cssSelectorForHost1 = "apply-button-wc[class$='hydrated']";
-        new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        SearchContext shadow1 = getDriver().findElement(By.cssSelector("apply-button-wc[class$='hydrated']")).getShadowRoot();
-        new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        SearchContext shadow2 = shadow1.findElement(By.cssSelector(".job-app.hydrated")).getShadowRoot();
-        new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        SearchContext shadow3 = shadow2.findElement(By.cssSelector(".btn.btn-primary")).getShadowRoot();
-        new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        shadow3.findElement(By.cssSelector(".btn.btn-primary"));
-//        getExecutor()
-//            .executeScript("arguments[0].click();", shadow2);
+        new WebDriverWait(getDriver(), Duration.ofSeconds(30));
+        SearchContext shadow = getDriver().findElement(By.cssSelector("apply-button-wc[class$='hydrated']")).getShadowRoot();
+        new WebDriverWait(getDriver(), Duration.ofSeconds(30));
+        shadow.findElement(By.cssSelector(".btn.btn-primary"));
     }
 
     @Then("I verify opens login window")
@@ -147,9 +141,6 @@ public class WorkdayStepDefs {
         assertThat(text).contains("Register");
         System.out.println(text);
 
-        fluentWait
-            .until(visibilityOfElementLocated(By.xpath("//div[@class='button-container sc-login-form']" +
-                "//login-dhi-button[@id='signin']/button[@type='button']")));
         WebElement element1 = getDriver()
             .findElement(By.xpath("//div[@class='button-container sc-login-form']" +
                 "//login-dhi-button[@id='signin']/button[@type='button']"));
