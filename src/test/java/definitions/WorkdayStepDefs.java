@@ -71,7 +71,9 @@ public class WorkdayStepDefs {
         Set<String> allWindows = getDriver().getWindowHandles();
 //                                                                    // switch to last window
         for (String window : allWindows) {
-            getDriver().switchTo().window(window);
+            getDriver()
+                .switchTo()
+                .window(window);
         }
 
         String actual = getDriver()
@@ -107,32 +109,38 @@ public class WorkdayStepDefs {
         Set<String> allWindows = getDriver().getWindowHandles();
 //                                                                    // switch to last window
         for (String window : allWindows) {
-            getDriver().switchTo().window(window);
+            getDriver()
+                .switchTo()
+                .window(window);
         }
     }
 
     @And("I go with Apply")
     public void iGoWithApply() throws InterruptedException {
 
-        Thread.sleep(1000);
-        getDriver().findElement(By.cssSelector("#dhiJobHeaderRedesign div[class='flex flex-row flex-wrap mt-2 md:flex-nowrap']"))
+        Thread.sleep(3000);
+        getDriver()
+            .findElement(By.cssSelector("#dhiJobHeaderRedesign div[class='flex flex-row flex-wrap mt-2 md:flex-nowrap']"))
             .isDisplayed();
-        getDriver().findElement(By.cssSelector("#buttonsDiv"))
+        getDriver()
+            .findElement(By.cssSelector("#buttonsDiv"))
             .isSelected();
-        getDriver().findElement(By.cssSelector("#buttons"))
+        getDriver()
+            .findElement(By.cssSelector("#buttons"))
             .isSelected();
 /*
                                                 // This is Element inside single shadow DOM.
 */
         String cssSelectorForHost1 = "apply-button-wc[class$='hydrated']";
-        Thread.sleep(3000);
+        Thread.sleep(1000);
         SearchContext shadow = getDriver()
             .findElement(By.cssSelector("apply-button-wc[class$='hydrated']"))
             .getShadowRoot();
-        Thread.sleep(3000);
-        shadow.findElement(By.cssSelector(".btn.btn-primary"))
+        Thread.sleep(1000);
+        shadow
+            .findElement(By.cssSelector(".btn.btn-primary"))
             .click();
-        Thread.sleep(3000);
+        Thread.sleep(1000);
     }
 
     @Then("I verify opens login window")
@@ -142,15 +150,19 @@ public class WorkdayStepDefs {
             .until(visibilityOfElementLocated(By.xpath("(//a[normalize-space()='Register'])[1]")));
         WebElement element = getDriver()
             .findElement(By.xpath("(//a[normalize-space()='Register'])[1]"));
-        String text = element.getText();
-        assertThat(text).contains("Register");
+        String text = element
+            .getText();
+        assertThat(text)
+            .contains("Register");
         System.out.println(text);
 
         WebElement element1 = getDriver()
             .findElement(By.xpath("//div[@class='button-container sc-login-form']" +
                 "//login-dhi-button[@id='signin']/button[@type='button']"));
-        String text2 = element1.getText();
-        assertThat(text2).contains("Log in");
+        String text2 = element1
+            .getText();
+        assertThat(text2)
+            .contains("Log in");
         System.out.println(text2);
     }
 }
