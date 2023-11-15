@@ -113,10 +113,8 @@ public class TestContext {
                 chromeOptions.addArguments("--window-size=1920,1200");
                 chromeOptions.addArguments("--remote-allow-origins=*");
                 chromeOptions.setExperimentalOption("prefs", prefs);
-//                chromeOptions.addExtensions(new File(System
-//                    .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.2.0.crx"));
                 chromeOptions.addExtensions(new File(System
-                    .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub _5_1_5_0.crx"));
+                    .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.5.0.crx"));
                 if (isHeadless) {
                     chromeOptions.addArguments("--headless=new");
                     chromeOptions.addArguments("--window-size=1920,1200");

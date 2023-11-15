@@ -57,7 +57,7 @@ public class WorkdayStepDefs {
 
         By linkedInButton = By
             .xpath("//*[@id='apply-with-linkedin']/span");
-        new WebDriverWait(getDriver(), Duration.ofSeconds(5))
+        new WebDriverWait(getDriver(), Duration.ofSeconds(10))
             .until(visibilityOfElementLocated(linkedInButton));
         getDriver()
             .findElement(linkedInButton)
@@ -92,7 +92,7 @@ public class WorkdayStepDefs {
     }
 
     @And("I select any tech position")
-    public void iSelectAnyTechPosition() {
+    public void iSelectAnyTechPosition() throws InterruptedException {
 
         fluentWait
             .until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath("//a[@data-cy='card-title-link']")));
@@ -103,7 +103,7 @@ public class WorkdayStepDefs {
         getExecutor()
             .executeScript("arguments[0].click();", jobs.get(index));
 
-        new WebDriverWait(getDriver(), Duration.ofSeconds(30));
+        Thread.sleep(3000);
         Set<String> allWindows = getDriver().getWindowHandles();
 //                                                                    // switch to last window
         for (String window : allWindows) {
@@ -114,20 +114,25 @@ public class WorkdayStepDefs {
     @And("I go with Apply")
     public void iGoWithApply() throws InterruptedException {
 
+        Thread.sleep(1000);
         getDriver().findElement(By.cssSelector("#dhiJobHeaderRedesign div[class='flex flex-row flex-wrap mt-2 md:flex-nowrap']"))
             .isDisplayed();
         getDriver().findElement(By.cssSelector("#buttonsDiv"))
-            .click();
+            .isSelected();
         getDriver().findElement(By.cssSelector("#buttons"))
-            .click();
+            .isSelected();
 /*
                                                 // This is Element inside single shadow DOM.
 */
         String cssSelectorForHost1 = "apply-button-wc[class$='hydrated']";
-        new WebDriverWait(getDriver(), Duration.ofSeconds(30));
-        SearchContext shadow = getDriver().findElement(By.cssSelector("apply-button-wc[class$='hydrated']")).getShadowRoot();
-        new WebDriverWait(getDriver(), Duration.ofSeconds(30));
-        shadow.findElement(By.cssSelector(".btn.btn-primary"));
+        Thread.sleep(3000);
+        SearchContext shadow = getDriver()
+            .findElement(By.cssSelector("apply-button-wc[class$='hydrated']"))
+            .getShadowRoot();
+        Thread.sleep(3000);
+        shadow.findElement(By.cssSelector(".btn.btn-primary"))
+            .click();
+        Thread.sleep(3000);
     }
 
     @Then("I verify opens login window")
