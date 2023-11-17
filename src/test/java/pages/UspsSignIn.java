@@ -10,11 +10,11 @@ import static support.TestContext.getDriver;
 
 public class UspsSignIn extends Page {
 
-    @FindBy(xpath = "//*[@id='sign-up-button']")
+    @FindBy(xpath = "//a[@id='sign-up-button']")
     private WebElement signUpButton;
-    @FindBy(xpath = "//*[@id='btn-submit']")
+    @FindBy(xpath = "//button[@id='btn-submit']")
     private WebElement signInButton;
-    @FindBy(xpath = "//*[@id='error-username']")
+    @FindBy(xpath = "//span[@id='error-username']")
     private WebElement usernameError;
 
     public boolean isSignUpPossible() {
