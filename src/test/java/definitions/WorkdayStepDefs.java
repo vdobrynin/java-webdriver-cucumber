@@ -122,9 +122,11 @@ public class WorkdayStepDefs {
         getDriver()
             .findElement(By.cssSelector("#dhiJobHeaderRedesign div[class='flex flex-row flex-wrap mt-2 md:flex-nowrap']"))
             .isDisplayed();
+        Thread.sleep(1000);
         getDriver()
             .findElement(By.cssSelector("#buttonsDiv"))
             .isSelected();
+        Thread.sleep(1000);
         getDriver()
             .findElement(By.cssSelector("#buttons"))
             .isSelected();
