@@ -16,15 +16,16 @@ public class Usps extends Page {
 
     @FindBy(xpath = "(//a[@data-gtm-subsection='stamps'])[1]")
     private WebElement stampsButton;
-
-    @FindBy(xpath = "(//a[normalize-space()='Order Now'])[1]")
+    @FindBy(css = "div[data-gtm-section='premium'] div div div p a")
     private WebElement orderNow;
+    @FindBy(xpath = "(//span[normalize-space()='Shipping Supplies'])[1]")
+    private WebElement shippingSupplies;
     @FindBy(xpath = "(//span[normalize-space()='Free Shipping Supplies'])[1]")
     private WebElement closeSupplies;
     @FindBy(xpath = "//span[normalize-space()='ReadyPost Packaging']")
     private WebElement closePackaging;
-//    @FindBy(xpath = "(//a[@class='facet-toggle'][normalize-space()='Show More'])[1]")
-//    private WebElement openMore;
+    @FindBy(xpath = "(//a[@class='facet-toggle'][normalize-space()='Show More'])[1]")
+    private WebElement openMore;
     @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'Forms and Labels ')]")
     private WebElement formsAndLabels;
     @FindBy(xpath = "//label[contains(@for,'checkbox-type-Mail Service-Priority Mail Express')]")
@@ -68,11 +69,14 @@ public class Usps extends Page {
             .executeScript("arguments[0].scrollIntoView();", orderNow);
         orderNow.click();
         getExecutor()
-            .executeScript("arguments[0].scrollIntoView();", closeSupplies);
-        closeSupplies.click();
-        getExecutor()
-            .executeScript("arguments[0].scrollIntoView();", closePackaging);
-        closePackaging.click();
+            .executeScript("arguments[0].scrollIntoView();", shippingSupplies);
+        shippingSupplies.click();
+//        getExecutor()
+//            .executeScript("arguments[0].scrollIntoView();", closeSupplies);
+//        closeSupplies.click();
+//        getExecutor()
+//            .executeScript("arguments[0].scrollIntoView();", closePackaging);
+//        closePackaging.click();
         getExecutor()
             .executeScript("window.scrollBy(0,250)");
         getExecutor()
