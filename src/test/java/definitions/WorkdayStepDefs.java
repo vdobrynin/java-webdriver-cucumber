@@ -132,15 +132,15 @@ public class WorkdayStepDefs {
                                                 // This is Element inside single shadow DOM.
 */
         String cssSelectorForHost1 = "apply-button-wc[class$='hydrated']";
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         SearchContext shadow = getDriver()
             .findElement(By.cssSelector("apply-button-wc[class$='hydrated']"))
             .getShadowRoot();
-        Thread.sleep(1000);
+        Thread.sleep(3000);
         shadow
             .findElement(By.cssSelector(".btn.btn-primary"))
             .click();
-        Thread.sleep(1000);
+        Thread.sleep(3000);
     }
 
     @Then("I verify opens login window")
