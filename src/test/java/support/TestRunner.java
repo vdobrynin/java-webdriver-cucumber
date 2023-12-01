@@ -12,7 +12,7 @@ import org.junit.runner.RunWith;
     plugin = {"pretty", "html:target/cucumber/report.html", "json:target/cucumber/report.json"},
     features = {"src/test/resources/features"},
     glue = {"definitions", "support"},
-    tags = "@usps_object" //"@dice"//"@predefined"//same as VM option -Dcucumber.options="--tags @predefined"
+    tags = "@usps_object, @quote_object, @workday, @predefined" //"@dice"//"@predefined"//same as VM option -Dcucumber.options="--tags @predefined"
 )
 public class TestRunner {
 
