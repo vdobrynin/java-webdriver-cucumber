@@ -4,6 +4,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.FluentWait;
+import org.openqa.selenium.support.ui.Wait;
 
 import java.io.File;
 import java.time.Duration;
@@ -70,7 +72,12 @@ public class WalmartAutomationDemo {
             .findElement(By.xpath("//input[contains(@data-automation-id,'header-input-search')]"));
         searchBox.sendKeys("pens");
         searchBox.submit();
-        Thread.sleep(5000);
+//        Thread.sleep(5000);
+        Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver())
+            .withTimeout(Duration.ofSeconds(30))
+            .pollingEvery(Duration.ofSeconds(5))
+            .ignoring(NoSuchElementException.class);
+        return fluentWait;
 
         // Bypassing Captcha 2nd time
         boolean isPresent2;            // if captcha present2
@@ -168,8 +175,12 @@ public class WalmartAutomationDemo {
             assertWalletIsSetUp(driver);
 */
         // Close the browser.
+//        driver.quit();
+//        driver.close();
         driver.quit();
-        driver.close();
-        driver.quit();
+    }
+
+    private static WebDriver driver() {
+        return null;
     }
 }
