@@ -41,11 +41,10 @@ public class TestContext {
     public static Wait<WebDriver> getFluentWait() { return fluentWait; }
 
     private static Wait<WebDriver> getWebDriverWait() {
-        Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(getDriver())
+        return new FluentWait<WebDriver>(getDriver())
             .withTimeout(Duration.ofSeconds(30))
             .pollingEvery(Duration.ofSeconds(5))
             .ignoring(NoSuchElementException.class);
-        return fluentWait;
     }
 
     public static Map<String, String> getData(String fileName) {
