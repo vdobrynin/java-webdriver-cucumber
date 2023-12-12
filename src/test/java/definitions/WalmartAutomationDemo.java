@@ -16,6 +16,7 @@ public class WalmartAutomationDemo {
         System.setProperty("webdriver.chrome.driver",
             (System.getProperty("user.dir") + "/src/test/resources/drivers/chromedriver"));
         ChromeOptions chromeOptions = new ChromeOptions();
+        chromeOptions.addArguments("--window-size=1920,1200");
         chromeOptions.addArguments("--disable-gpu");
         chromeOptions.addArguments("--force-device-scale-factor=0.75");
         chromeOptions.addArguments("--remote-allow-origins=*");

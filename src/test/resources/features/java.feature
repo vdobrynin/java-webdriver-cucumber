@@ -68,3 +68,4 @@ Feature: Java feature
         Given I solve coding challenge
         And I accepts integer number and returns divisible by 3 and 4
         And I accepts integer number and prints divisible by 2 by 5 by 10
+

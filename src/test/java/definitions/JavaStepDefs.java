@@ -571,16 +571,18 @@ public class JavaStepDefs {
 //        "divisible by 3" if number is divisible by 3
 //        "divisible by 4" if element is divisible by 4
 //        "divisible by 3 and 4" if divisible by 3 and 4
-        int num = 24;
+        int[] num = {24, 25, 15, 12, 56, 45, 36};
 
-        if (num % 3 == 0 && num % 4 == 0) {
-            System.out.println("The " + num + " divisible by 3 & 4");
-        } else if (num % 3 == 0) {
-            System.out.println("The " + num + " divisible by 3");
-        } else if (num % 4 == 0) {
-            System.out.println("The " + num + " divisible by 4");
-        } else {
-            System.out.println("The " + num + " not divisible by 3, or 4, or 3 & 4 ");
+        for (int i = 0; i <= num.length - 1; i++) {
+            if (i % 3 == 0 && i % 4 == 0) {
+                System.out.println("The " + i + " divisible by 3 & 4");
+            } else if (i % 3 == 0) {
+                System.out.println("The " + i + " divisible by 3");
+            } else if (i % 4 == 0) {
+                System.out.println("The " + i + " divisible by 4");
+            } else {
+                System.out.println("The " + i + " not divisible by 3, or 4, or 3 & 4 ");
+            }
         }
     }
 
