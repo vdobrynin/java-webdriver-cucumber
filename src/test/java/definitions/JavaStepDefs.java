@@ -480,14 +480,20 @@ public class JavaStepDefs {
         System.out.println("Contains binary num? " + binarySearch(arr, num));
     }
 
-    public int factorial(int num) {
+    public long factorial(long num) {
+
         if (num == 0) {
             return 1;
         }
-        return num * factorial(num - 1);
+        if (num > 0) {
+            return num * factorial(num - 1);
+        } else {
+            return num * factorial(num + 1);
+        }
     }
 
     public boolean search(int arr[], int num) {
+
         for (int element : arr) {
             if (element == num) {
                 return true;
@@ -535,9 +541,9 @@ public class JavaStepDefs {
         return true;
     }
 
-
     @Given("I print {string}, {string} and {string}")
     public static void iPrintAnd(String arg0, String arg1, String arg2) {
+
         Scanner scan = new Scanner(System.in);
         int i = scan.nextInt();
         double d = scan.nextDouble();
@@ -608,3 +614,27 @@ public class JavaStepDefs {
 }
 
 
+//public class Zoo {
+//    public static void main(String[] args) {
+//        Scanner sc = new Scanner(System.in);
+//        String word = sc.next();
+//        int count1 = 0;
+//        int count2 = 0;
+//        char[] ch = new char[word.length()];
+//        for (int i = 0; i < word.length(); i++) {
+//            ch[i] = word.charAt(i);
+//        }
+//        for (int i = 0; i < word.length(); i++) {
+//            if (ch[i] == 'z') {
+//                count1++;
+//            } else {
+//                count2++;
+//            }
+//        }
+//        if (count2 == (2 * count1)) {
+//            System.out.println("Yes");
+//        } else {
+//            System.out.println("No");
+//        }
+//    }
+//}
