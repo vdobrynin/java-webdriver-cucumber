@@ -1,30 +1,87 @@
 package pages;
 
+import static support.TestContext.getDriver;
+
+import java.time.Duration;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CareersCandidates extends Page {
 
-    @FindBy(xpath = "//a[contains(@href,'/candidates/')]")
-    private WebElement candidate;
-    @FindBy(xpath = "//a[contains(@href, '/positions/')]//h4[contains(text(),'Principal Automation Engineer')]")
-    private WebElement chosenPositionTitle;
-    //private List<WebElement> chosenPositionTitle;                                //a[contains(@href, '/positions/')]
-    @FindBy(xpath = "//button[@class='btn btn-primary']")
-    private WebElement applyPositionButton;
+  private static final By CHOSEN_POSITION = By.xpath(
+    "//a[contains(@href, '/positions/')]//h4[contains(text(),'Principal Automation Engineer')]"
+  );
 
-    public void setApplyPositionButton() {
+  @FindBy(xpath = "//a[contains(@href,'/candidates/')]")
+  private WebElement candidate;
 
-        click(applyPositionButton);
+  @FindBy(
+    xpath = "//a[contains(@href, '/positions/')]//h4[contains(text(),'Principal Automation Engineer')]"
+  )
+  private WebElement chosenPositionTitle;
+
+  //private List<WebElement> chosenPositionTitle;                                //a[contains(@href, '/positions/')]
+  @FindBy(xpath = "//button[@class='btn btn-primary']")
+  private WebElement applyPositionButton;
+
+  public void setApplyPositionButton() {
+    By applyLocator = By.xpath(
+      "//button[contains(normalize-space(),'Apply')]"
+    );
+    WebElement applyButton = new WebDriverWait(
+      getDriver(),
+      Duration.ofSeconds(20)
+    )
+      .until(ExpectedConditions.elementToBeClickable(applyLocator));
+    applyButton.click();
+
+    try {
+      new WebDriverWait(getDriver(), Duration.ofSeconds(20)).until(
+        ExpectedConditions.urlContains("/my_jobs")
+      );
+    } catch (TimeoutException exception) {
+      applyButton = new WebDriverWait(
+        getDriver(),
+        Duration.ofSeconds(20)
+      )
+        .until(ExpectedConditions.elementToBeClickable(applyLocator));
+      applyButton.click();
+      new WebDriverWait(getDriver(), Duration.ofSeconds(30)).until(
+        ExpectedConditions.urlContains("/my_jobs")
+      );
     }
+  }
 
-    public void setChosenPositionTitles() {
-
-        try {
-            Thread.sleep(2000);
-        } catch (Exception e) {
-
-        }
-        click(chosenPositionTitle);
+  public void setChosenPositionTitles() {
+    try {
+      WebElement position = new WebDriverWait(
+        getDriver(),
+        Duration.ofSeconds(20)
+      )
+        .until(
+          ExpectedConditions.visibilityOfElementLocated(CHOSEN_POSITION)
+        );
+      click(position);
+      new WebDriverWait(getDriver(), Duration.ofSeconds(20)).until(
+        ExpectedConditions.urlContains("/positions/")
+      );
+    } catch (TimeoutException exception) {
+      getDriver().get("https://skryabin-careers.herokuapp.com/");
+      WebElement position = new WebDriverWait(
+        getDriver(),
+        Duration.ofSeconds(30)
+      )
+        .until(
+          ExpectedConditions.visibilityOfElementLocated(CHOSEN_POSITION)
+        );
+      click(position);
+      new WebDriverWait(getDriver(), Duration.ofSeconds(20)).until(
+        ExpectedConditions.urlContains("/positions/")
+      );
     }
+  }
 }

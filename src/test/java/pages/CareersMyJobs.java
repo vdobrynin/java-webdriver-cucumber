@@ -1,20 +1,45 @@
 package pages;
 
+import static support.TestContext.getDriver;
+
+import java.time.Duration;
+import java.util.List;
+import org.openqa.selenium.By;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class CareersMyJobs extends Page {
 
-    @FindBy(xpath = "//a[contains(@href, '/positions/')]//h4[@class='position-name']")
-    //private List<WebElement> positionName;
-    private WebElement positionName;
+  @FindBy(
+    xpath = "//a[contains(@href, '/positions/')]//h4[@class='position-name']"
+  )
+  private List<WebElement> positionName;
 
-    public String getPositionName() throws InterruptedException {
+  public String getPositionName() {
+    new WebDriverWait(getDriver(), Duration.ofSeconds(20)).until(
+      driver -> positionName.size() > 0
+    );
+    return positionName.get(positionName.size() - 1).getText();
+  }
 
-//    new WebDriverWait(getDriver(), 5).until(driver -> positionName.size() > 2);
-//    int size = positionName.size();
-//
-//    WebElement lastPositionName = positionName.get(size - 1);
-        return positionName.getText();
+  public String getPositionName(String expectedTitle) {
+    By locator = By.xpath(
+      "//a[contains(@href, '/positions/')]//h4[contains(normalize-space(),'" +
+        expectedTitle +
+        "')]"
+    );
+    try {
+      return new WebDriverWait(getDriver(), Duration.ofSeconds(30))
+        .until(ExpectedConditions.visibilityOfElementLocated(locator))
+        .getText();
+    } catch (TimeoutException exception) {
+      getDriver().navigate().refresh();
+      return new WebDriverWait(getDriver(), Duration.ofSeconds(30))
+        .until(ExpectedConditions.visibilityOfElementLocated(locator))
+        .getText();
     }
+  }
 }

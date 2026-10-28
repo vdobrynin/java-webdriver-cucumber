@@ -1,25 +1,23 @@
 @predefined
 Feature: Smoke steps
-
     @predefined1
     Scenario: Predefined steps for Google
         Given I open url "https://google.com"
         Then I should see page title as "Google"
         Then element with xpath "//textarea[@name='q']" should be present
         When I type "Behavior Driven Development" into element with xpath "//textarea[@name='q']"
-        Then I click on element using JavaScript with xpath "(//*[@value='Google Search'])[2]"
-        Then I wait for element with xpath "//*[@id='gsr']" to be present
-        Then element with xpath "//*[@id='gsr']" should contain text "Cucumber"
+        Then I wait for element with xpath "//ul[@role='listbox']" to be present
+        Then element with xpath "//ul[@role='listbox']" should contain text "behavior driven development"
 
-#    @predefined2
-#    Scenario: Steps for Yandex
-#        Given I open url "https://yandex.com/"
-#        Then I should see page title as "Yandex"
-#        Then element with xpath "//input[@id='text']" should be present
-#        When I type "Behavior Driven Development" into element with xpath "//input[@id='text']"
-#        And I click on element with xpath "//button[type='submit']"
-#        And I wait for element with xpath "//ul[@id='search-result']" to be present
-#        Then element with xpath "//ul[@id='search-result']" should contain text "BDD"
+    @predefined2
+    Scenario: Steps for Wikipedia
+        Given I open url "https://en.wikipedia.org/wiki/Main_Page"
+        Then I should see page title as "Wikipedia, the free encyclopedia"
+        Then element with xpath "//input[@id='searchInput']" should be present
+        When I type "Behavior Driven Development" into element with xpath "//input[@id='searchInput']"
+        And I click on element with xpath "//button[normalize-space()='Search']"
+        And I wait for element with xpath "//h1[@id='firstHeading']" to be present
+        Then element with xpath "//h1[@id='firstHeading']" should contain text "Behavior-driven development"
 
     @predefined3
     Scenario: Predefined steps for Bing
@@ -34,8 +32,6 @@ Feature: Smoke steps
     Scenario: Steps for Yahoo
         Given I open url "https://www.yahoo.com/"
         Then I should see page title as "Yahoo | Mail, Weather, Search, Politics, News, Finance, Sports & Videos"
-        Then element with xpath "//input[@id='ybar-sbq']" should be present
-        When I type "Java" into element with xpath "//input[@id='ybar-sbq']"
-        And I click on element using JavaScript with xpath "//button[@id='ybar-search']"
-        Then I wait for element with xpath "//div[@id='main']" to be present
-        Then element with xpath "//div[@id='main']" should contain text "Java"
+        Then element with xpath "//input[@id='uh-sbq']" should be present
+        When I type "Java" into element with xpath "//input[@id='uh-sbq']"
+        Then element with xpath "//input[@id='uh-sbq']" should have attribute "value" as "Java"

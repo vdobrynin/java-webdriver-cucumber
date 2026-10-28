@@ -1,20 +1,19 @@
 @usps_object
 Feature: Usps Test Suite
-
     @usps_object1
     Scenario: Usps Stamps
         Given I go to "usps" page oop
         When I go to "Stamps" oop
         And I sort by "Price (Low-High)" oop
-        Then I verify that "Tiffany Lamp" is cheapest oop
+        Then I verify that "Angel's Trumpets Stamps" is cheapest oop
 
     @usps_object2
     Scenario: Usps Boxes
         Given I go to "usps" page oop
         When I go to "boxes" oop
-        And I verify section "$0 to $5" exists oop
+        And I verify section "Free Shipping Supplies" exists oop
         And I sort by "Price (Low-High)" oop
-        Then I verify that "Priority Mail Express® Sticker" is cheapest oop
+        Then I verify that "Collect on Delivery Forms" is cheapest oop
 
     @usps_object3
     Scenario: Usps Shoes

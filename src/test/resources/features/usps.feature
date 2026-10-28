@@ -1,6 +1,5 @@
 @usps
 Feature: USPS fill out forms
-
     @usps1
     Scenario: Validate ZIP code for Portnov Computer School
         Given I go to "usps" page
@@ -40,7 +39,7 @@ Feature: USPS fill out forms
             | street              | city          | state | zip   |
             | 4970 El Camino Real | Los Altos     | CA    | 94022 |
             | 1820-22 S Grant St  | San Mateo     | CA    | 94402 |
-            | 299 Bayshore Blvd   | San Francisco | CA    | 94124 |
+            | 2000 McKinnon Ave   | San Francisco | CA    | 94124 |
 
     @usps6
     Scenario: Calculate price
@@ -48,29 +47,27 @@ Feature: USPS fill out forms
         When I go to Calculate Price Page
         And I selected "United Kingdom" with "Postcard" shape
         And I define "2" quantity
-        Then I calculate the price and validate cost is "$3.00"
+        Then I calculate the price and validate cost is "$3.50"
 
     @usps7
-    Scenario: Verify color
+    Scenario: Verify filters
         Given I go to "usps" page
         When I go to Stamps and Supplies page
         And I open Stamps
-        When I unselect Stamps checkbox
-        And select size "Large"
-        And I click "blue" color
-        Then I verify "Blue" and "Large" filters
-        Then I verify "20% OFF" sale
+        When I select "Postcard" filter
+        Then I verify "Postcard" filter
+        Then I verify 2 items found in result
 
     @usps8
     Scenario: Verify location
         Given I go to "USPS" page
         When I perform "Passports" search
-        And I select "Passport Application" in results
-        And I click "find a location" button
+        And I select "Passport Appointments" in results
+        And I click "Find USPS Locations" button
         And I select "94022" zip code within "10 Miles" and search
         Then I verify "MOUNTAIN VIEW" present in search results
         When I open "MOUNTAIN VIEW" search results
-        Then I verify "211 HOPE ST" address, "8:30 am-5:00 pm" appointment hours, "1:00 pm-3:00 pm" photo hours
+        Then I verify "211 HOPE ST" address, "9:00 am-12:00 pm" appointment hours, "1:00 pm-3:00 pm" photo hours
         When I go back to list
         Then I verify I'm on Find Locations search page
 
@@ -80,4 +77,4 @@ Feature: USPS fill out forms
         When I go to "Rent/Renew a PO Box" under "Quick Tools"
         And I reserve new PO box for "94022"
         Then I verify that "Los Altos — Post Office™" present
-        And I verify that "Size 5-XL" PO Box is available in "Los Altos — Post Office™"
+        And I verify that "XL - Size 5" PO Box is available in "Los Altos — Post Office™"

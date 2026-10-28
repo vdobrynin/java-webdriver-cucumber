@@ -1,41 +1,31 @@
 package pages;
 
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.FindBy;
-
-import static support.TestContext.getDriver;
 
 public class UspsSignIn extends Page {
 
-    @FindBy(xpath = "//a[@id='sign-up-button']")
-    private WebElement signUpButton;
-    @FindBy(xpath = "//button[@id='btn-submit']")
-    private WebElement signInButton;
-    @FindBy(xpath = "//span[@id='error-username']")
-    private WebElement usernameError;
+  @FindBy(id = "new-account-button")
+  private WebElement signUpButton;
 
-    public boolean isSignUpPossible() {
+  @FindBy(xpath = "//button[normalize-space()='Sign In']")
+  private WebElement signInButton;
 
-        return signUpButton.isDisplayed() && signUpButton.isEnabled();
-    }
+  @FindBy(xpath = "//input[@type='text' or @type='email']")
+  private WebElement usernameInput;
 
-    public boolean isSignInRequired() {
+  @FindBy(xpath = "//input[@type='password']")
+  private WebElement passwordInput;
 
-        Actions action = new Actions(getDriver());
-        signInButton.click();
+  public boolean isSignUpPossible() {
+    return signUpButton.isDisplayed() && signUpButton.isEnabled();
+  }
 
-        try {
-            action.moveToElement(signInButton)
-                .click(signInButton)
-                .sendKeys(Keys.ENTER)
-                .perform();
-
-            return true;
-        } catch (TimeoutException e) {
-            return false;
-        }
-    }
+  public boolean isSignInRequired() {
+    return (
+      usernameInput.isDisplayed() &&
+      passwordInput.isDisplayed() &&
+      signInButton.isDisplayed()
+    );
+  }
 }

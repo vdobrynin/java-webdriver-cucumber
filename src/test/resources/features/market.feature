@@ -1,6 +1,5 @@
 @market
 Feature: Marketing app
-
     @market1
     Scenario: Base scenario
         Given I open quote page

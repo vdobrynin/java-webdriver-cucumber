@@ -1,6 +1,5 @@
 @quote
 Feature: Quote form
-
     @quote1
     Scenario: Quote responsive design
         Given I open url "https://skryabin.com/market/quote.html"

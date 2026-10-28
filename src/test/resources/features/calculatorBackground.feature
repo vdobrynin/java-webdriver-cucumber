@@ -1,6 +1,5 @@
 Feature: Test Background Feature
     Description: To test the Background
-
     Background:
         Given I go to "converters" page
 

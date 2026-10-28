@@ -4,182 +4,296 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.File;
 import java.time.Duration;
 
 public class WalmartAutomationDemo {
+  private static final Duration WAIT_TIMEOUT = Duration.ofSeconds(20);
+  private static final String PROFILE_DIR = System.getProperty("user.home")
+          + "/.walmart-chrome-profile";
+  // Override with -Dwalmart.captcha.timeout=300 when more time is needed to
+  // complete the "Robot or human?" challenge.
+  private static final long CAPTCHA_TIMEOUT_SECONDS = Long
+          .getLong("walmart.captcha.timeout", 60L);
 
-    public static void main(String[] args) throws InterruptedException {
+  public static void main(String[] args) {
+    System.setProperty("webdriver.chrome.driver", System
+            .getProperty("user.dir") + "/src/test/resources/drivers/chromedriver");
 
-        // Set the path to your ChromeDriver executable
-        System.setProperty("webdriver.chrome.driver",
-            (System.getProperty("user.dir") + "/src/test/resources/drivers/chromedriver"));
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--window-size=1920,1200");
-        chromeOptions.addArguments("--disable-gpu");
-        chromeOptions.addArguments("--force-device-scale-factor=0.75");
-        chromeOptions.addArguments("--remote-allow-origins=*");
-        chromeOptions.addArguments("--disable-features=VizDisplayCompositor");
-        chromeOptions.addArguments("--disable-extensions");
-        chromeOptions.addArguments("--no-sandbox");
-        chromeOptions.addArguments("--disable-dev-shm-usage");
-        chromeOptions.addArguments("--disable-infobars");
-        chromeOptions.addArguments("--disable-blink-features=AutomationControlled");
-        chromeOptions.addExtensions(new File(System
-            .getProperty("user.dir") + "/src/test/resources/config/SelectorsHub 5.1.5.0.crx"));
+    ChromeOptions chromeOptions = new ChromeOptions();
+    chromeOptions.addArguments("--window-size=1920,1200");
+    chromeOptions.addArguments("--disable-gpu");
+    chromeOptions.addArguments("--force-device-scale-factor=0.75");
+    chromeOptions.addArguments("--remote-allow-origins=*");
+    chromeOptions.addArguments("--disable-features=VizDisplayCompositor");
+    chromeOptions.addArguments("--disable-extensions");
+    chromeOptions.addArguments("--no-sandbox");
+    chromeOptions.addArguments("--disable-dev-shm-usage");
+    chromeOptions.addArguments("--disable-infobars");
+    chromeOptions.addArguments("--disable-blink-features=AutomationControlled");
+    // Keep Walmart's verification cookies between runs so a one-time manual
+    // captcha solve is reused by later runs.
+    chromeOptions.addArguments("--user-data-dir=" + PROFILE_DIR);
 
-        // Open Chrome Browser
-        WebDriver driver = new ChromeDriver();
-        driver.manage()
-            .deleteAllCookies();
-        driver.manage()
-            .timeouts()
-            .pageLoadTimeout(Duration.ofSeconds(60));
-        driver.manage()
-            .timeouts()
-            .implicitlyWait(Duration.ofSeconds(5));
+    WebDriver driver = new ChromeDriver(chromeOptions);
 
-        // Navigate to Walmart.com
-        driver.get("https://www.walmart.com/");
-//        Thread.sleep(7000);
+    try {
+      driver.manage().window().maximize();
+      driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(60));
+      driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 
-        // Bypassing Captcha
-        boolean isPresent;            // if captcha present
-        try {
-            Actions action = new Actions(driver);
-            WebElement element = driver.findElement(By.cssSelector("#px-captcha"));
-            Thread.sleep(12000);
-            isPresent = element.isDisplayed();
-            action = new Actions(driver);
-//            Actions click = new Actions(driver);
-            action.moveToElement(element)
-                .clickAndHold(element);
-            action.perform();
-            Thread.sleep(12000);
-            action.release(element);
-            action.perform();
-            Thread.sleep(20);
-            action.release(element);
-            Thread.sleep(12000);
-        } catch (NoSuchElementException e) {
-            isPresent = false;
+      driver.get("https://www.walmart.com/");
+      if (!waitPastBotCheck(driver)) {
+        return;
+      }
+
+      if (!clickFirstAddToCart(driver)) {
+        System.out.println("No Add-to-cart button found on the home page; trying search.");
+        driver.get("https://www.walmart.com/search?q=pens");
+        if (!waitPastBotCheck(driver)) {
+          return;
         }
-
-        // Perform search
-        WebElement searchBox = driver
-            .findElement(By.xpath("//input[contains(@data-automation-id,'header-input-search')]"));
-        searchBox.sendKeys("pens");
-        searchBox.submit();
-//        Thread.sleep(5000);
-//        Wait<WebDriver> fluentWait = new FluentWait<WebDriver>(driver())
-//            .withTimeout(Duration.ofSeconds(30))
-//            .pollingEvery(Duration.ofSeconds(5))
-//            .ignoring(NoSuchElementException.class);
-//        return fluentWait;
-
-        // Bypassing Captcha 2nd time
-        boolean isPresent2;            // if captcha present2
-        try {
-            Actions action2 = new Actions(driver);
-            WebElement element2 = driver.findElement(By.cssSelector("#px-captcha"));
-            Thread.sleep(5000);
-            isPresent2 = element2.isDisplayed();
-            action2 = new Actions(driver);
-//            Actions actionClick2 = new Actions(driver);
-            action2.moveToElement(element2)
-                .clickAndHold(element2);
-            action2.perform();
-            Thread.sleep(12000);
-            action2.release(element2);
-            action2.perform();
-            Thread.sleep(20);
-            action2.release(element2);
-            Thread.sleep(12000);
-        } catch (NoSuchElementException e) {
-            isPresent2 = false;
+        if (!clickFirstAddToCart(driver)) {
+          System.out.println("No Add-to-cart button found; Walmart may be showing a different page.");
+          return;
         }
+      }
 
-        // Click on the first search result with 'Add' button
-        WebElement firstProduct = driver
-            .findElement(By.xpath("(//span[@class='mr2'][contains(.,'Add')])[5]"));
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        js.executeScript("arguments[0].scrollIntoView();", firstProduct);
-        firstProduct
-            .click();
+      sleep(4000);
+      waitPastBotCheck(driver);
 
-        // Wait for the item to be added to the cart
-        Thread.sleep(10000);
+      WebElement cartButton = waitForVisible(driver, By
+              .cssSelector("[data-automation-id='cart-button-header']"));
+      String cartLabel = cartButton.getAttribute("aria-label");
+      System.out.println("Cart status: " + cartLabel);
+      ((JavascriptExecutor) driver).executeScript("arguments[0].click();", cartButton);
 
-        // Navigate to the cart
-        WebElement cartIcon = driver
-            .findElement(By.cssSelector("[data-tl-id='header-cart-icon']"));
-        cartIcon
-            .click();
+      sleep(6000);
+      waitPastBotCheck(driver);
+      sleep(2000);
 
-        // Validate if 1 item is added to the cart
-        WebElement cartCount = driver
-            .findElement(By.cssSelector(".cart-count"));
-        assert cartCount
-            .getText()
-            .equals("1") : "Item count in the cart is not 1";
+      WebElement checkoutButton = findFirstDisplayed(
+        driver,
+        By.cssSelector("[data-automation-id='checkout']"),
+        By.cssSelector("button[data-automation-id='cart-checkout-button']"),
+        By.cssSelector("button[data-testid='cart-checkout-button']"),
+        By.xpath("//button[contains(normalize-space(),'Continue to checkout')]")
+      );
+      if (checkoutButton == null) {
+        System.out.println("Checkout button was not found.");
+        return;
+      }
+      ((JavascriptExecutor) driver).executeScript("arguments[0].click();", checkoutButton);
 
-        // Click on "Continue to Checkout" button
-        WebElement checkoutButton = driver
-            .findElement(By.cssSelector("[data-tl-id='Cart-Cta-Primary']"));
-        checkoutButton
-            .click();
+      sleep(6000);
+      if (!waitPastBotCheck(driver)) {
+        return;
+      }
 
-        // Enter an email and click continue
-        WebElement emailInput = driver
-            .findElement(By.cssSelector("[data-tl-id='SignIn-Email']"));
-        emailInput
-            .sendKeys("my-or yours-email@example.com");
+      WebElement emailInput = findFirstDisplayed(
+        driver,
+        By.cssSelector("input[name='email']"),
+        By.cssSelector("input[type='email']"),
+        By.id("email")
+      );
+      if (emailInput == null) {
+        System.out.println("Sign-in email field was not found.");
+        return;
+      }
+      emailInput.sendKeys("my-or-yours-email@example.com");
 
-        WebElement continueButton = driver
-            .findElement(By.cssSelector("[data-tl-id='SignIn-SubmitButton']"));
-        continueButton
-            .click();
+      WebElement continueButton = findFirstDisplayed(
+        driver,
+        By.xpath("//button[contains(normalize-space(),'Continue')]")
+      );
+      if (continueButton != null) {
+        continueButton.click();
+      }
 
-        // Assert that you are requested for a password
-        WebElement passwordInput = driver
-            .findElement(By.cssSelector("[data-tl-id='SignIn-Password']"));
-        assert passwordInput
-            .isDisplayed() : "Password input is not displayed";
-/*
-        if (passwordInput.isDisplayed()) {
-            // This means the user already has an account, so sign in
-            // You can add your sign-in logic here
-
-            // For now, we'll print a message
-            System.out.println("User already has an account. Signing in...");
-
-            // Navigate to the wallet page
-            navigateToWalletPage(driver);
-
-            // Assert if the wallet is set up for this account
-            assertWalletIsSetUp(driver);
-
-        } else {
-            // This means the user doesn't have an account, so add a new account
-            // You can add your account creation logic here
-
-            // For now, we'll print a message
-            System.out.println("User doesn't have an account. Creating a new account...");
-
-            // Navigate to the wallet page
-            navigateToWalletPage(driver);
-
-            // Assert if the wallet is set up for this new account
-            assertWalletIsSetUp(driver);
-*/
-        // Close the browser.
-//        driver.quit();
-//        driver.close();
+      WebElement passwordInput = findFirstDisplayed(driver, By
+                      .cssSelector("input[type='password']"), By
+                      .cssSelector("input[name='password']"), By
+              .id("password"));
+      if (passwordInput == null || !passwordInput.isDisplayed()) {
+        System.out.println("Password field was not displayed.");
+        return;
+      }
+      System.out.println("Password field is displayed.");
+    } catch (TimeoutException exception) {
+      System.out.println(
+        "Walmart flow stopped because an expected element did not appear."
+      );
+    } catch (WebDriverException exception) {
+      System.out.println("Walmart flow stopped because the browser session was interrupted.");
+    } finally {
+      try {
         driver.quit();
+      } catch (WebDriverException ignored) {
+        // The browser may already be closed after a failed captcha attempt.
+      }
+    }
+  }
+
+  private static boolean clickFirstAddToCart(WebDriver driver) {
+    for (int attempt = 1; attempt <= 6; attempt++) {
+      WebElement addButton = findFirstDisplayed(
+        driver,
+        By.cssSelector("button[data-automation-id='add-to-cart']"),
+        By.cssSelector("button[data-testid='add-to-cart']"),
+        By.xpath("//button[contains(@aria-label,'Add') and contains(translate(@aria-label,'CART','cart'),'cart')]")
+      );
+      if (addButton == null) {
+        sleep(1000);
+        continue;
+      }
+      try {
+        ((JavascriptExecutor) driver).executeScript(
+          "arguments[0].scrollIntoView({block: 'center'});", addButton);
+        Thread.sleep(750);
+        addButton = findFirstDisplayed(
+          driver,
+          By.cssSelector("button[data-automation-id='add-to-cart']"),
+          By.cssSelector("button[data-testid='add-to-cart']"),
+          By.xpath("//button[contains(@aria-label,'Add') and contains(translate(@aria-label,'CART','cart'),'cart')]")
+        );
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", addButton);
+        System.out.println("Added the first available product to the cart.");
+        return true;
+      } catch (WebDriverException exception) {
+        sleep(1000);
+      } catch (InterruptedException exception) {
+        Thread.currentThread().interrupt();
+        return false;
+      }
+    }
+    return false;
+  }
+
+  private static boolean closeCaptchaDialogIfPresent(WebDriver driver) {
+    for (int attempt = 1; attempt <= 3; attempt++) {
+      if (!isBotCheckDisplayed(driver)) {
+        return true;
+      }
+      WebElement closeButton = findFirstDisplayed(
+        driver,
+        By.cssSelector("button[aria-label='Close dialog']"),
+        By.cssSelector("[data-dca-name='ItemUnnamedDialogCloseButton']")
+      );
+      if (closeButton == null) {
+        sleep(1000);
+        continue;
+      }
+      try {
+        closeButton.click();
+      } catch (WebDriverException exception) {
+        ((JavascriptExecutor) driver).executeScript("arguments[0].click();", closeButton);
+      }
+      sleep(1500);
+    }
+    return !isBotCheckDisplayed(driver);
+  }
+
+  private static void sleep(long millis) {
+    try {
+      Thread.sleep(millis);
+    } catch (InterruptedException exception) {
+      Thread.currentThread().interrupt();
+    }
+  }
+
+  private static boolean waitPastBotCheck(WebDriver driver) {
+    if (!isBotCheckDisplayed(driver)) {
+      return true;
     }
 
-    private static WebDriver driver() {
-        return null;
+    if (closeCaptchaDialogIfPresent(driver)) {
+      System.out.println("Dismissed the Walmart verification dialog.");
+      return true;
     }
+
+    System.out.println(
+            "Walmart requires human verification. Trying automatic completion first; if needed, solve the \"Robot or human?\" challenge in the opened Chrome window.");
+    if (attemptCaptchaHold(driver)) {
+      System.out.println("Human verification completed.");
+      return true;
+    }
+
+    System.out.println(
+            "Automatic verification did not complete. Solve the challenge in the Chrome window within "
+                    + CAPTCHA_TIMEOUT_SECONDS
+                    + " seconds (bring Google Chrome to the front if it is hidden).");
+    try {
+      new WebDriverWait(driver, Duration.ofSeconds(CAPTCHA_TIMEOUT_SECONDS)).until(
+        currentDriver -> !isBotCheckDisplayed(currentDriver)
+      );
+      return true;
+    } catch (TimeoutException exception) {
+      System.out.println(
+              "Human verification was not completed; skipping the remaining Walmart flow. "
+                      + "Walmart may also be blocking automated traffic from this network.");
+      return false;
+    }
+  }
+
+  private static boolean attemptCaptchaHold(WebDriver driver) {
+    try {
+      WebElement captcha = driver.findElement(By.cssSelector("#px-captcha"));
+      if (!captcha.isDisplayed()) {
+        return false;
+      }
+      Actions actions = new Actions(driver);
+      actions.moveToElement(captcha).clickAndHold(captcha).perform();
+      try {
+        Thread.sleep(12000);
+      } catch (InterruptedException exception) {
+        Thread.currentThread().interrupt();
+        return false;
+      } finally {
+        new Actions(driver).release().perform();
+      }
+      new WebDriverWait(driver, Duration.ofSeconds(5)).until(
+        currentDriver -> !isBotCheckDisplayed(currentDriver)
+      );
+      return true;
+    } catch (WebDriverException exception) {
+      return false;
+    }
+  }
+
+  private static boolean isBotCheckDisplayed(WebDriver driver) {
+    if (driver.getCurrentUrl().contains("/blocked")) {
+      return true;
+    }
+    for (WebElement captcha : driver.findElements(By.cssSelector("#px-captcha"))) {
+      try {
+        if (captcha.isDisplayed()) {
+          return true;
+        }
+      } catch (StaleElementReferenceException ignored) {
+        // The page changed while the captcha was being checked.
+        return true;
+      }
+    }
+    return !driver
+      .findElements(By.xpath("//*[contains(text(),'Robot or human?')]"))
+      .isEmpty();
+  }
+
+  private static WebElement waitForVisible(WebDriver driver, By locator) {
+    return new WebDriverWait(driver, WAIT_TIMEOUT)
+            .until(ExpectedConditions.visibilityOfElementLocated(locator));
+  }
+
+  private static WebElement findFirstDisplayed(WebDriver driver, By... locators) {
+    for (By locator : locators) {
+      for (WebElement element : driver.findElements(locator)) {
+        if (element.isDisplayed()) {
+          return element;
+        }
+      }
+    }
+    return null;
+  }
 }

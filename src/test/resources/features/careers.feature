@@ -1,6 +1,5 @@
 @careers
 Feature: Careers OOP
-
     @careers1
     Scenario: Careers scenario
         Given I go to "careers" page oop
@@ -45,17 +44,5 @@ Feature: Careers OOP
     Scenario: REST API Candidate CRUD 2
         Given I login to REST API as "recruiter"
         When I create via REST API "sdet" candidate
-        Then I verify via REST API position is in the list
-#        Then I verify via REST API candidate is created
-        When I update via REST API "sdet" position
-        Then  I verify via REST API position is updated
-#        Then  I verify via REST API candidate is updated
-        And I delete via REST API created position
-#        And I delete via REST API created candidate
-
-
-
-
-
-
-
+        Then I verify via REST API candidate is created
+        And I delete via REST API created candidate

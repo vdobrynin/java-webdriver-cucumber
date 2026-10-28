@@ -1,6 +1,5 @@
 @calculator
 Feature: Calculator function
-
     @calculator1
     Scenario: Verify calculator result
         Given I go to "calculator" page

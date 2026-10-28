@@ -1,6 +1,5 @@
 @java
 Feature: Java feature
-
     @java1
     Scenario: Java steps
         Given I say hello world

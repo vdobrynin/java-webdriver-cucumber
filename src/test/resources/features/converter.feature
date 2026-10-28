@@ -1,6 +1,5 @@
 @converter
 Feature: Converter functions
-
     @converter1
     Scenario: Validate Fahrenheit to Celsius
         Given I go to "converter" page
@@ -41,7 +40,7 @@ Feature: Converter functions
         When I click on "<tab>" button
         And I verify "<tab_content>"
         Examples:
-            | tab    | tab_content       |
-            | About  | Our mission is to |
-            | Store  | Shop popular      |
-            | Images | How Search works  |
+            | tab    | tab_content                   |
+            | About  | Google around the globe       |
+            | Store  | Popular on the Google Store   |
+            | Images | How Search works              |
