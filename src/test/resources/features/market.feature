@@ -42,6 +42,3 @@ Feature: Marketing app
         When I "reject" third party agreement
         And I input "John" "Doe" as contact
         And I validate document "Document 2" present
-
-
-

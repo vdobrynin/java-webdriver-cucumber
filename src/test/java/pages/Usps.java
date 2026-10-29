@@ -1,15 +1,13 @@
 package pages;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+
 import static support.TestContext.getDriver;
 import static support.TestContext.getExecutor;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.FindBy;
-
 public class Usps extends Page {
-
   public Usps() {
     setUrl("https://usps.com/");
   }
@@ -29,19 +27,13 @@ public class Usps extends Page {
   @FindBy(xpath = "//span[normalize-space()='ReadyPost Packaging']")
   private WebElement closePackaging;
 
-  @FindBy(
-    xpath = "(//a[@class='facet-toggle'][normalize-space()='Show More'])[1]"
-  )
+  @FindBy(xpath = "(//a[@class='facet-toggle'][normalize-space()='Show More'])[1]")
   private WebElement openMore;
 
-  @FindBy(
-    xpath = "//label[@class='checkbox-label'][contains(.,'Forms and Labels ')]"
-  )
+  @FindBy(xpath = "//label[@class='checkbox-label'][contains(.,'Forms and Labels ')]")
   private WebElement formsAndLabels;
 
-  @FindBy(
-    xpath = "//label[contains(@for,'checkbox-type-Mail Service-Priority Mail Express')]"
-  )
+  @FindBy(xpath = "//label[contains(@for,'checkbox-type-Mail Service-Priority Mail Express')]")
   private WebElement priorityMailExpress;
 
   @FindBy(xpath = "//h4[@class='item-title'][contains(.,'Price')]")

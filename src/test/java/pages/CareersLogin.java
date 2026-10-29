@@ -1,17 +1,16 @@
 package pages;
 
-import static support.TestContext.getDriver;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.Map;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.*;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import static support.TestContext.getDriver;
 
 public class CareersLogin extends CareersHeader {
-
   @FindBy(xpath = "//label[@for='loginUsername']/../input")
   private WebElement username;
 
@@ -38,27 +37,23 @@ public class CareersLogin extends CareersHeader {
 
   public Careers login(String username, String password) {
     // because same name as variable we'll using "this"
-
     this.username.sendKeys(username);
     this.password.sendKeys(password);
     click(submit);
 
     try {
-      new WebDriverWait(getDriver(), Duration.ofSeconds(30)).until(
-        driver -> !driver.getCurrentUrl().contains("/login")
-      );
+      new WebDriverWait(getDriver(), Duration.ofSeconds(30))
+              .until(driver -> !driver.getCurrentUrl().contains("/login"));
     } catch (TimeoutException exception) {
       click(submit);
-      new WebDriverWait(getDriver(), Duration.ofSeconds(30)).until(
-        driver -> !driver.getCurrentUrl().contains("/login")
-      );
+      new WebDriverWait(getDriver(), Duration.ofSeconds(30))
+              .until(driver -> !driver.getCurrentUrl().contains("/login"));
     }
     return new Careers();
   }
 
   public Careers login(Map<String, String> user) {
     // polymorphism same method with different arguments
-
     return login(user.get("username"), user.get("password"));
   }
 }

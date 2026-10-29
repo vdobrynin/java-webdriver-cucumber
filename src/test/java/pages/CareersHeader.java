@@ -1,16 +1,16 @@
 package pages;
 
-import static support.TestContext.getDriver;
-
-import java.time.Duration;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CareersHeader extends Page {
+import java.time.Duration;
 
+import static support.TestContext.getDriver;
+
+public class CareersHeader extends Page {
   @FindBy(xpath = "//a[@href='/login']")
   private WebElement loginButton;
 
@@ -37,7 +37,6 @@ public class CareersHeader extends Page {
   public String getCandidateName() {
     return candidate.getText();
   }
-
   public CareersNewCandidate clickApply() {
     click(newCandidate);
     return new CareersNewCandidate();
@@ -55,11 +54,9 @@ public class CareersHeader extends Page {
 
   public String getLoggedInUser() {
     WebElement user = new WebDriverWait(getDriver(), Duration.ofSeconds(60))
-      .until(
-        ExpectedConditions.visibilityOfElementLocated(
-          By.xpath("//span[@class='logout-box']/a")
-        )
-      );
+      .until(ExpectedConditions
+              .visibilityOfElementLocated(By
+                      .xpath("//span[@class='logout-box']/a")));
     return user.getText();
   }
 }

@@ -1,6 +1,5 @@
 @workday
 Feature: Applying to position
-
     @workday1
     Scenario: Validate LinkedIn OAuth
         Given I go to "careers" page
@@ -14,4 +13,3 @@ Feature: Applying to position
         And I select any tech position
         And I go with Apply
         Then I verify opens login window
-

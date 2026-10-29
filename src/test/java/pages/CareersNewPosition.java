@@ -1,17 +1,17 @@
 package pages;
 
-import static support.TestContext.getDriver;
-
-import java.time.Duration;
-import java.util.Map;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class CareersNewPosition extends CareersHeader {
+import java.time.Duration;
+import java.util.Map;
 
+import static support.TestContext.getDriver;
+
+public class CareersNewPosition extends CareersHeader {
   @FindBy(xpath = "//label[@for='positionTitle']/../input")
   private WebElement title;
 
@@ -37,19 +37,14 @@ public class CareersNewPosition extends CareersHeader {
   private WebElement submit;
 
   public void createPosition(Map<String, String> position) {
-    WebDriverWait wait = new WebDriverWait(
-      getDriver(),
-      Duration.ofSeconds(20)
-    );
-    WebElement titleField = wait.until(
-      ExpectedConditions.visibilityOf(title)
-    );
+    WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20));
+    WebElement titleField = wait
+            .until(ExpectedConditions.visibilityOf(title));
 
     titleField.clear();
     titleField.sendKeys(position.get("title"));
     wait.until(driver ->
-      position.get("title").equals(titleField.getAttribute("value"))
-    );
+      position.get("title").equals(titleField.getAttribute("value")));
 
     description.sendKeys(position.get("description"));
     address.sendKeys(position.get("address"));
@@ -57,7 +52,6 @@ public class CareersNewPosition extends CareersHeader {
     new Select(state).selectByVisibleText(position.get("state"));
     zip.sendKeys(position.get("zip"));
     dateOpen.sendKeys(position.get("dateOpen"));
-
     click(submit);
   }
 }

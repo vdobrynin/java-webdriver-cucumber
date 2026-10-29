@@ -1,12 +1,12 @@
 package pages;
 
-import java.util.Map;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.ui.Select;
 
-public class CareersNewCandidate extends Page {
+import java.util.Map;
 
+public class CareersNewCandidate extends Page {
   @FindBy(xpath = "//label[@for='candidateFirstName']/../input")
   private WebElement firstName;
 

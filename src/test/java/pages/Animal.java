@@ -1,9 +1,7 @@
 package pages;
 
 public abstract class Animal {
-
   private String name;
-
   public Animal() {
     name = " ";
     //        name = "nameless one" ;

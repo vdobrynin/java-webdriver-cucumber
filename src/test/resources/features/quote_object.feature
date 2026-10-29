@@ -1,6 +1,5 @@
 @quote_object
 Feature: Quote Feature OOP
-
     @quote_object1
     Scenario: Quote Required Fields OOP
         Given I go to "quote" page oop

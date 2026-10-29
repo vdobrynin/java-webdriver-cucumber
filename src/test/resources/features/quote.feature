@@ -116,7 +116,3 @@ Feature: Quote form
         And I click on element with xpath "//select[@data-handler='selectYear']/option[@value='1981']"
         And I click on element with xpath "//td[@data-handler='selectDay']/a[text()='17']"
         And element with xpath "//input[@id='dateOfBirth']" should have attribute "value" as "11/17/1981"
-
-
-
-

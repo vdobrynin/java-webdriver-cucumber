@@ -1,18 +1,14 @@
 package pages;
 
-import static support.TestContext.getExecutor;
-
-import java.text.ParseException;
-import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-public class UspsPostalStore extends Page {
+import java.text.ParseException;
+import java.util.List;
 
-  @FindBy(
-    xpath = "(//a[@class='dropdown-item'][contains(.,'Price (Low-High)')])[1]"
-  )
+public class UspsPostalStore extends Page {
+  @FindBy(xpath = "(//a[@class='dropdown-item'][contains(.,'Price (Low-High)')])[1]")
   private WebElement sortBy;
 
   @FindBy(xpath = "(//div[@class='results-product-info'])[1]")
@@ -44,7 +40,6 @@ public class UspsPostalStore extends Page {
   public String getFirstFoundItem() {
     return firstFoundItem.getText();
   }
-
   //                                        //--> Lecture #14 changes
   public String getLeftFilters() {
     StringBuilder filters = new StringBuilder();
@@ -60,9 +55,7 @@ public class UspsPostalStore extends Page {
     for (WebElement item : foundItems) {
       if (item.getText().contains(name)) {
         System.out.println(item.getText());
-        By priceSelector = By.xpath(
-          "//div[@class='results-product-preview-price']"
-        );
+        By priceSelector = By.xpath("//div[@class='results-product-preview-price']");
         String itemPrice = item.findElement(priceSelector).getText();
         String firstFoundPrice = firstFoundItem
           .findElement(priceSelector)

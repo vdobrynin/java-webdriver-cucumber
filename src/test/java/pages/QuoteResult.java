@@ -4,7 +4,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.*;
 
 public class QuoteResult extends Page {
-
   @FindBy(xpath = "//div[@id='quotePageResult']//section")
   private WebElement sectionResult;
 

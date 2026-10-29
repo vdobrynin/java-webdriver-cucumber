@@ -4,7 +4,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class UspsSignIn extends Page {
-
   @FindBy(id = "new-account-button")
   private WebElement signUpButton;
 
