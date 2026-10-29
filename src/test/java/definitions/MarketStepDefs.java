@@ -16,7 +16,6 @@ import static support.TestContext.getDriver;
 import static support.TestContext.getExecutor;
 
 public class MarketStepDefs {
-
   @Given("I open quote page")
   public void iOpenQuotePage() {
     getDriver().get("https://skryabin.com/market/quote.html");
@@ -171,35 +170,22 @@ public class MarketStepDefs {
       .findElement(By.xpath("//input[@id='dateOfBirth']"))
       .sendKeys("10/03/1975");
     getDriver()
-      .findElement(
-        By.xpath(
-          "//select[@name='countryOfOrigin']/option[contains(text(),'Monaco')]"
-        )
-      )
+      .findElement(By.xpath("//select[@name='countryOfOrigin']/option[contains(text(),'Monaco')]"))
       .click();
     getDriver()
       .findElement(By.xpath("//*[@name='gender'][@value='male']"))
       .click();
     getDriver()
-      .findElement(
-        By.xpath("//input[@type='checkbox'][@name='allowedToContact']")
-      )
+      .findElement(By.xpath("//input[@type='checkbox'][@name='allowedToContact']"))
       .isSelected();
     getDriver()
       .findElement(By.xpath("//textarea[@id='address']"))
       .sendKeys("4970 El Camino Real, Los Altos, CA 94022");
     getDriver()
-      .findElement(
-        By.xpath("//select[@name='carMake']//option[contains(text(),'BMW')]")
-      )
+      .findElement(By.xpath("//select[@name='carMake']//option[contains(text(),'BMW')]"))
       .click();
-    WebElement privacyPolicy = getDriver().findElement(
-      By.xpath("//*[@name='agreedToPrivacyPolicy']")
-    );
-    TestContext.getExecutor().executeScript(
-      "arguments[0].click();",
-      privacyPolicy
-    );
+    WebElement privacyPolicy = getDriver().findElement(By.xpath("//*[@name='agreedToPrivacyPolicy']"));
+    TestContext.getExecutor().executeScript("arguments[0].click();", privacyPolicy);
   }
 
   @And("I submit the page")
@@ -218,9 +204,7 @@ public class MarketStepDefs {
       .findElement(By.xpath("//label[@id='email-error']"))
       .getText();
     assertThat(emailError).contains("Please enter a valid email address.");
-    WebElement emailField = getDriver().findElement(
-      By.xpath("//input[@name='email']")
-    );
+    WebElement emailField = getDriver().findElement(By.xpath("//input[@name='email']"));
     emailField.clear();
     //    emailField.sendKeys("It is wrong format");
     //    emailField.clear(); //emailField.sendKeys(Keys.BACK_SPACE);
@@ -234,13 +218,8 @@ public class MarketStepDefs {
 
   @And("I {string} agreement")
   public void iAgreement(String clickArg) {
-    WebElement thirdPartyButton = getDriver().findElement(
-      By.xpath("//*[@id='thirdPartyButton']")
-    );
-    TestContext.getExecutor().executeScript(
-      "arguments[0].click();",
-      thirdPartyButton
-    );
+    WebElement thirdPartyButton = getDriver().findElement(By.xpath("//*[@id='thirdPartyButton']"));
+    TestContext.getExecutor().executeScript("arguments[0].click();", thirdPartyButton);
     if (clickArg.equals("accept")) {
       getDriver().switchTo().alert().accept();
     } else if (clickArg.equals("dismiss")) {
@@ -255,9 +234,7 @@ public class MarketStepDefs {
       .isDisplayed();
     assertThat(resultDisplayed).isTrue();
     String resultText = getDriver()
-      .findElement(
-        By.xpath("//div[@class='well form-container container-fluid']")
-      )
+            .findElement(By.xpath("//div[@class='well form-container container-fluid']"))
       .getText();
     assertThat(resultText).contains("vskryabin");
     assertThat(resultText).contains("Skryabin");

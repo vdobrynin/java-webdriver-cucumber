@@ -13,27 +13,25 @@ import static support.TestContext.getWait;
 public class ConverterStepDefs {
   @When("I click on {string}")
   public void iClickOn(String tab) {
-    getDriver()
-      .findElement(By.xpath("//a[contains(@href,'" + tab + "')]")).click();
+    getDriver().findElement(By.xpath("//a[contains(@href,'" + tab + "')]"))
+            .click();
   }
 
   @And("I set {string} to {string}")
   public void iSetTo(String from, String to) {
     getDriver()
-      .findElement(By
-              .xpath("//select[@id='calFrom']//option[text()='" + from + "']")).click();
+      .findElement(By.xpath("//select[@id='calFrom']//option[text()='" + from + "']"))
+            .click();
     getDriver()
-      .findElement(By
-              .xpath("//select[@id='calTo']//option[text()='" + to + "']")).click();
+      .findElement(By.xpath("//select[@id='calTo']//option[text()='" + to + "']"))
+            .click();
   }
 
   @Then("I enter into From field {string} and verify {string} result")
   public void iEnterIntoFromFieldAndVerifyResult(String fromValue, String toValue) {
-    getDriver()
-      .findElement(By.xpath("//input[@name='fromVal']"))
+    getDriver().findElement(By.xpath("//input[@name='fromVal']"))
       .sendKeys(fromValue);
-    String result = getDriver()
-      .findElement(By.xpath("//input[@name='toVal']"))
+    String result = getDriver().findElement(By.xpath("//input[@name='toVal']"))
       .getAttribute("value");
     assertThat(result).contains(toValue);
     System.out.println(result);
@@ -41,16 +39,15 @@ public class ConverterStepDefs {
 
   @When("I click on {string} button")
   public void iClickOnButton(String tab) {
-    getDriver()
-      .findElement(By.xpath("//a[contains(text(),'" + tab + "')]")).click();
+    getDriver().findElement(By.xpath("//a[contains(text(),'" + tab + "')]"))
+            .click();
   }
 
   @And("I verify {string}")
   public void iVerify(String tabContent) {
-    String result = getWait()
-      .until(
-        ExpectedConditions.visibilityOfElementLocated(By
-                .xpath("//*[contains(text(),'" + tabContent + "')]")))
+    String result = getWait().until(
+        ExpectedConditions
+                .visibilityOfElementLocated(By.xpath("//*[contains(text(),'" + tabContent + "')]")))
             .getText();
     assertThat(result).contains(tabContent);
   }

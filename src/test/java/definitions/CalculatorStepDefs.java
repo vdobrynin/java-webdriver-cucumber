@@ -12,7 +12,8 @@ public class CalculatorStepDefs {
   @When("I navigate to {string}")
   public void iNavigateTo(String calc) {
     getDriver().findElement(By
-            .xpath("//div[@id='homelistdiv']//div[@id='contentout']//a[text()='" + calc + "']")).click();
+            .xpath("//div[@id='homelistdiv']//div[@id='contentout']//a[text()='" + calc + "']"))
+            .click();
   }
 
   @And("I clear all calculator fields")

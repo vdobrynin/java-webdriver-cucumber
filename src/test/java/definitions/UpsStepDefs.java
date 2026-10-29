@@ -1,47 +1,36 @@
 package definitions;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static support.TestContext.*;
-
-import io.cucumber.java.en.*;
-import java.time.Duration;
-import java.util.List;
-import java.util.Map;
+import io.cucumber.java.en.And;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
+import java.util.List;
+import java.util.Map;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static support.TestContext.*;
+
 public class UpsStepDefs {
 
   @And("I open Shipping menu")
   public void iOpenShippingMenu() {
-    WebElement shippingMenu = new WebDriverWait(
-      getDriver(),
-      Duration.ofSeconds(15)
-    )
-      .until(
-        ExpectedConditions.elementToBeClickable(
-          By.xpath("//nav//button[normalize-space()='Shipping']")
-        )
-      );
+    WebElement shippingMenu = new WebDriverWait(getDriver(), Duration.ofSeconds(15))
+      .until(ExpectedConditions
+              .elementToBeClickable(By.xpath("//nav//button[normalize-space()='Shipping']")));
     getExecutor().executeScript("arguments[0].click();", shippingMenu);
   }
 
   @And("I go to Create a Shipment")
   public void iGoToCreateAShipment() {
-    WebElement createShipment = new WebDriverWait(
-      getDriver(),
-      Duration.ofSeconds(15)
-    )
-      .until(
-        ExpectedConditions.elementToBeClickable(
-          By.xpath(
-            "//div[@id='nav-sections']//a[normalize-space()='Create a Shipment']"
-          )
-        )
-      );
+    WebElement createShipment = new WebDriverWait(getDriver(), Duration.ofSeconds(15))
+      .until(ExpectedConditions
+              .elementToBeClickable(By.xpath("//div[@id='nav-sections']//a[normalize-space()='Create a Shipment']")));
     getExecutor().executeScript("arguments[0].click();", createShipment);
   }
 
@@ -60,10 +49,7 @@ public class UpsStepDefs {
   private void typeField(String id, String value) {
     WebElement field = new WebDriverWait(getDriver(), Duration.ofSeconds(20))
       .until(ExpectedConditions.visibilityOfElementLocated(By.id(id)));
-    getExecutor().executeScript(
-      "arguments[0].scrollIntoView({block: 'center'});",
-      field
-    );
+    getExecutor().executeScript("arguments[0].scrollIntoView({block: 'center'});", field);
     field.clear();
     field.sendKeys(value);
   }
@@ -72,40 +58,20 @@ public class UpsStepDefs {
     typeField(id, value);
     getDriver().findElement(By.id(id)).sendKeys(Keys.ESCAPE);
     new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(
-      ExpectedConditions.visibilityOfElementLocated(
-        By.id(id.replace("Address poBox-error-message", "City"))
-      )
-    );
+      ExpectedConditions
+              .visibilityOfElementLocated(By.id(id.replace("Address poBox-error-message", "City"))));
   }
 
   private void selectState(String prefix, String state) {
     String stateDropdown = prefix + "StateDropdown";
-    WebElement dropdownButton = new WebDriverWait(
-      getDriver(),
-      Duration.ofSeconds(10)
-    )
-      .until(
-        ExpectedConditions.elementToBeClickable(
-          By.id("btn_" + stateDropdown)
-        )
-      );
+    WebElement dropdownButton = new WebDriverWait(getDriver(), Duration.ofSeconds(10))
+      .until(ExpectedConditions.elementToBeClickable(By.id("btn_" + stateDropdown)));
     getExecutor().executeScript("arguments[0].click();", dropdownButton);
 
-    WebElement stateOption = new WebDriverWait(
-      getDriver(),
-      Duration.ofSeconds(10)
-    )
-      .until(
-        ExpectedConditions.elementToBeClickable(
-          By.xpath(
-            "//button[contains(@id, 'option_" +
-              stateDropdown +
-              "_') and normalize-space()='" +
-              state +
-              "']"
-          )
-        )
-      );
+    WebElement stateOption = new WebDriverWait(getDriver(), Duration.ofSeconds(10))
+      .until(ExpectedConditions
+              .elementToBeClickable(By
+                      .xpath("//button[contains(@id, 'option_" + stateDropdown + "_') and normalize-space()='" + state + "']")));
     getExecutor().executeScript("arguments[0].click();", stateOption);
   }
 
@@ -142,15 +108,10 @@ public class UpsStepDefs {
   }
 
   private void clickNextButton() {
-    WebElement nextButton = new WebDriverWait(
-      getDriver(),
-      Duration.ofSeconds(20)
-    )
-      .until(ExpectedConditions.elementToBeClickable(By.id("next-btn")));
-    getExecutor().executeScript(
-      "arguments[0].scrollIntoView({block: 'center'});",
-      nextButton
-    );
+    WebElement nextButton = new WebDriverWait(getDriver(), Duration.ofSeconds(20))
+      .until(ExpectedConditions
+              .elementToBeClickable(By.id("next-btn")));
+    getExecutor().executeScript("arguments[0].scrollIntoView({block: 'center'});", nextButton);
     try {
       nextButton.click();
     } catch (Exception exception) {
@@ -169,26 +130,16 @@ public class UpsStepDefs {
     //        getExecutor()
     //            .executeScript("arguments[0].click();", getDriver()
     //                .findElement(By.xpath("//button[@id='nbsBackForwardNavigationContinueButton']")));
-    if (
-      getDriver()
+    if (getDriver()
         .findElement(By.xpath("//div[@class='modal-content']"))
-        .isDisplayed()
-    ) {
-      getExecutor().executeScript(
-        "arguments[0].click();",
-        getDriver().findElement(
-          By.xpath(
-            "(//label[@for='vm.residentialAddressControlId']//span[@class='ups-lever_switch_no'][normalize-space()='No'])[1]"
-          )
-        )
-      );
-      getExecutor().executeScript(
-        "arguments[0].click();",
-        getDriver().findElement(
-          By.xpath("//button[@id='nbsAddressClassificationContinue']")
-        )
-      );
-    }
+        .isDisplayed()) {
+      getExecutor()
+              .executeScript("arguments[0].click();", getDriver()
+                      .findElement(By
+                              .xpath("(//label[@for='vm.residentialAddressControlId']//span[@class='ups-lever_switch_no'][normalize-space()='No'])[1]")));
+      getExecutor()
+              .executeScript("arguments[0].click();", getDriver()
+                      .findElement(By.xpath("//button[@id='nbsAddressClassificationContinue']")));}
   }
 
   @And("^I check a few more details$")
@@ -215,11 +166,9 @@ public class UpsStepDefs {
   @And("I cancel the shipment form")
   public void iCancelTheShipmentForm() {
     getDriver().get("https://www.ups.com/ship?loc=en_US");
-    new WebDriverWait(getDriver(), Duration.ofSeconds(20)).until(
-      ExpectedConditions.visibilityOfElementLocated(
-        By.id("ShippingSummaryOriginAdd-Name")
-      )
-    );
+    new WebDriverWait(getDriver(), Duration.ofSeconds(20))
+            .until(ExpectedConditions
+                    .visibilityOfElementLocated(By.id("ShippingSummaryOriginAdd-Name")));
     dismissCookieBanner();
   }
 
@@ -234,12 +183,8 @@ public class UpsStepDefs {
   @When("I fill out destination shipment fields")
   public void iFillOutDestinationShipmentFields() {
     String destination = "ShippingSummaryDestinationAdd";
-
     typeField(destination + "-Name", "John Doe");
-    typeAddress(
-      destination + "-Address poBox-error-message",
-      "870 7th Ave"
-    );
+    typeAddress(destination + "-Address poBox-error-message", "870 7th Ave");
     typeField(destination + "-City", "NEW YORK");
     selectState(destination, "New York");
     typeField(destination + "-Postal", "10019");
@@ -247,15 +192,9 @@ public class UpsStepDefs {
 
   @Then("I verify total charges appear")
   public void iVerifyTotalChargesAppear() {
-    WebElement totalCharges = new WebDriverWait(
-      getDriver(),
-      Duration.ofSeconds(20)
-    )
-      .until(
-        ExpectedConditions.visibilityOfElementLocated(
-          By.id("shippingsummary-totalcharges")
-        )
-      );
+    WebElement totalCharges = new WebDriverWait(getDriver(), Duration.ofSeconds(20))
+      .until(ExpectedConditions
+              .visibilityOfElementLocated(By.id("shippingsummary-totalcharges")));
     assertThat(totalCharges.getText()).matches("\\$[\\d,.]+");
     System.out.println("\n" + totalCharges.getText());
   }
@@ -271,37 +210,26 @@ public class UpsStepDefs {
 
   @Then("I go back")
   public void iGoBack() {
-    getExecutor().executeScript(
-      "arguments[0].click();",
-      getDriver().findElement(
-        By.xpath("//button[@id='nbsBackForwardNavigationBackButton']")
-      )
-    );
+    getExecutor()
+            .executeScript("arguments[0].click();", getDriver()
+                    .findElement(By.xpath("//button[@id='nbsBackForwardNavigationBackButton']")));
   }
 
   @Then("I verify total charges changed")
   public void iVerifyTotalChargesChanged() {
     By spinner = By.xpath("//span[@id='total-charges-spinner']"); //--> this is Vlad's
-    new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(
-      ExpectedConditions.visibilityOfElementLocated(spinner)
-    );
+    new WebDriverWait(getDriver(), Duration.ofSeconds(10))
+            .until(ExpectedConditions.visibilityOfElementLocated(spinner));
     WebElement element = getDriver().findElement(spinner);
     assertThat(element.getText()).isNotEmpty();
   }
 
   @And("I select cheapest delivery option")
   public void iSelectCheapestDeliveryOption() {
-    List<WebElement> cheapestLabels = new WebDriverWait(
-      getDriver(),
-      Duration.ofSeconds(20)
-    )
-      .until(
-        ExpectedConditions.presenceOfAllElementsLocatedBy(
-          By.xpath(
-            "//label[.//div[contains(@class,'tile-body-text') and normalize-space()='UPS Ground']]"
-          )
-        )
-      );
+    List<WebElement> cheapestLabels = new WebDriverWait(getDriver(), Duration.ofSeconds(20))
+      .until(ExpectedConditions
+              .presenceOfAllElementsLocatedBy(By
+                      .xpath("//label[.//div[contains(@class,'tile-body-text') and normalize-space()='UPS Ground']]")));
     assertThat(cheapestLabels).isNotEmpty();
 
     WebElement cheapestLabel = cheapestLabels
@@ -309,18 +237,15 @@ public class UpsStepDefs {
       .filter(WebElement::isDisplayed)
       .findFirst()
       .orElse(cheapestLabels.get(0));
-    getExecutor().executeScript(
-      "arguments[0].scrollIntoView({block: 'center'});",
-      cheapestLabel
-    );
-    getExecutor().executeScript("arguments[0].click();", cheapestLabel);
+    getExecutor()
+            .executeScript("arguments[0].scrollIntoView({block: 'center'});", cheapestLabel);
+    getExecutor()
+            .executeScript("arguments[0].click();", cheapestLabel);
 
-    WebElement cheapestService = getDriver().findElement(
-      By.id(cheapestLabel.getAttribute("for"))
-    );
-    new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(
-      ExpectedConditions.elementToBeSelected(cheapestService)
-    );
+    WebElement cheapestService = getDriver()
+            .findElement(By.id(cheapestLabel.getAttribute("for")));
+    new WebDriverWait(getDriver(), Duration.ofSeconds(10))
+            .until(ExpectedConditions.elementToBeSelected(cheapestService));
   }
 
   @And("I set packaging type {int}nd time")
@@ -332,11 +257,8 @@ public class UpsStepDefs {
       .findElement(By.xpath("//select[@id='nbsPackagePackagingTypeDropdown0']"))
       .isSelected();
     getDriver()
-      .findElement(
-        By.xpath(
-          "//select[@id='nbsPackagePackagingTypeDropdown0']/option[contains(text(),'UPS Express Box - Small')]"
-        )
-      )
+      .findElement(By
+              .xpath("//select[@id='nbsPackagePackagingTypeDropdown0']/option[contains(text(),'UPS Express Box - Small')]"))
       .click();
     getDriver()
       .findElement(By.xpath("//input[@id='nbsPackagePackageWeightField0']"))
@@ -349,37 +271,23 @@ public class UpsStepDefs {
       .findElement(By.xpath("//span[@class='icon ups-icon-calendar']"))
       .click();
     getDriver()
-      .findElement(
-        By.xpath("(//button[@id='ups-official-dp-chooser-202382'])[1]")
-      )
+      .findElement(By.xpath("(//button[@id='ups-official-dp-chooser-202382'])[1]"))
       .isSelected();
     getDriver()
-      .findElement(
-        By.xpath("(//button[@id='ups-official-dp-chooser-202382'])[1]")
-      )
+      .findElement(By.xpath("(//button[@id='ups-official-dp-chooser-202382'])[1]"))
       .click();
   }
 
   @And("I select Paypal payment type")
   public void iSelectPaypalPaymentType() {
-    WebElement otherMethods = new WebDriverWait(
-      getDriver(),
-      Duration.ofSeconds(20)
-    )
-      .until(
-        ExpectedConditions.presenceOfElementLocated(By.id("action4"))
-      );
+    WebElement otherMethods = new WebDriverWait(getDriver(), Duration.ofSeconds(20))
+      .until(ExpectedConditions
+              .presenceOfElementLocated(By.id("action4")));
     getExecutor().executeScript("arguments[0].click();", otherMethods);
 
-    WebElement paypal = new WebDriverWait(
-      getDriver(),
-      Duration.ofSeconds(10)
-    )
-      .until(
-        ExpectedConditions.presenceOfElementLocated(
-          By.id("OtherMethods-PaymentMethod0")
-        )
-      );
+    WebElement paypal = new WebDriverWait(getDriver(), Duration.ofSeconds(10))
+      .until(ExpectedConditions
+              .presenceOfElementLocated(By.id("OtherMethods-PaymentMethod0")));
     getExecutor().executeScript("arguments[0].click();", paypal);
     new WebDriverWait(getDriver(), Duration.ofSeconds(10)).until(
       ExpectedConditions.elementToBeSelected(paypal)
@@ -388,9 +296,8 @@ public class UpsStepDefs {
 
   @Then("I review all recorded details on the review page")
   public void iReviewAllRecordedDetailsOnTheReviewPage() {
-    new WebDriverWait(getDriver(), Duration.ofSeconds(20)).until(
-      ExpectedConditions.urlContains("payment")
-    );
+    new WebDriverWait(getDriver(), Duration.ofSeconds(20))
+            .until(ExpectedConditions.urlContains("payment"));
 
     String review = getDriver().findElement(By.tagName("body")).getText();
     assertThat(review).contains("Admin");

@@ -75,9 +75,8 @@ public class CareersStepDefs implements Loggable {
 
   @And("I verify {string} position created")
   public void iVerifyPositionCreated(String positionType) {
-    String expectedTitle = lastCreatedPositionTitle != null
-      ? lastCreatedPositionTitle
-      : getData(positionType).get("title") + getTimestamp();
+    String expectedTitle = lastCreatedPositionTitle != null ? lastCreatedPositionTitle : getData(positionType)
+            .get("title") + getTimestamp();
     String actualTitle = new CareersRecruit()
       .getCreatedPositionTitle(expectedTitle);
     assertThat(actualTitle).isEqualTo(expectedTitle);
@@ -88,20 +87,10 @@ public class CareersStepDefs implements Loggable {
     Map<String, String> candidate = getData(positionType);
     String email = candidate.get("email");
     int at = email.indexOf('@');
-    candidate.put(
-      "email",
-      email.substring(0, at) +
-        "+" +
-        System.currentTimeMillis() +
-        email.substring(at)
-    );
-    lastCandidateName = (
-      candidate.get("firstName") +
-      " " +
-      candidate.get("middleName") +
-      " " +
-      candidate.get("lastName")
-    )
+    candidate.put("email", email
+                    .substring(0, at) + "+" + System.currentTimeMillis() + email.substring(at));
+    lastCandidateName = (candidate
+            .get("firstName") + " " + candidate.get("middleName") + " " + candidate.get("lastName"))
       .replaceAll("\\s+", " ")
       .trim();
 
@@ -113,9 +102,8 @@ public class CareersStepDefs implements Loggable {
   @Then("I verify {string} profile is created")
   public void iVerifyProfileIsCreated(String profileCreated) {
     String actualName = new Careers().getCandidateName();
-    String expectedName = lastCandidateName != null
-      ? lastCandidateName
-      : getData(profileCreated).get("title") + getTimestamp();
+    String expectedName = lastCandidateName != null ? lastCandidateName : getData(profileCreated)
+            .get("title") + getTimestamp();
     assertThat(actualName).isEqualTo(expectedName);
   }
 
@@ -139,8 +127,7 @@ public class CareersStepDefs implements Loggable {
 
   @Then("I verify via REST API position is in the list")
   public void iVerifyViaRESTAPIPositionIsInTheList() {
-    List<Map<String, Object>> actualPositions =
-      new RestWrapper().getPositions();
+    List<Map<String, Object>> actualPositions = new RestWrapper().getPositions();
     Map<String, Object> lastPosition = RestWrapper.getLastPosition();
 
     boolean isFound = false;
@@ -170,9 +157,8 @@ public class CareersStepDefs implements Loggable {
     Object id = RestWrapper.getLastPosition().get("id");
 
     //new RestWrapper().updatePosition(newPositionFields, id);
-    new RestWrapper().updatePosition(
-      getData(type),
-      ((Integer) RestWrapper.getLastPosition().get("id")).toString()
+    new RestWrapper().updatePosition(getData(type), ((Integer) RestWrapper.getLastPosition()
+            .get("id")).toString()
     );                                                                  // with "Sasha K."
   }
 

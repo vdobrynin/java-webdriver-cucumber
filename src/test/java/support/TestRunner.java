@@ -15,7 +15,7 @@ import org.junit.runner.RunWith;
   },
   features = { "src/test/resources/features" },
   glue = { "definitions", "support" },
-  tags = "@careers" //"@usps_object5" //"@usps5" //"@usps8" //"@workday" //"@ups" //"@predefined" //"@calculator" //"@usps_object" //"@dice"//same as VM option -Dcucumber.options="--tags @predefined"
+  tags = "@predefined" //"@usps"//""@careers" //"@usps_object5" //"@usps5" //"@usps8" //"@workday" //"@ups" //"@calculator" //"@usps_object" //"@dice"//same as VM option -Dcucumber.options="--tags @predefined"
 )
 public class TestRunner {
   @BeforeClass

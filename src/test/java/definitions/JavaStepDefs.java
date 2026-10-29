@@ -41,10 +41,7 @@ public class JavaStepDefs {
     System.out.println("Exact comparison equals: " + str1.equals(str2));
 
     System.out.println(str1.toLowerCase().equals(str2.toLowerCase()));
-    System.out.println(
-      str1.toUpperCase().equalsIgnoreCase((str2.toLowerCase()))
-    );
-
+    System.out.println(str1.toUpperCase().equalsIgnoreCase((str2.toLowerCase())));
     System.out.println(str1.contains(str2));
   }
 
@@ -90,19 +87,7 @@ public class JavaStepDefs {
     String greeting = "Hi";
     String text = "my name is ";
     //System.out.println(greeting + ", " + text);
-    System.out.println(
-      greeting +
-        ", " +
-        text +
-        firstName +
-        " " +
-        lastName +
-        ", " +
-        "my favorite color is" +
-        " " +
-        favoriteColor +
-        "."
-    );
+    System.out.println(greeting + ", " + text + firstName + " " + lastName + ", " + "my favorite color is" + " " + favoriteColor + ".");
 
     String firstName1 = "Name";
     firstName1.getClass();
@@ -156,14 +141,12 @@ public class JavaStepDefs {
   @Given("^I print arrays$")
   public void iPrintArrays() {
     int[] intArray = { 3, 2, 55, 2 };
-
     String[] groceryList = { "kiwi", "apples", "oranges", "plum" };
     System.out.println("------ forEach -----------");
 
     for (String item : groceryList) {
       System.out.println(item);
     }
-
     System.out.println("------- regular for ----------");
 
     for (int i = 0; i < groceryList.length; i++) {
@@ -179,7 +162,6 @@ public class JavaStepDefs {
     for (String item : groceryArray) {
       System.out.println(item);
     }
-
     System.out.println("------ regular for -----------");
     for (int i = 0; i < groceryArray.size(); i++) {
       System.out.println(groceryArray.get(i));
@@ -372,7 +354,6 @@ public class JavaStepDefs {
 
     for (Object item1 : list1) {
       isFound = false;
-
       for (Object item2 : list2) {
         if (item1.equals(item2)) {
           isFound = true;
@@ -385,7 +366,6 @@ public class JavaStepDefs {
 
     for (Object item2 : list2) {
       isFound = false;
-
       for (Object item1 : list1) {
         if (item2.equals(item1)) {
           isFound = true;
@@ -430,7 +410,6 @@ public class JavaStepDefs {
     System.out.println(uniqueElements(list1, list2));
 
     // 1. write a function that would exchange first and last numbers in an array
-
     int arr[] = { 25, 4, 6, 34, 12, 21 };
     for (int i = 0; i < arr.length; i++) {
       int temp = arr[0];
@@ -440,7 +419,6 @@ public class JavaStepDefs {
     }
 
     //    3. Write a function that prints all even numbers from 0 up to n
-
     int n = 21;
 
     for (int i = 0; i < n; i++) {
@@ -449,9 +427,7 @@ public class JavaStepDefs {
       }
     }
     // 4. Write a function that finds the largest element of an array and test it
-
     int arr1[] = { 3, 7, 11, 33, 21, 39, 5 };
-
     int largest = arr1[0];
     //        int largest = Integer.MIN_VALUE;
     for (int i = 1; i < arr1.length; i++) {
@@ -577,7 +553,6 @@ public class JavaStepDefs {
     //    "empty initialization of " () "<--create object"
     //    key "String", value "String" will be "<String, String>"
     HashMap<String, String> formData = new HashMap<String, String>(); // initialization map (in Java it's call HashMap)
-
     formData.put("username", "d------n"); // "put" (key, value) or "get" (Object key) those methods we'll use
     formData.put("email", "v---a@happy.com");
 
@@ -597,7 +572,6 @@ public class JavaStepDefs {
     //        "divisible by 4" if element is divisible by 4
     //        "divisible by 3 and 4" if divisible by 3 and 4
     int[] num = { 24, 25, 15, 12, 56, 45, 36 };
-
     for (int i = 0; i <= num.length - 1; i++) {
       if (i % 3 == 0 && i % 4 == 0) {
         System.out.println("The " + i + " divisible by 3 & 4");
@@ -611,21 +585,13 @@ public class JavaStepDefs {
     }
   }
 
-  @And(
-    "I accepts integer number and prints divisible by {int} by {int} by {int}"
-  )
-  public void iAcceptsIntegerNumberAndPrintsDivisibleByByBy(
-    int arg0,
-    int arg1,
-    int arg2
-  ) {
+  @And("I accepts integer number and prints divisible by {int} by {int} by {int}")
+  public void iAcceptsIntegerNumberAndPrintsDivisibleByByBy(int arg0, int arg1, int arg2) {
     //        Write a function that accepts integer number and prints
     //        "divisible by 2" if number is divisible by 2
     //        "divisible by 5" if element is divisible by 5
     //        "divisible by 10" if element is divisible by 2 and 5
-
     int num = 42;
-
     if (num % 2 == 0 && num % 5 == 0 && num % 10 == 0) {
       System.out.println("The " + num + " divisible by 10, by 5, by 2");
     } else if (num % 2 == 0) {

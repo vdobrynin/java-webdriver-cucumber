@@ -1,15 +1,8 @@
 package definitions;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static support.TestContext.getDriver;
-import static support.TestContext.getExecutor;
-
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import java.text.ParseException;
-import java.time.Duration;
-import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
@@ -19,8 +12,15 @@ import pages.Usps;
 import pages.UspsPostalStore;
 import pages.UspsSignIn;
 
-public class UspsObjectStepDefs {
+import java.text.ParseException;
+import java.time.Duration;
+import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
+import static support.TestContext.getDriver;
+import static support.TestContext.getExecutor;
+
+public class UspsObjectStepDefs {
   @When("I go to {string} oop")
   public void iGoToOop(String buttonType) {
     switch (buttonType.toLowerCase()) {
@@ -45,20 +45,17 @@ public class UspsObjectStepDefs {
   public void iSortByOop(String text) {
     boolean isPresent; // for holidays
     try {
-      WebElement holiday = getDriver().findElement(
-        By.xpath("(//span[normalize-space()='Holiday'])[1]")
-      );
+      WebElement holiday = getDriver()
+              .findElement(By.xpath("(//span[normalize-space()='Holiday'])[1]"));
       isPresent = holiday.isDisplayed();
       new UspsPostalStore().click(holiday);
     } catch (NoSuchElementException e) {
       isPresent = false;
     }
 
-    WebElement button = getDriver().findElement(
-      By.xpath(
-        "(//div[contains(@class,'dropdown-selection align-self-center open')])[1]"
-      )
-    );
+    WebElement button = getDriver()
+            .findElement(By
+                    .xpath("(//div[contains(@class,'dropdown-selection align-self-center open')])[1]"));
     new UspsPostalStore().click(button);
     new UspsPostalStore().selectSortBy(text);
   }
@@ -83,11 +80,9 @@ public class UspsObjectStepDefs {
     String filterText = new UspsPostalStore().getLeftFilters();
     assertThat(filterText).containsIgnoringCase(section);
 
-    WebElement button = getDriver().findElement(
-      By.xpath(
-        "(//div[contains(@class,'dropdown-selection align-self-center open')])[1]"
-      )
-    );
+    WebElement button = getDriver()
+            .findElement(By
+                    .xpath("(//div[contains(@class,'dropdown-selection align-self-center open')])[1]"));
     getExecutor().executeScript("arguments[0].scrollIntoView();", button);
   }
 
@@ -103,22 +98,17 @@ public class UspsObjectStepDefs {
 
   @Then("I verify that {string} is required oop")
   public void iVerifyThatIsRequiredOop(String action) {
-    List<WebElement> signInLinks = getDriver().findElements(
-      By.id("login-register-header")
-    );
+    List<WebElement> signInLinks = getDriver()
+            .findElements(By.id("login-register-header"));
     if (!signInLinks.isEmpty() && signInLinks.get(0).isDisplayed()) {
       getExecutor().executeScript("arguments[0].click();", signInLinks.get(0));
     }
 
-    new WebDriverWait(getDriver(), Duration.ofSeconds(20)).until(
-      ExpectedConditions.or(
-        ExpectedConditions.urlContains("verified.usps.com/login"),
-        ExpectedConditions.presenceOfElementLocated(
-          By.id("new-account-button")
-        )
-      )
-    );
-
+    new WebDriverWait(getDriver(), Duration.ofSeconds(20))
+            .until(ExpectedConditions
+                    .or(ExpectedConditions
+                            .urlContains("verified.usps.com/login"), ExpectedConditions
+                            .presenceOfElementLocated(By.id("new-account-button"))));
     boolean isRequired = new UspsSignIn().isSignInRequired();
     assertThat(isRequired).isTrue();
   }
@@ -126,29 +116,18 @@ public class UspsObjectStepDefs {
   @Then("I verify that {string} is possible oop")
   public void iVerifyThatIsPossibleOop(String action) {
     String url = getDriver().getCurrentUrl();
-    if (
-      url.contains("verified.usps.com") ||
-      url.contains("Login") ||
-      url.contains("tracking") ||
-      url.contains("Track") ||
-      url.contains("usps.com/manage")
-    ) {
-      List<WebElement> signInLinks = getDriver().findElements(
-        By.id("login-register-header")
-      );
+    if (url.contains("verified.usps.com") || url.contains("Login") || url.contains("tracking") || url.contains("Track") || url.contains("usps.com/manage")) {
+      List<WebElement> signInLinks = getDriver()
+              .findElements(By.id("login-register-header"));
       if (!signInLinks.isEmpty() && signInLinks.get(0).isDisplayed()) {
         getExecutor()
           .executeScript("arguments[0].click();", signInLinks.get(0));
       }
 
-      new WebDriverWait(getDriver(), Duration.ofSeconds(20)).until(
-        ExpectedConditions.or(
-          ExpectedConditions.urlContains("verified.usps.com"),
-          ExpectedConditions.visibilityOfElementLocated(
-            By.id("new-account-button")
-          )
-        )
-      );
+      new WebDriverWait(getDriver(), Duration.ofSeconds(20))
+              .until(ExpectedConditions
+                      .or(ExpectedConditions.urlContains("verified.usps.com"), ExpectedConditions
+                              .visibilityOfElementLocated(By.id("new-account-button"))));
       assertThat(new UspsSignIn().isSignUpPossible()).isTrue();
     } else {
       throw new RuntimeException("Unrecognized Url: " + url);
