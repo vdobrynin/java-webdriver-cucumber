@@ -11,52 +11,53 @@ import java.time.Duration;
 import static support.TestContext.getDriver;
 
 public class CareersHeader extends Page {
-  @FindBy(xpath = "//a[@href='/login']")
-  private WebElement loginButton;
+    @FindBy(xpath = "//a[@href='/login']")
+    private WebElement loginButton;
 
-  @FindBy(xpath = "//a[@href='/recruit']")
-  private WebElement recruitButton;
+    @FindBy(xpath = "//a[@href='/recruit']")
+    private WebElement recruitButton;
 
-  @FindBy(xpath = "//span[@class='logout-box']/a")
-  private WebElement loggedInUser;
+    @FindBy(xpath = "//span[@class='logout-box']/a")
+    private WebElement loggedInUser;
 
-  @FindBy(xpath = "//a[@href='/new_candidate']/button")
-  private WebElement newCandidate;
+    @FindBy(xpath = "//a[@href='/new_candidate']/button")
+    private WebElement newCandidate;
 
-  @FindBy(xpath = "(//a[contains(@href, '/positions/')])/h4") //h4[contains(text(),'Principal Automation Engineer')]
-  private WebElement chosenPositionTitle;
+    @FindBy(xpath = "(//a[contains(@href, '/positions/')])/h4") //h4[contains(text(),'Principal Automation Engineer')]
+    private WebElement chosenPositionTitle;
 
-  @FindBy(xpath = "(//a[contains(@href, '/candidates/')])")
-  private WebElement candidate;
+    @FindBy(xpath = "(//a[contains(@href, '/candidates/')])")
+    private WebElement candidate;
 
-  public String getCandidateTitle() {
-    click(chosenPositionTitle);
-    return new Careers().getCandidateTitle();
-  }
+    public String getCandidateTitle() {
+        click(chosenPositionTitle);
+        return new Careers().getCandidateTitle();
+    }
 
-  public String getCandidateName() {
-    return candidate.getText();
-  }
-  public CareersNewCandidate clickApply() {
-    click(newCandidate);
-    return new CareersNewCandidate();
-  }
+    public String getCandidateName() {
+        return candidate.getText();
+    }
 
-  public CareersRecruit clickRecruit() {
-    click(recruitButton);
-    return new CareersRecruit();
-  }
+    public CareersNewCandidate clickApply() {
+        click(newCandidate);
+        return new CareersNewCandidate();
+    }
 
-  public CareersLogin clickLogin() {
-    click(loginButton);
-    return new CareersLogin();
-  }
+    public CareersRecruit clickRecruit() {
+        click(recruitButton);
+        return new CareersRecruit();
+    }
 
-  public String getLoggedInUser() {
-    WebElement user = new WebDriverWait(getDriver(), Duration.ofSeconds(60))
-      .until(ExpectedConditions
-              .visibilityOfElementLocated(By
-                      .xpath("//span[@class='logout-box']/a")));
-    return user.getText();
-  }
+    public CareersLogin clickLogin() {
+        click(loginButton);
+        return new CareersLogin();
+    }
+
+    public String getLoggedInUser() {
+        WebElement user = new WebDriverWait(getDriver(), Duration.ofSeconds(60))
+                .until(ExpectedConditions
+                        .visibilityOfElementLocated(By
+                                .xpath("//span[@class='logout-box']/a")));
+        return user.getText();
+    }
 }
