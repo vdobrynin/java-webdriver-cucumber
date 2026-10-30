@@ -24,7 +24,6 @@ import static support.TestContext.getExecutor;
 public class UspsStepDefs {
     private static final Map<String, String> KNOWN_ZIP_CODES = Map
             .of("4970 El Camino Real|Los Altos|CA", "94022", "1820-22 S Grant St|San Mateo|CA", "94402", "2000 McKinnon Ave|San Francisco|CA", "94124");
-
     private String lastZipLookupResult = "";
     private String lastSearchZip = "";
     private boolean locationSearchUnavailable = false;
@@ -51,8 +50,7 @@ public class UspsStepDefs {
     }
 
     @And("I fill out {string} street, {string} city, {string} state")
-    public void iFillOutStreetCityState(String street, String city, String state)
-            throws InterruptedException {
+    public void iFillOutStreetCityState(String street, String city, String state) throws InterruptedException {
         String lookupUrl = "https://tools.usps.com/zip-code-lookup.htm?byaddress";
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(20));
         for (int attempt = 1; attempt <= 4; attempt++) {
@@ -123,10 +121,8 @@ public class UspsStepDefs {
     }
 
     private boolean containsZip(String text) {
-        return (
-                text != null &&
-                        text.matches("(?s).*\\b\\d{5}(?:-\\d{4})?\\b.*")
-        );
+        return (text != null && text
+                .matches("(?s).*\\b\\d{5}(?:-\\d{4})?\\b.*"));
     }
 
     private String fetchZipFromApi(String street, String city, String state) {
